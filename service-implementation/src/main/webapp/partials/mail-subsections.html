@@ -1,0 +1,30 @@
+<div class="mailDropdown">
+
+    <li style="text-align: center;">
+        <b>Recent messages</b>
+    </li>
+
+    <li class="mailSection" ng-repeat="mail in recentMail">
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <strong>{{mail.from}}:&nbsp;&nbsp;</strong>{{mail.msg}}
+                    </td>
+                    <td style="vertical-align:top; text-align: center;">
+                        <!-- pad to make click easy -->
+                        <a style="padding:8px;color: white;" ng-click="closeMail($index)" stop-event='click'>x</a>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </li>
+
+    <li>
+        <div style="text-align: center; margin: auto;">
+            <a href="#">See all...</a>
+        </div>
+    </li>
+
+</div>

@@ -1,0 +1,100 @@
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee ">
+
+    <!--
+    =========================================================================
+    Begin:  Framework configuration
+    =========================================================================
+    -->
+
+    <!-- Framework-level support for guice, please do not modify. -->
+    <listener>
+        <listener-class>com.netflix.karyon.server.guice.KaryonGuiceContextListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Framework initialization servlet, please do not modify -->
+    <servlet>
+        <servlet-name>InitializationServlet</servlet-name>
+        <servlet-class>com.liaison.framework.bootstrap.InitializationServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitializationServlet</servlet-name>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
+
+    <!-- Framework-defined dynamic services support, please do not modify -->
+    <servlet>
+        <servlet-name>DynamicRest</servlet-name>
+        <servlet-class>com.liaison.framework.dynamic.DynamicServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DynamicRest</servlet-name>
+        <url-pattern>/dyn/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Supports Jersey endpoints, please do not modify -->
+    <servlet>
+        <servlet-name>StaticRest</servlet-name>
+        <servlet-class>
+            com.sun.jersey.spi.container.servlet.ServletContainer
+        </servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.liaison.service</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+    <!-- -->
+
+    <filter>
+        <filter-name>ExceptionFilter</filter-name>
+        <filter-class>com.liaison.framework.FrameworkFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ExceptionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <!--
+    =========================================================================
+    End:  Framework configuration
+    =========================================================================
+    -->
+
+    <!--
+    =========================================================================
+    Begin:  Servlet implementation configuration
+    =========================================================================
+    -->
+
+    <!-- Each servlet implementation may map incoming rest requests to a unique base URI -->
+    <servlet-mapping>
+        <servlet-name>StaticRest</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+    <!--
+    =========================================================================
+    End:  Servlet implementation configuration
+    =========================================================================
+    -->
+
+</web-app>

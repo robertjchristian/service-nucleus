@@ -1,0 +1,107 @@
+[
+    {
+        "employee_id":"123456",
+        "first":"Willette",
+        "last":"Wohlers",
+        "title":"Toolsmith",
+        "years_of_service":"12"
+    },
+    {
+        "employee_id":"001001",
+        "first":"Alia",
+        "last":"Ange",
+        "title":"Account Analyst",
+        "years_of_service":"39"
+    },
+    {
+        "employee_id":"001002",
+        "first":"Jacalyn",
+        "last":"June",
+        "title":"Sales Manager",
+        "years_of_service":"1"
+    },
+    {
+        "employee_id":"001003",
+        "first":"Queenie",
+        "last":"Quesnel",
+        "title":"Bakery Clerk",
+        "years_of_service":"42"
+    },
+    {
+        "employee_id":"001004",
+        "first":"Bee",
+        "last":"Boston",
+        "title":"Biologist",
+        "years_of_service":"3"
+    },
+    {
+        "employee_id":"001005",
+        "first":"Melanie",
+        "last":"Mcamis",
+        "title":"Bill Specialist",
+        "years_of_service":"2"
+    },
+    {
+        "employee_id":"001006",
+        "first":"Timmy",
+        "last":"Truman",
+        "title":"Bricklayer",
+        "years_of_service":"0"
+    },
+    {
+        "employee_id":"001007",
+        "first":"Russel",
+        "last":"Robillard",
+        "title":"Zookeeper",
+        "years_of_service":"6"
+    },
+    {
+        "employee_id":"001009",
+        "first":"Rolande",
+        "last":"Rosol",
+        "title":"Education Coordinator",
+        "years_of_service":"7"
+    },
+    {
+        "employee_id":"001010",
+        "first":"Carlyn",
+        "last":"Callen",
+        "title":"Equity Analyst",
+        "years_of_service":"3"
+    },
+    {
+        "employee_id":"001011",
+        "first":"Monte",
+        "last":"Mcateer",
+        "title":"Personal Trainer",
+        "years_of_service":"1"
+    },
+    {
+        "employee_id":"001011",
+        "first":"Kerstin",
+        "last":"Knee",
+        "title":"Executive Chef",
+        "years_of_service":"22"
+    },
+    {
+        "employee_id":"001013",
+        "first":"Minh",
+        "last":"Maron",
+        "title":"Organic Chemist",
+        "years_of_service":"56"
+    },
+    {
+        "employee_id":"001016",
+        "first":"Buena",
+        "last":"Bolender",
+        "title":"Nurse Practitioner",
+        "years_of_service":"32"
+    },
+    {
+        "employee_id":"001019",
+        "first":"Katheryn",
+        "last":"Karn",
+        "title":"General Counsel",
+        "years_of_service":"23"
+    }
+]

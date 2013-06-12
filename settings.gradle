@@ -14,5 +14,7 @@
  *      limitations under the License.
  */
 
-rootProject.name='karyon'
-include 'karyon-spi','karyon-eureka','karyon-core','karyon-extensions', 'karyon-admin', 'karyon-admin-web', 'karyon-examples:hello-netflix-oss'
+rootProject.name='hello-world'
+
+// include these sub-modules
+include 'karyon-admin', 'karyon-admin-web', 'service-framework', 'service-implementation'

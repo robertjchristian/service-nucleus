@@ -1,0 +1,36 @@
+<!-- Example 1, Dynamic tree with bootstrap (see also: http://jsfiddle.net/ganarajpr/vzvmS/3/) -->
+<style>
+    ul {
+        list-style: circle;
+    }
+
+    li {
+        margin-left: 20px;
+    }
+</style>
+
+<script type="text/ng-template" id="tree_item_renderer.html">
+
+    <div style="margin: .5em;">
+        {{data.name}}
+        <button class="btn btn-primary" ng-click="addNode(data)">Add node</button>
+        <button class="btn btn-primary" ng-click="deleteNode(data)" ng-show="data.nodes.length > 0">Delete nodes
+        </button>
+        <ul>
+            <!-- recursion, nifty!  -->
+            <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+        </ul>
+    </div>
+
+</script>
+
+<container>
+    Example: Dynamic tree structure with bootstrap...<br><br>
+    <ul>
+        <!-- see also playground controller in controllers.js -->
+        <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</container>
+
+
+<!-- TODO Example 2: Revise above example to include +/- for expand/collapse -->

@@ -1,0 +1,138 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'cargo'
+
+// set base name (impacts war name and context path)
+project.war.baseName = 'soa-portal'
+
+// Establish version and status
+ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
+
+buildscript {
+    repositories { mavenCentral() }
+    apply from: file('../gradle/buildscript.gradle'), to: buildscript
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-cargo-plugin:0.6'
+    }
+}
+
+allprojects {
+    repositories { mavenCentral() }
+}
+
+apply from: file('../gradle/convention.gradle')
+apply from: file('../gradle/maven.gradle')
+apply from: file('../gradle/check.gradle')
+apply from: file('../gradle/license.gradle')
+
+war {
+
+    from('resources') {
+        include '*.properties'
+        into 'WEB-INF/classes/'
+    }
+
+    // TODO
+    // Resources used for the Dynamic Services landing page are intentionally kept in the
+    // service-framework module (where dynamic services framework is also defined), and
+    // outside of the service-implementation.  Eventually the service-framework will be an
+    // artifact, and we will be unable to pull in resources like this.
+    from('../service-framework/src/main/resources') {
+        include '**/**';
+        into 'WEB-INF/classes/'
+    }
+
+    // TODO Needed?  I believe is is, since this is not
+    // the conventional location for webapp root
+    from('src/main/webapp/') {
+        include '**/**';
+        into '/'
+    }
+
+    //webXml = file('src/main/webapp/WEB-INF/web.xml')
+}
+
+dependencies {
+
+    // logging dependencies... not sure why netflix includes the slf4j-simple binding here,
+    // some additional context here:  https://github.com/Netflix/karyon/issues/34
+
+    compile 'log4j:log4j:1.2.17'
+    compile 'org.slf4j:slf4j-api:1.7.0'
+    runtime 'org.slf4j:slf4j-simple:1.7.0'
+
+    compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
+    compile project(':karyon-admin-web')
+    compile project(':service-framework')
+
+    // ************************************* beg cargo *********************************************
+    def cargoVersion = "1.4.0"
+    cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
+            "org.codehaus.cargo:cargo-ant:$cargoVersion"
+    // ************************************* end cargo *********************************************
+}
+
+// Cargo is a thin wrapper that allows you to manipulate Java EE containers in a standard way.
+// http://cargo.codehaus.org/
+cargo {
+    containerId = 'tomcat7x'
+    port = new Integer(tomcatHttpPort)
+    
+    deployable{
+        // NOTE: Override file to make it pick up an existing war instead of that produce by running other tasks
+        //        file = file('target/contivo-conversion-service-0.0.1.war')
+        context = project.war.baseName
+
+        // wait on this URL before continuing
+        def pingURL = "http://localhost:${tomcatHttpPort}/${project.war.baseName}/v1/hello/to/world"
+    }
+
+    local {
+        // NOTE: uncomment following line to use existing tomcat install
+        // homeDir = file('/Library/Tomcat')    // TODO should be set from CATALINA_HOME
+        // output = file('build/tomcat-out.log')
+
+        // TODO INSTALL OUTSIDE OF BUILDDIR... SO CLEAN DOESN'T KILL TOMCAT INSTALL UNLESS EXPLICITLY TOLD TO DO SO.
+        installer {
+            installUrl = "http://apache.osuosl.org/tomcat/tomcat-7/v${tomcatVersion}/bin/apache-tomcat-${tomcatVersion}.zip"
+            downloadDir = file("$buildDir/download") 
+            extractDir = file("$buildDir/extract")
+        }
+
+       tomcat {
+            ajpPort = new Integer(tomcatAjpPort)
+        }
+
+        if(containerJVMArgs) {
+            jvmArgs = "$containerJVMArgs"        
+        } else {
+            jvmArgs = "-Darchaius.deployment.applicationId=${project.war.baseName} -Darchaius.deployment.environment=dev"
+        }
+           
+        // if containerDebug, append tomcat debug args to jvm args
+        if(containerDebug) {
+            jvmArgs += " $containerDebugJVMArgs"
+        }
+        
+        logger.info "=====jvmArgs===="
+        logger.info "$jvmArgs"
+    }
+}
+
+// set properties before starting Jetty (via jettyRun or jettyRunWar)
+jettyRun.doFirst {
+    // use the default port of the ws-backend-simulation module
+    System.setProperty('archaius.deployment.applicationId', project.war.baseName)
+    System.setProperty('archaius.deployment.environment', 'dev')
+
+    // we only use jettyRun in dev... might as well output log4j debug
+    System.setProperty('log4j.debug', 'true')
+}
+
+// jettyRun configuration properties
+jettyRun {
+    httpPort = new Integer(jettyHttpPort)
+    reload = 'automatic'
+    scanIntervalSeconds = new Integer(jettyScanIntervalSeconds)
+    daemon = false
+}

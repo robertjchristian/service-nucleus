@@ -1,0 +1,55 @@
+{
+    "bindings": [
+
+        {
+            "about": {
+                "author": "seattle-dev@liaison",
+                "description": "Provides ability to create, read, update, delete, and list of the Foo resource."
+            },
+            "operations": [
+                {
+                    "operationUrl": "foo",
+                    "allowedMethods": [
+                        "GET"
+                    ]
+                },
+                {
+                    "operationUrl": "/foo/{id}",
+                    "allowedMethods": [
+                        "GET",
+                        "POST",
+                        "DELETE",
+                        "HEAD",
+                        "PUT"
+                    ]
+                }
+            ],
+            "serviceName": "CrudFooService",
+            "baseURI": "/v21/",
+            "scriptLocation": "classpath://dyn/scripts/crud/foo.js"
+        },
+        {
+            "about": {
+                "author": "rchristian@liaison",
+                "description": "Performs rudimentary mathematical operations as a com.liaison.service..."
+            },
+            "operations": [
+                {
+                    "operationUrl": "/multiply/{a}/{b}",
+                    "allowedMethods": [
+                        "GET"
+                    ]
+                },
+                {
+                    "operationUrl": "/divide/{a}/{b}",
+                    "allowedMethods": [
+                        "GET"
+                    ]
+                }
+            ],
+            "serviceName": "SimpleMathService",
+            "baseURI": "/v1/math",
+            "scriptLocation": "classpath://dyn/scripts/math/math.js"
+        }
+    ]
+}

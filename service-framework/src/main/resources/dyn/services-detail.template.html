@@ -1,0 +1,50 @@
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">WADL</h3>
+    </div>
+    <div class="modal-body">
+        <h4>Coming soon...</h4>
+
+        <p>Eventually we will be able to auto-generate a WADL from com.liaison.service binding configuration.
+            Additionally, and to support this effort, we'll add functionality to specify expected headers and payload
+            types (ie xsd).</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">Ok</button>
+    </div>
+</div>
+
+
+<h3>{{binding-title}} &nbsp; <a data-toggle="modal" href="#myModal" class="btn btn-primary">WADL</a></h3>
+
+
+<table class="table table-striped table-bordered">
+
+    <tr>
+        <td colspan="2"><b>Meta</b></td>
+    </tr>
+    <tr>
+        <td>Written by</td>
+        <td>{{written-by}}</td>
+    <tr>
+        <td>Description</td>
+        <td>{{description}}</td>
+
+    <tr>
+        <td colspan="2"><b>Access</b></td>
+    </tr>
+    <tr>
+        <td>Base URI</td>
+        <td>{{base-uri}}</td>
+    <tr>
+        <td>Script location</td>
+        <td>{{script-location}} &nbsp; <a href="#{{script-path}}"><span class="label label-success">Resolved</span></a>
+        </td>
+    <tr>
+        <td colspan="2"><b>Operations</b></td>
+    </tr>
+    {{operation-rows}}
+
+</table>

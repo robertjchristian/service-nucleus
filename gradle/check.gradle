@@ -15,33 +15,33 @@
  */
 
 subprojects {
-    // Checkstyle
-    apply plugin: 'checkstyle'
-    tasks.withType(Checkstyle) { ignoreFailures = true }
-    checkstyle {
-        ignoreFailures = true // Waiting on GRADLE-2163
-        configFile = rootProject.file('codequality/checkstyle.xml')
-    }
+    if (project.hasProperty('codeCheck')) {
+        apply plugin: 'checkstyle'
+        apply plugin: 'findbugs'
+        apply plugin: 'pmd'
 
-    // FindBugs
-    apply plugin: 'findbugs'
-    tasks.withType(FindBugs) { 
-        reports.html.enabled true 
-        reports.xml.enabled false
-    }
+        // Checkstyle
+        checkstyle {
+            ignoreFailures = true 
+            configFile = rootProject.file('codequality/checkstyle.xml')
+        }
 
-    // PMD
-    apply plugin: 'pmd'
-    tasks.withType(Pmd) { 
-        reports.html.enabled true 
-        reports.xml.enabled false
-    }
+        // FindBugs
+        findbugs {
+            ignoreFailures = true
+        }
 
-    apply plugin: 'cobertura'
-    cobertura {
-        sourceDirs = sourceSets.main.java.srcDirs
-        format = 'html'
-        includes = ['**/*.java', '**/*.groovy']
-        excludes = []
+        // PMD
+        //tasks.withType(Pmd) { reports.html.enabled true }
+    }
+    
+    if (project.hasProperty('codeCoverage')) {
+        apply plugin: 'cobertura'
+        cobertura {
+            sourceDirs = sourceSets.main.java.srcDirs
+            format = 'html'
+            includes = ['**/*.java', '**/*.groovy']
+            excludes = []
+        }
     }
 }

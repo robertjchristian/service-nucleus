@@ -1,0 +1,14 @@
+<!-- TODO move to playground -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal2" aria-hidden="true">foo</button>
+    <h3 id="myModalLabel">Modal header</h3>
+</div>
+<div class="modal-body">
+    <p>{{modal2.content}}</p>
+    <br/>
+    <pre>2 + 3 = {{ 2 + 3 }}</pre>
+</div>
+<div class="modal-footer">
+    <button class="btn" ng-click="dismissModal()">Close</button>
+    <button class="btn btn-primary" ng-click="modal2.saved=true;dismissModal()">Save changes</button>
+</div>

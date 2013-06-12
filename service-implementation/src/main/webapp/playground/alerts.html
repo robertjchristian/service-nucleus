@@ -1,0 +1,35 @@
+<!-- angularstrap way -- kind of buggy but useful for gallery creation? -->
+<section id="alerts">
+
+    <div class="bs-docs-example">
+        <pre>alerts: {{alerts | json}}</pre>
+        <div class="well">
+            <div class="btn-toolbar">
+                <label class="label" style="margin-right:1em">alert type</label>
+
+                <div class="btn-group" ng-model="alertType" bs-buttons-radio>
+                    <button type="button" class="btn" value="">basic</button>
+                    <button type="button" class="btn" value="error">error</button>
+                    <button type="button" class="btn" value="success">success</button>
+                    <button type="button" class="btn" value="info">info</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="addAlert(alertType)"><i
+                    class="icon-plus icon-white"></i>&nbsp;Add
+                alert
+            </button>
+        </div>
+        <hr/>
+        <div class="alerts">
+            <div class="alert fade" ng-repeat="alert in alerts" bs-alert="alert"></div>
+        </div>
+    </div>
+
+</section>
+
+<!--
+<div>
+    <alert ng-repeat="alert in alertSet" type="alert.type" close="closeTheAlert($index)">{{alert.msg}}</alert>
+    <button class='btn btn-primary' ng-click="addToAlertSet()">Add another alert >></button>
+</div>
+-->
