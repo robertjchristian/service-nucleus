@@ -3,7 +3,7 @@ apply plugin: 'jetty'
 apply plugin: 'cargo'
 
 // set base name (impacts war name and context path)
-project.war.baseName = 'soa-portal'
+project.war.baseName = 'hello-world'
 
 // Establish version and status
 ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
