@@ -12,22 +12,44 @@
 
             <div class="nav-collapse collapse">
 
-                   <ul class="nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-th icon-white"></i>
-                        REST
-                        <b class="caret"></b>
-                    </a>
 
-                    <ul class="dropdown-menu">
-                        <li class="nav-header">Examples</li>
-                        <li><a href="rest/v1/hello/to/me">GET Hello World {name}</a></li>
 
-                    </ul>
 
-                </li>
-                       </ul>
+
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-th icon-white"></i>
+                            Dynamic Services
+                            <b class="caret"></b>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li><a href="dyn">Landing page</a></li>
+
+                        </ul>
+
+                    </li>
+                </ul>
+
+
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-th icon-white"></i>
+                            REST
+                            <b class="caret"></b>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li class="nav-header">Examples</li>
+                            <li><a href="rest/v1/hello/to/me">GET Hello World {name}</a></li>
+
+                        </ul>
+
+                    </li>
+                </ul>
 
                 <ul class="nav">
 
@@ -94,7 +116,7 @@
                     <div ng-show="authService.isLoggedIn()">
                         <a class="btn btn-primary" ng-click="authService.logout()">
                             <i class="icon-off icon-white"></i> Sign out</a>
-                    </div >
+                    </div>
                 </div>
             </div>
         </div>
@@ -112,10 +134,11 @@
         <input ng-model="loginInput" type="text" placeholder="Email" name='username'>
         <span id="password">Password</span>
         <a href="#">Forgot password?</a>
-        <input ng-model="passwordInput"  type="password" placeholder="Password" name='password'>
+        <input ng-model="passwordInput" type="password" placeholder="Password" name='password'>
     </form>
     <div class="modal-footer">
-        <a class="btn btn-primary" data-dismiss="modal" ng-click="authService.login(loginInput, passwordInput)"> <i class="icon-user icon-white"></i>Log in</a>
+        <a class="btn btn-primary" data-dismiss="modal" ng-click="authService.login(loginInput, passwordInput)"> <i
+                class="icon-user icon-white"></i>Log in</a>
 
     </div>
 </div>
