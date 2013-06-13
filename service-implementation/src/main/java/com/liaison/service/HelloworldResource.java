@@ -73,7 +73,7 @@ public class HelloworldResource {
         serviceCallCounter.addAndGet(1);
         JSONObject response = new JSONObject();
         try {
-            response.put("Message", "Hello " + name + " from Liaison");
+            response.put("Message", "Hello " + name + "!");
             return Response.ok(response.toString()).build();
         } catch (JSONException e) {
             failureCounter.addAndGet(1);
@@ -88,7 +88,7 @@ public class HelloworldResource {
         serviceCallCounter.addAndGet(1);
         JSONObject response = new JSONObject();
         try {
-            response.put("Message", "Hello Friend!");
+            response.put("Message", "Hello world!");
             return Response.ok(response.toString()).build();
         } catch (JSONException e) {
             failureCounter.addAndGet(1);
