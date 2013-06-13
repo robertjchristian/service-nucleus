@@ -1,0 +1,68 @@
+<!-- add navbar-inverse class for black/google-like bar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar navbar-fixed-top" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            </i><a class="brand" href="#">{{constants.navbar_title}}</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+
+                    <!-- <li><a href="#/about">Support</a></li> -->
+
+                    <li ng-show="isLoggedIn()" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-th icon-white"></i>
+                            Dev Playground
+                            <b class="caret"></b>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li class="nav-header">Examples</li>
+                            <li><a href="#/playground/accordion">Accordion</a></li>
+                            <li><a href="#/playground/calendar">Calendar</a></li>
+                            <li><a href="#/playground/carousel">Carousel</a></li>
+
+                            <li><a href="#/playground/date">Date</a></li>
+                            <li><a href="#/playground/datagrid">Data grid</a></li>
+                            <li><a href="#/playground/fileupload">File upload</a></li>
+                            <li><a href="#/playground/modal">Modal</a></li>
+                            <li><a href="#/playground/pagination">Pagination</a></li>
+                            <li><a href="#/playground/progress">Progress bars</a></li>
+                            <li><a href="#/playground/tabs">Tabs</a></li>
+                            <li><a href="#/playground/tooltips">Tooltips</a></li>
+                            <li><a href="#/playground/tree">Tree</a></li>
+
+                            <li class="nav-header">References</li>
+                            <li><a ng-href="https://github.com/angular-ui/bootstrap/">Angular UI Bootstrap</a></li>
+                            <li><a ng-href="http://angular-ui.github.com/">AngularUI</a></li>
+                            <li><a ng-href="http://mgcrea.github.com/angular-strap/">Angular Strap</a></li>
+
+                            <li>
+                                <a ng-href="https://docs.google.com/document/d/1lWNCt0cajL5QaV-A6AOur-YOJ_NcXUDyIZELiU-tRhM/edit#">Angular
+                                    Cheatsheet</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <div class="nav navbar-form pull-right">
+                    <div ng-show="!isLoggedIn()">
+                        <input class="span2" ng-model="loginInput" type="text" placeholder="Email">
+                        <input ng-model="passwordInput" class="span2" type="password" placeholder="Password">
+                        <a class="btn btn-primary" ng-click="login()">
+                            <i class="icon-circle icon-large"></i> Sign in</a>
+                    </div>
+                    <div ng-show="isLoggedIn()"><span>Logged in as {{currentUser}}</span>
+                        <a class="btn btn-inverse" ng-click="logout()">
+                            <i class="icon-circle-blank icon-large"></i> Sign out</a>
+                    </div>
+                </div>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container">
+    Example: Angular UI Date Picker bound to scope, with formatting options...<br><br>
+</div>
+<div class="row">
+    <div class="span3 " ng-model="date" ui-date></div>
+
+    <div class="span3" ng-model="date">
+        <p class="alert alert-info"><span class="label label-info">Selected date</span><br>{{date}}</p>
+
+        <p class="alert alert-info"><span class="label label-info">Formatted date</span><br>{{date | date:
+            'mediumDate'}}</p>
+
+        <p class="alert alert-info"><span class="label label-info">Selected month</span><br>{{date.getMonth()}}
+        </p>
+    </div>
+
+</div>

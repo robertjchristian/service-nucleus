@@ -1,9 +1,12 @@
 [
 
     {
-        "company_name":"Liaison Technologies, Inc",
+        "company_name":"Acme, Inc",
         "copyright_year":"2013",
-        "hero_button":"Login"
+        "hero_button":"Get Started",
+        "landing_section_1":"Flexible",
+        "landing_section_2":"Feature Rich",
+        "landing_section_3":"Seed"
     }
 
 ]

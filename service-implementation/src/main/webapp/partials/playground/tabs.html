@@ -1,0 +1,5 @@
+Example 1: Angular UI Bootstrap tabs with static and repeat...<br><br>
+    <tabs>
+        <pane heading="Static title">Static content</pane>
+        <pane ng-repeat="pane in panes" heading="{{pane.title}}">{{pane.content}}</pane>
+    </tabs>
