@@ -14,10 +14,23 @@ buildscript {
     dependencies {
         classpath 'org.gradle.api.plugins:gradle-cargo-plugin:0.6'
     }
+
 }
 
 allprojects {
     repositories { mavenCentral() }
+	configurations.all {
+		// This is an incubating gradle language feature (as of 1.5) allowing, in this 
+		// case, for FOO.pom to be swapped for any sub-depenciences of BAR.pom.
+	    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+	        if (details.requested.name == 'slf4j-simple') {
+	            //prefer 'slf4j-log4j12' over 'slf4j-simple', because
+				//it's required that only one logger.jar be present for 
+				//deterministic behavior of slf4j
+	            details.useTarget "org.slf4j:slf4j-log4j12:1.7.5"
+	        }
+	    }
+	}
 }
 
 apply from: file('../gradle/convention.gradle')
@@ -54,14 +67,11 @@ war {
 
 dependencies {
 
-    // logging dependencies... not sure why netflix includes the slf4j-simple binding here,
-    // some additional context here:  https://github.com/Netflix/karyon/issues/34
+	compile 'org.slf4j:slf4j-api:1.7.5'
+	compile 'org.slf4j:slf4j-log4j12:1.7.5'
+ 
+    compile "com.netflix.karyon:karyon-extensions:${karyonVersion}" 
 
-    compile 'log4j:log4j:1.2.17'
-    compile 'org.slf4j:slf4j-api:1.7.0'
-    runtime 'org.slf4j:slf4j-simple:1.7.0'
-
-    compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
     compile project(':karyon-admin-web')
     compile project(':service-framework')
 
