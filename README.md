@@ -1,4 +1,4 @@
-"!https://travis-ci.org/robertjchristian/service-nucleus.png!":https://travis-ci.org/robertjchristian/service-nucleus
+<img src="https://travis-ci.org/robertjchristian/service-nucleus.png" />
 
 service-nucleus
 ===============
