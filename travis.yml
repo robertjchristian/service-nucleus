@@ -1,0 +1,5 @@
+language: java
+jdk:
+  - oraclejdk7
+gralde clean war test
+  
