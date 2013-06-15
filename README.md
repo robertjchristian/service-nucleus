@@ -1,4 +1,4 @@
-<div style="float: right;">
+<div>
 <img src="https://travis-ci.org/robertjchristian/service-nucleus.png" />
 </div>
 
