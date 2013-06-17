@@ -1,0 +1,3 @@
+[submodule "angular-enterprise-seed"]
+	path = angular-enterprise-seed
+	url = github:robertjchristian/angular-enterprise-seed
