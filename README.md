@@ -27,8 +27,7 @@ Service-nucleus is a starting point for developing homogenous, SOA/Enterprise-fr
 <h3>Pre-requisites</h3>
 * Gradle >= 1.4
 * JDK >= 6 
- * Note that JDK 7 currently breaks unit tests instrumented by Cobertura
-
+* 
 <h3>To run</h3>
 
 * From the project root, "gradle jettyRun"
@@ -85,6 +84,8 @@ Realistically you will want to productize your service, which basically means fi
  * Make sure to update math.properties to reflect any high-level namespace change, ie com.netflix.karyon.server.base.packages=com.liaison
 to com.netflix.karyon.server.base.packages=com.acme
 
+<h5>Building LESS</h5>
+In addition to the prerequisites outlined above, you'll need npm, less, and uglify-js to build Twtter Bootstrap.
 
 <h3>Keeping up with change</h3>
 
