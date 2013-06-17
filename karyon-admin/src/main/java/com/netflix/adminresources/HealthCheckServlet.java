@@ -51,7 +51,7 @@ public class HealthCheckServlet extends HttpServlet {
             int status = healthCheckInvocationStrategy.invokeCheck();
             resp.setStatus(status);
         } catch (TimeoutException e) {
-            logger.error("Karyon health check failed via adminresource health endpoint. Returning 500", e);
+            logger.error("Service-Nucleus health check failed via adminresource health endpoint. Returning 500", e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
