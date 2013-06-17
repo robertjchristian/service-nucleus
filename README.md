@@ -12,6 +12,7 @@ Service-nucleus is a starting point for developing homogenous, SOA/Enterprise-fr
 * Rich Client-MVC-Based UI built on Angular with: 
  * Twitter Bootstrap and FontAwesome styling
  * Pre-built components (modals, pagination, grids, etc)
+ * <i>If you are interested only in the UI, check out <a href="https://github.com/robertjchristian/angular-enterprise-seed">Angular-Enterprise-Seed</a>.</i>
 * Java REST webservice development (Jersey stack and working examples)
 * Dynamic webservice development (runtime-deployment of Javascript-defined webservices)
 * Asynchronous logging (Log4J2)
@@ -62,7 +63,7 @@ The service-implementation module is the module everyone will be concerned with.
 Let's say you wanted to develop a service called "math" that multiplies two template parameters and returns the result.  
 
 <h4>First step, barebones implementation</h4>
-* Get/fork the project, (ie) git clone github:robertjchristian/service-seed
+* Get/fork the project, (ie) git clone github:robertjchristian/service-nucleus
  * As a sanity check, perform the steps in "to run" outlined above` 
 * nano service-implementation/src/main/java/com/liaison/service/HelloworldResource
  * Copy/paste the helloTo service, including annotations
