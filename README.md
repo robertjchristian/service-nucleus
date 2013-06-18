@@ -88,17 +88,18 @@ to com.netflix.karyon.server.base.packages=com.acme
 <h5>Building LESS</h5>
 In addition to the prerequisites outlined above, you'll need npm, less, and uglify-js to build Twtter Bootstrap.
 
-<h3>Keeping up with change</h3>
+<h3>Keeping up with changes</h3>
 
 This project is going to be in flux for the foreseeable future (see roadmap).
 
-Adding service-seed as a remote tracking branch is a low cost and easy way to pick up changes. It's recommended to do something like:
+Adding the service-nucleus as a remote tracking branch is a low cost and easy way to stay current. It's recommended to do something like:
 
 <pre>
-git remote add --track master service-seed git@github.com:robertjchristian/service-seed.git
-git fetch service-seed
-git merge service-seed/master
+git remote add --track master service-nucleus git@github.com:robertjchristian/service-nucleus.git
+git fetch service-nucleus
+git merge service-nucleus/master
 </pre>
 
+<i>Note that similarly, when developing on this project, a remote tracking branch should be setup against NetFlix/karyon.</i>
 
 
