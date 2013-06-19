@@ -24,12 +24,14 @@ allprojects {
 		// case, for FOO.pom to be swapped for any sub-depenciences of BAR.pom.
 	    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
 	        if (details.requested.name == 'slf4j-simple') {
-	            //prefer 'slf4j-log4j12' over 'slf4j-simple', because
-				//it's required that only one logger.jar be present for 
-				//deterministic behavior of slf4j
-	            details.useTarget "org.slf4j:slf4j-log4j12:1.7.5"
+	            //prefer 'slf4j-log4j2' over 'slf4j-simple', because
+				//it's required that only one logger.jar be present for deterministic behavior of slf4j
+				details.useTarget "org.apache.logging.log4j:log4j-slf4j-impl:2.0-beta7"
 	        }
+
+	
 	    }
+		
 	}
 }
 
@@ -68,8 +70,13 @@ war {
 dependencies {
 
 	compile 'org.slf4j:slf4j-api:1.7.5'
-	compile 'org.slf4j:slf4j-log4j12:1.7.5'
- 
+	//compile 'org.slf4j:slf4j-log4j12:1.7.5'
+	
+	def log4j2Version = '2.0-beta7';
+	compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
+	compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
+	compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
+	
     compile "com.netflix.karyon:karyon-extensions:${karyonVersion}" 
 
     compile project(':karyon-admin-web')
@@ -141,7 +148,7 @@ jettyRun.doFirst {
 
 // jettyRun configuration properties
 jettyRun {
-    httpPort = new Integer(jettyHttpPort)
+	    httpPort = new Integer(jettyHttpPort)
     reload = 'automatic'
     scanIntervalSeconds = new Integer(jettyScanIntervalSeconds)
     daemon = false
