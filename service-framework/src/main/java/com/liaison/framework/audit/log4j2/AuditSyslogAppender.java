@@ -147,12 +147,15 @@ public class AuditSyslogAppender <T extends Serializable> extends SyslogAppender
     	}
     	
     	//Preflight check if it's a parameterized message with no auditstatement, kill it.
-    	if (message instanceof ParameterizedMessage 
-    			&& null == AuditParameterizedMessage.extractAuditStatement((ParameterizedMessage) message)) {
-    		return false; 
-    	}
-    	
-    	return true;
+    	if (message instanceof ParameterizedMessage) { 
+    			
+    		if(null == AuditParameterizedMessage.extractAuditStatement((ParameterizedMessage) message)) {
+    			return false; 
+    		} else {
+    			return true;
+    		}
+    	} 
+    	return false;
     }
     
     /**
