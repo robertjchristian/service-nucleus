@@ -1,5 +1,7 @@
 package com.liaison.framework.audit.pci;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import com.liaison.framework.audit.AuditStandardsRequirement;
 
 /**
@@ -133,4 +135,9 @@ public enum PCIV20Requirement implements AuditStandardsRequirement {
         return description;
     }
 
+    //TODO make serialize properly (enums are a little wonky w/ jsonification)
+    public String toString() {
+    	return name() + ": " + getDescription();
+    }
+    
 }
