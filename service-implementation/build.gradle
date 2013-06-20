@@ -24,12 +24,14 @@ allprojects {
 		// case, for FOO.pom to be swapped for any sub-dependencies of BAR.pom.
 	    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
 	        if (details.requested.name == 'slf4j-simple') {
-	            //prefer 'slf4j-log4j12' over 'slf4j-simple', because
-				//it's required that only one logger.jar be present for 
-				//deterministic behavior of slf4j
-	            details.useTarget "org.slf4j:slf4j-log4j12:1.7.5"
+	            //prefer 'slf4j-log4j2' over 'slf4j-simple', because
+				//it's required that only one logger.jar be present for deterministic behavior of slf4j
+				details.useTarget "org.apache.logging.log4j:log4j-slf4j-impl:2.0-beta7"
 	        }
+
+	
 	    }
+		
 	}
 }
 
@@ -67,9 +69,16 @@ war {
 
 dependencies {
 
+	compile 'com.netflix.eureka:eureka-client:1.1.97'
+
 	compile 'org.slf4j:slf4j-api:1.7.5'
-	compile 'org.slf4j:slf4j-log4j12:1.7.5'
- 
+	//compile 'org.slf4j:slf4j-log4j12:1.7.5'
+	
+	def log4j2Version = '2.0-beta7';
+	compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
+	compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
+	compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
+	
     compile "com.netflix.karyon:karyon-extensions:${karyonVersion}" 
 
     compile project(':karyon-admin-web')
@@ -130,19 +139,23 @@ cargo {
 }
 
 // set properties before starting Jetty (via jettyRun or jettyRunWar)
-jettyRun.doFirst {
+task jettyRunSetProperties {
+	logger.info "Setting jettyRun system properties"
     // use the default port of the ws-backend-simulation module
     System.setProperty('archaius.deployment.applicationId', project.war.baseName)
     System.setProperty('archaius.deployment.environment', 'dev')
-
     // we only use jettyRun in dev... might as well output log4j debug
-    System.setProperty('log4j.debug', 'true')
+    System.setProperty('log4j.debug', 'true') //TODO Is this correct for log4j2 -jfr
 }
+
 
 // jettyRun configuration properties
 jettyRun {
+	dependsOn 'jettyRunSetProperties'
+	logger.info "Running jetty"
     httpPort = new Integer(jettyHttpPort)
     reload = 'automatic'
     scanIntervalSeconds = new Integer(jettyScanIntervalSeconds)
     daemon = false
 }
+
