@@ -38,6 +38,8 @@ public class AdminResourceTest {
 
     public static final String CUSTOM_LISTEN_PORT = "9999";
     private KaryonServer server;
+    private static final int httpRetries = 100;
+    private static final long sleepTimeout = 500;
 
     @Before
     public void setUp() throws Exception {
@@ -56,12 +58,35 @@ public class AdminResourceTest {
 
     @Test
     public void testBasic() throws Exception {
-        startServer();
         HttpClient client = new DefaultHttpClient();
-        HttpGet healthGet =
-                new HttpGet("http://localhost:" + AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
-        HttpResponse response = client.execute(healthGet);
+        HttpGet healthGet = new HttpGet("http://localhost:" + AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
+
+    	startServer();
+        HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
+        
         Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
+    }
+
+    // HACK! to get around the fact that startServer() does not wait until the server is up
+    protected HttpResponse doBasicTestHack(HttpClient client, HttpGet healthGet, int retries) throws Exception {
+    	if (retries < 0) {
+    		throw new Exception("Failed to connect. Retries exceeded.");
+    	}
+    	
+        HttpResponse response = null;
+        try {
+            Thread.sleep(sleepTimeout); 
+            response = client.execute(healthGet);
+            server.close();
+        } catch (HttpHostConnectException e) {
+            try {
+                response = client.execute(healthGet);
+            } catch (HttpHostConnectException e2) {
+                response = doBasicTestHack(client, healthGet, --retries);
+            }
+        }   
+        
+        return response;
     }
 
     @Test (expected = HttpHostConnectException.class)
