@@ -21,7 +21,7 @@ allprojects {
     repositories { mavenCentral() }
 	configurations.all {
 		// This is an incubating gradle language feature (as of 1.5) allowing, in this 
-		// case, for FOO.pom to be swapped for any sub-depenciences of BAR.pom.
+		// case, for FOO.pom to be swapped for any sub-dependencies of BAR.pom.
 	    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
 	        if (details.requested.name == 'slf4j-simple') {
 	            //prefer 'slf4j-log4j2' over 'slf4j-simple', because
