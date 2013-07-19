@@ -17,7 +17,7 @@ public interface AuditStandardsRequirement {
     /**
      * TODO this is kind of a hack, would be better to have this be a subobject.. but enums are treated a little differently
      * recommend name() + getDescription();
-     * @return
+     * @return a serialized json version 
      */
     @JsonValue
     public String toString();

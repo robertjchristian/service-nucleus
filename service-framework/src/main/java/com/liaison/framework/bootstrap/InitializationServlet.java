@@ -26,11 +26,6 @@ public class InitializationServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(InitializationServlet.class);
 
     public void init(ServletConfig config) throws ServletException {
-    	// This has to come after any System.setProperty() calls as the
-        // configure() method triggers the initialization of the
-        // ConfigurationManager
-        //logger.info("Initializing Blitz4J...");
-        //LoggingConfiguration.getInstance().configure();
     	DefaultAuditStatement audit = new DefaultAuditStatement(PCIV20Requirement.PCI10_2_6, AuditStatement.Status.SUCCEED, "Initialization via servlet");   	
     	logger.info("Servlet Init", audit);
     }
