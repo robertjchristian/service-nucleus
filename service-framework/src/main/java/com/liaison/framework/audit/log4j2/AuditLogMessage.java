@@ -18,7 +18,7 @@ public interface AuditLogMessage {
 	
 	/**
 	 * JSON serialization
-	 * @return
+     * @return a serialized json version 
 	 */
 	public String toString();
 }
