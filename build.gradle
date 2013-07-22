@@ -18,8 +18,11 @@
 ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
 
 buildscript {
-    repositories { 
-        mavenCentral() 
+
+    repositories {
+        mavenLocal()
+        mavenCentral() // maven { url 'http://jcenter.bintray.com' }
+
     }
     apply from: file('gradle/buildscript.gradle'), to: buildscript 
 }
@@ -27,6 +30,7 @@ buildscript {
 allprojects {
     repositories { 
         mavenCentral() // maven { url: 'http://jcenter.bintray.com' }
+
         maven { url releasesArtifactRepoURL }
         maven { url snapshotsArtifactRepoURL }
     }
@@ -70,18 +74,27 @@ project(':karyon-admin') {
         compile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
         compile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
         compile 'com.sun.jersey.contribs:jersey-guice:1.8'
-        //compile     'com.netflix.blitz4j:blitz4j:1.29'
-        //testCompile 'org.testng:testng:6.8'
-        //testCompile 'junit:junit:4.10'
+
+        compile 'com.google.inject.extensions:guice-servlet:3.0'
+        compile 'com.netflix.pytheas:pytheas-core:1.11'
+        runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+
     }
 }
 
 project(':karyon-admin-web') {
     dependencies {
         compile project(':karyon-admin')
+
         compile     project(':karyon-admin')
         compile     'com.google.code.gson:gson:2.1'
         testCompile 'org.testng:testng:6.8'
         testCompile 'junit:junit:4.10'
+
+        compile 'com.google.code.gson:gson:2.1'
+        compile 'com.netflix.pytheas:pytheas-core:1.11'
+        runtime 'org.freemarker:freemarker:2.3.19'
+        runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+
     }
 }

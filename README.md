@@ -26,7 +26,7 @@ Service-nucleus is a starting point for developing homogenous, SOA/Enterprise-fr
  * Always exposes an administrative console on port 8077, regardless of deployment/container configuration.
 
 <h3>Pre-requisites</h3>
-* Gradle >= 1.4
+* Gradle >= 1.6
 * JDK >= 6 
 * 
 <h3>To run</h3>

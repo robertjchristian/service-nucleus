@@ -1,47 +1,27 @@
-/*
- * Copyright 2013 Netflix, Inc.
- *
- *      Licensed under the Apache License, Version 2.0 (the "License");
- *      you may not use this file except in compliance with the License.
- *      You may obtain a copy of the License at
- *
- *          http://www.apache.org/licenses/LICENSE-2.0
- *
- *      Unless required by applicable law or agreed to in writing, software
- *      distributed under the License is distributed on an "AS IS" BASIS,
- *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *      See the License for the specific language governing permissions and
- *      limitations under the License.
- */
-
 subprojects {
-    if (project.hasProperty('codeCheck')) {
-        apply plugin: 'checkstyle'
-        apply plugin: 'findbugs'
-        apply plugin: 'pmd'
+// Checkstyle
+apply plugin: 'checkstyle'
 
-        // Checkstyle
-        checkstyle {
-            ignoreFailures = true 
-            configFile = rootProject.file('codequality/checkstyle.xml')
-        }
+checkstyle {
+    ignoreFailures = true 
+    configFile = rootProject.file('codequality/checkstyle.xml')
+}
 
-        // FindBugs
-        findbugs {
-            ignoreFailures = true
-        }
+// FindBugs
+apply plugin: 'findbugs'
+findbugs {
+    ignoreFailures = true
+}
 
-        // PMD
-        //tasks.withType(Pmd) { reports.html.enabled true }
-    }
-    
-    if (project.hasProperty('codeCoverage')) {
-        apply plugin: 'cobertura'
-        cobertura {
-            sourceDirs = sourceSets.main.java.srcDirs
-            format = 'html'
-            includes = ['**/*.java', '**/*.groovy']
-            excludes = []
-        }
-    }
+// PMD
+apply plugin: 'pmd'
+//tasks.withType(Pmd) { reports.html.enabled true }
+
+apply plugin: 'cobertura'
+cobertura {
+    sourceDirs = sourceSets.main.java.srcDirs
+    format = 'html'
+    includes = ['**/*.java', '**/*.groovy']
+    excludes = []
+}
 }
