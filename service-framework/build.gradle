@@ -16,6 +16,42 @@ apply from: file('../gradle/check.gradle')
 apply from: file('../gradle/license.gradle')
 
 dependencies {
+
+
+
+    /** BEGIN ASYNC SERVLET SUPPORT **/
+
+
+    compile 'javax:javaee-web-api:6.0'
+
+    /** **/
+
+
+
+/** BEGIN PROXY SUPPORT **/
+
+// TODO port to JUNIT 4
+// TODO ressurect as GitHub project
+
+
+
+
+	compile "commons-beanutils:commons-beanutils:1.8.3"
+	compile "commons-codec:commons-codec:1.8"
+	compile "commons-digester:commons-digester:2.1"
+	compile "commons-httpclient:commons-httpclient:3.1"            
+	compile "commons-logging:commons-logging:1.1.3"        
+	compile "aspectj:aspectjrt:1.5.4"
+    compile "cactus:cactus:13-1.7.2"
+
+//compile "http://repo1.maven.org/maven2/cactus/cactus/13-1.7.2/cactus-13-1.7.2.jar"
+
+        
+//testCompile "junit:junit:4.11"
+        testCompile "junit:junit:3.8.2"
+
+/** END PROXY SUPPORT **/
+
 	def log4j2Version = '2.0-beta7';
 	compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
 	compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
