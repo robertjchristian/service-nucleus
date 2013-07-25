@@ -63,7 +63,9 @@ public class MaxForwardRequestHandler extends RequestHandlerBase {
             } else {
                 setHeaders(method, request);
             }
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
         
         return method;
     }
