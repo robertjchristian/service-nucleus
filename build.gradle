@@ -69,10 +69,12 @@ project(':karyon-admin') {
         compile "com.netflix.karyon:karyon-core:${karyonVersion}"
         compile 'javax.ws.rs:jsr311-api:1.1.1'
 
-        //compile 'javax.servlet:servlet-api:2.5'
+        compile 'javax.servlet:servlet-api:2.5'
 
-        compile 'javax:javaee-web-api:6.0'
+        //compile 'javax:javaee-web-api:6.0'
 
+        //compile 'javax:javaee-api:6.0'
+        //compile 'javax:javaee-web-api:6.0'
 
         compile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
         compile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
