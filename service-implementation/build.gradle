@@ -8,6 +8,12 @@ project.war.baseName = 'hello-world'
 // Establish version and status
 ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
 
+test {
+    // TODO temp exclusion of j2ep
+    exclude 'org/sf/j2ep/*'
+}
+
+
 buildscript {
     repositories { mavenCentral() }
     apply from: file('../gradle/buildscript.gradle'), to: buildscript
