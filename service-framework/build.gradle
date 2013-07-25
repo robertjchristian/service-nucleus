@@ -17,12 +17,14 @@ apply from: file('../gradle/license.gradle')
 
 dependencies {
 
+    //compile 'javax.servlet:servlet-api:2.5'
+
 
 
     /** BEGIN ASYNC SERVLET SUPPORT **/
 
 
-    compile 'javax:javaee-web-api:6.0'
+    //compile 'javax:javaee-web-api:6.0'
 
     /** **/
 
