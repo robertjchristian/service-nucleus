@@ -27,5 +27,3 @@ myApp.controller('InboxCtrl', ['$scope', function ($scope) {
     };
 
 }]);
-
-
