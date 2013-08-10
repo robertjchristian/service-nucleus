@@ -14,8 +14,8 @@ findbugs {
 }
 
 // PMD
-//apply plugin: 'pmd'
-//tasks.withType(Pmd) { reports.html.enabled true }
+apply plugin: 'pmd'
+tasks.withType(Pmd) { reports.html.enabled true }
 
 apply plugin: 'cobertura'
 cobertura {
