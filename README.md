@@ -107,3 +107,7 @@ git merge service-nucleus/master
 <i>Note that similarly, when developing on this project, a remote tracking branch should be setup against NetFlix/karyon.</i>
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/robertjchristian/service-nucleus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
