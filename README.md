@@ -110,4 +110,3 @@ git merge service-nucleus/master
 * Add RESTAngular to MVC client
 * Add thread sandboxing (mainly for dynamic services)
 * Add Servlet 3.0
-* 
