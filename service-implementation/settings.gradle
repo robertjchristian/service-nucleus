@@ -2,5 +2,4 @@
 // (this is supposed to be a definition of what is consistent across the project)
 // http://www.gradle.org/docs/current/javadoc/org/gradle/api/initialization/Settings.html
 
-
 rootProject.name = 'hello-world'

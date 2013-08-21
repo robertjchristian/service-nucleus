@@ -2,6 +2,6 @@ function multiply(a, b) {
     return a * b;
 }
 
-function divide(x, y) {
+function divide(ctx, x, y) {
     return x / y;
 }

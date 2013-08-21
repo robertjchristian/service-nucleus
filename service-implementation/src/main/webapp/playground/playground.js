@@ -171,7 +171,6 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
         $scope.alertSet.splice(index, 1);
     };
 
-
     // angularstrap
     $scope.modal2 = {content:'Hello Modal', saved:false};
     $scope.tooltip = {title:"Hello Tooltip<br />This is a multiline message!", checked:false};
@@ -194,5 +193,53 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
     $scope.prettyPrint = function () {
         window.prettyPrint && window.prettyPrint();
     }
+
+    // ace (for more options see http://ace.c9.io/#nav=howto)
+    $scope.aceIDEs =
+        {'JSON':  'var hw = new function() {\n  console.log("Hello world!");\n}',
+        'HTML':  '<!DOCTYPE html>\n<html>\n  <head>\n  </head>\n  <body>\n    <h1>Hello</h1>\n    <h2>World!</h2>\n  </body>\n</html>',
+        'XML':  '‹?xml version= “1.0”›\n<x key="value">\n  <y>\n   Hello World!\n  </y>\n</x>',
+        'Java': 'package com.foo.Hello;\n\npublic class HelloWorld {\n\n  public static void main(String args[]) {\n    System.out.println("Hello World!");\n  }\n\n}',
+        'Javascript': '[\n  {\n    "w1": "Hello"\n  },\n  {\n    "w2": "World"\n  }\n]',
+        'Python': 'print("Hello, World!")'
+    };
+
+    $scope.loadAceJSExample = function(_editor){
+        _editor.setValue($scope.aceIDEs['Javascript']);
+        _editor.getSession().setUseWorker(false);
+
+    };
+
+    $scope.aceJSExampleChanged = function(e, acee) {
+
+       // TODO Not sure how JavaScript validation works.
+       // Have an open Google Groups question on this
+       //console.log("e: " + e + ", acee: " + acee);
+
+    };
+    $scope.loadAceHTMLExample = function(_editor){
+        _editor.setValue($scope.aceIDEs['HTML']);
+        _editor.getSession().setUseWorker(false);
+    };
+
+    $scope.loadAceXMLExample = function(_editor){
+        _editor.setValue($scope.aceIDEs['XML']);
+        _editor.getSession().setUseWorker(false);
+    };
+
+    $scope.loadAceJSONExample = function(_editor){
+        _editor.setValue($scope.aceIDEs['JSON']);
+        _editor.getSession().setUseWorker(false);
+    };
+
+    $scope.loadAceJavaExample = function(_editor){
+        _editor.setValue($scope.aceIDEs['Java']);
+        _editor.getSession().setUseWorker(false);
+    };
+
+    $scope.loadAcePythonExample = function(_editor){
+        _editor.setValue($scope.aceIDEs['Python']);
+        _editor.getSession().setUseWorker(false);
+    };
 
 }]);

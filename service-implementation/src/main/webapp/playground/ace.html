@@ -1,0 +1,61 @@
+<style>
+    .ace_editor {
+        height: 200px;
+    }
+</style>
+
+<div class="container">
+
+    <div class="row span3">
+        <h4>XML</h4>
+        <div ui-ace="{onLoad : loadAceXMLExample,
+          theme : 'chaos',
+          useWrapMode : true,
+          showGutter: true,
+          mode: 'xml'
+        }" />
+    </div>
+
+    <div class="row span3">
+        <h4>Javascript</h4>
+        <div ui-ace="{onLoad : loadAceJSONExample,
+          onChange : aceJSExampleChanged,
+          theme : 'chaos',
+          useWrapMode : true,
+          showGutter: true,
+          mode: 'json'
+        }" />
+    </div>
+
+    <div class="row span3">
+        <h4>JSON</h4>
+        <div ui-ace="{onLoad : loadAceJSExample,
+          theme : 'chaos',
+          useWrapMode : true,
+          showGutter: true,
+          mode: 'javascript'
+        }" />
+    </div>
+
+    <div class="row span3">
+        <h4>Python</h4>
+        <div ui-ace="{onLoad : loadAcePythonExample,
+          theme : 'chaos',
+          useWrapMode : true,
+          showGutter: true,
+          mode: 'python'
+        }" />
+    </div>
+
+    <div class="row span6">
+        <h4>Java</h4>
+        <div ui-ace="{onLoad : loadAceJavaExample,
+          theme : 'chaos',
+          useWrapMode : true,
+          showGutter: true,
+          mode: 'java'
+        }" />
+    </div>
+
+
+</div>
