@@ -8,12 +8,6 @@ project.war.baseName = 'hello-world'
 // Establish version and status
 ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
 
-test {
-    // TODO temp exclusion of j2ep
-    exclude 'org/sf/j2ep/*'
-}
-
-
 buildscript {
     repositories { mavenCentral() }
     apply from: file('../gradle/buildscript.gradle'), to: buildscript
@@ -34,8 +28,6 @@ allprojects {
 				//it's required that only one logger.jar be present for deterministic behavior of slf4j
 				details.useTarget "org.apache.logging.log4j:log4j-slf4j-impl:2.0-beta7"
 	        }
-
-	
 	    }
 		
 	}
@@ -75,19 +67,28 @@ war {
 
 dependencies {
 
+    // for commons-codec (used in example encoding service)
+    compile 'commons-configuration:commons-configuration:1.8'
+
+    // currently not used (inherited dependency from NetFlix)
 	compile 'com.netflix.eureka:eureka-client:1.1.97'
 
-	compile 'org.slf4j:slf4j-api:1.7.5'
-	//compile 'org.slf4j:slf4j-log4j12:1.7.5'
-	
+	// used for logging
+    compile 'org.slf4j:slf4j-api:1.7.5'
+
+	// used for logging
 	def log4j2Version = '2.0-beta7';
 	compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
 	compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
 	compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
-	
+
+    // inherited from NetFlix Karyon
     compile "com.netflix.karyon:karyon-extensions:${karyonVersion}" 
 
+    // inherited from NetFlix Karyon (TODO integrate with main UI)
     compile project(':karyon-admin-web')
+
+    // reusable utilities / framework components
     compile project(':service-framework')
 
     // ************************************* beg cargo *********************************************
