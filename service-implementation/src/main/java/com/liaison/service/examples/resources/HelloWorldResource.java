@@ -14,12 +14,8 @@
  *      limitations under the License.
  */
 
-package com.liaison.service;
+package com.liaison.service.examples.resources;
 
-import com.netflix.servo.DefaultMonitorRegistry;
-import com.netflix.servo.annotations.DataSourceType;
-import com.netflix.servo.annotations.Monitor;
-import com.netflix.servo.monitor.Monitors;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -31,52 +27,33 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * HelloworldResource
+ * HelloWorldResource
  *
- * <P>Statically defines service endpoints using Jersey.
+ * <P>Simple HelloWorld REST service example
  *
- * <P></>For dynamically described endpoints, @see com.liaison.framework.dynamic.DynamicServicesServlet
+ * <P>For dynamically described endpoints, @see com.liaison.framework.dynamic.DynamicServicesServlet
  *
  * @author Robert.Christian
  * @version 1.0
  */
 
 @Path("v1/hello")
-public class HelloworldResource {
+public class HelloWorldResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(HelloworldResource.class);
-
-    // For a more thorough metrics example, see
-    // https://github.com/cfregly/fluxcapacitor/blob/master/flux-edge/src/main/java/com/fluxcapacitor/edge/jersey/resources/EdgeResource.java
-    // ... this example includes reporting via Hystrix as well
-
-    // here is another:
-    // https://github.com/cfregly/fluxcapacitor/blob/master/flux-middletier/src/main/java/com/fluxcapacitor/middletier/jersey/resources/MiddleTierResource.java
-
-    @Monitor(name = "failureCounter", type = DataSourceType.COUNTER)
-    private final static AtomicInteger failureCounter = new AtomicInteger(0);
-
-    @Monitor(name = "serviceCallCounter", type = DataSourceType.COUNTER)
-    private final static AtomicInteger serviceCallCounter = new AtomicInteger(0);
-
-    public HelloworldResource() {
-        DefaultMonitorRegistry.getInstance().register(Monitors.newObjectMonitor(this));
-    }
+    private static final Logger logger = LoggerFactory.getLogger(MetricsResource.class);
 
     @Path("to/{name}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response helloTo(@PathParam("name") String name) {
-        serviceCallCounter.addAndGet(1);
         JSONObject response = new JSONObject();
         try {
             response.put("Message", "Hello " + name + "!");
             return Response.ok(response.toString()).build();
         } catch (JSONException e) {
-            failureCounter.addAndGet(1);
+
             logger.error("Error creating json response.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -85,13 +62,12 @@ public class HelloworldResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response hello() {
-        serviceCallCounter.addAndGet(1);
         JSONObject response = new JSONObject();
         try {
             response.put("Message", "Hello world!");
             return Response.ok(response.toString()).build();
         } catch (JSONException e) {
-            failureCounter.addAndGet(1);
+
             logger.error("Error creating json response.", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
