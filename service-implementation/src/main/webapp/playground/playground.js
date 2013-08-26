@@ -1,6 +1,9 @@
 // playground is a sandbox for ui elements and testing feasibility of new features...
 // this file contains controllers, services, etc relating to playground features
 
+// TODO break playground controller out to sub controllers,
+// and define in same space as partial for simplicity
+
 function createDataGrid($scope, $http, dataUrl) {
 
     $scope.filterOptions = {
@@ -280,6 +283,8 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
             );
         }
 
+        // fs2
+
         $scope.fs2Objects = "";
 
         $scope.fs2List = function () {
@@ -304,16 +309,12 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
             $scope.master = user;
         }
 
-
-
         // carousel
         $scope.slides = [
             {"image": "http://cdn-static.zdnet.com/i/r/story/70/00/004209/original/raspberry-pi-supercomputer-1-620x465.jpg?hash=AQx4MwRjZG", "text": "foo", "active": true},
             {"image": "http://www.rubberrepublic.com/wp-content/uploads/2011/09/lolcat-funny-picture-moderator1.jpg", "text": "bar", "active": false},
             {"image": "http://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Composition_of_38th_Parliament.png/220px-Composition_of_38th_Parliament.png", "text": "moo", "active": false}
         ]
-
-
 
     }])
     ;
