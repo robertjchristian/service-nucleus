@@ -44,9 +44,23 @@ public class FS2Resource {
         }
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public InputStream getResource(JSONObject obj) {
+        try {
+            URI uri = new URI(obj.getString("uri"));
+            logger.error(uri.toASCIIString());
+            InputStream is = FS2.getFS2PayloadInputStream(uri);
+            return is;
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listFile() {
+    public Response listFiles() {
 
         JSONObject response = new JSONObject();
 

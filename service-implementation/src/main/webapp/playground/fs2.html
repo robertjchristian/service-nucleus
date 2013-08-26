@@ -6,25 +6,28 @@
         Select a file : <input type="file" name="file" size="45"/>
     </p>
 
-    <input type="submit" value="Upload It"/>
+    <input type="submit" value="Push to FS2"/>
 
 </form>
 
 
-<hr>
+<hr style="padding: 1em;">
 
 
-<h4>List files in FS2  <a ng-click="fs2List()" class="btn btn-primary">List objects in FS2</a>
+<h4><a ng-click="fs2List()" class="btn btn-primary">List objects in FS2</a>
 </h4>
 
 
 <div>
 
     <div class="row">
-        <div class="span11">
+        <div class="span4">
             <div ng-repeat="(i, uri) in fs2Objects">
-                {{uri}}<br>
+                <a ng-click="fs2Fetch(uri)">{{uri}}</a>
             </div>
+        </div>
+        <div class="span7">
+            {{fs2Object}}
         </div>
     </div>
 

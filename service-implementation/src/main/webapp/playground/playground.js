@@ -301,6 +301,23 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
                 });
         }
 
+        $scope.fs2Object = null;
+
+        $scope.fs2Fetch = function(uri) {
+            var url = '/hello-world/rest/v1/fs2/';
+            console.log("calling fs2 fetch");
+            var d = '{' + '\"uri\"' + ':' + "\'" + uri + "\'" + '}';
+            return $http({method: 'POST', url: url, data: d})
+                .success(function (data, status, headers, config) {
+                    console.log(data);
+                    $scope.fs2Object = data;
+                })
+                .error(function (data, status, headers, config) {
+                    console.log(data);
+                    $scope.fs2Object = data;
+                });
+        }
+
         // form validation and binding
         $scope.master = "";
 
