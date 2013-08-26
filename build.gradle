@@ -47,10 +47,10 @@ apply plugin: 'java'
 subprojects {
     group = "com.netflix.${githubProjectName}" // TEMPLATE: Set to organization of project
 
-	
-    // TODO dependencies needed here?
+    // TODO should move dependencies to subprojects?
     dependencies {
-		def log4j2Version = '2.0-beta7';
+
+        def log4j2Version = '2.0-beta7';
 		
 		compile 'org.slf4j:slf4j-api:1.7.5'	
 		compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
@@ -72,7 +72,6 @@ project(':karyon-admin') {
         compile 'javax.servlet:servlet-api:2.5'
 
         //compile 'javax:javaee-web-api:6.0'
-
         //compile 'javax:javaee-api:6.0'
         //compile 'javax:javaee-web-api:6.0'
 
@@ -100,6 +99,33 @@ project(':karyon-admin-web') {
         compile 'com.netflix.pytheas:pytheas-core:1.11'
         runtime 'org.freemarker:freemarker:2.3.19'
         runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+
+    }
+}
+
+
+project(':service-framework') {
+    dependencies {
+
+        testCompile 'org.testng:testng:6.8'
+        testCompile 'junit:junit:4.10'
+
+        // commons-io and jackson-core support fs2
+        compile 'commons-io:commons-io:2.4'
+        compile 'com.fasterxml.jackson.core:jackson-core:2.2.2'
+
+    }
+}
+
+allprojects {
+    //repositories { mavenCentral() }
+    configurations.all {
+        // make sure we are using the latest commons-io
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.name == 'commons-io') {
+                details.useTarget "commons-io:commons-io:2.4"
+            }
+        }
 
     }
 }
