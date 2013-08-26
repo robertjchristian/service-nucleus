@@ -70,8 +70,19 @@ dependencies {
     // for commons-codec (used in example encoding service)
     compile 'commons-configuration:commons-configuration:1.8'
 
-    // currently not used (inherited dependency from NetFlix)
+    // currently not used during runtime (inherited dependency from NetFlix)
 	compile 'com.netflix.eureka:eureka-client:1.1.97'
+
+
+    // for file upload
+    // TODO - See that we also depend on "jersey-bundle" inherently
+    // TODO - due to NetFlix... using the bundle is not advised... (remove)
+    compile 'com.sun.jersey:jersey-core:1.17'
+    compile 'com.sun.jersey:jersey-server:1.14'
+    compile 'com.sun.jersey:jersey-json:1.17'
+    compile 'javax.mail:mail:1.4.6'
+    compile 'com.sun.jersey.contribs:jersey-multipart:1.17.1'
+
 
 	// used for logging
     compile 'org.slf4j:slf4j-api:1.7.5'
