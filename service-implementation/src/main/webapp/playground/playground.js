@@ -241,7 +241,6 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
             _editor.getSession().setUseWorker(false);
         };
 
-
         // TODO this is the wrong way to implement the service (client and server)...
         // should be put in request body instead of on URI... otherwise we run into
         // issue with length of uri, legibility of uri, encoding, etc
@@ -281,6 +280,21 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
             );
         }
 
+        $scope.fs2Objects = "";
+
+        $scope.fs2List = function () {
+            var url = '/hello-world/rest/v1/fs2/';
+            console.log("calling fs2 list");
+            return $http({method: 'GET', url: url})
+                .success(function (data, status, headers, config) {
+                    console.log(data);
+                    $scope.fs2Objects = data;
+                })
+                .error(function (data, status, headers, config) {
+                    console.log(data);
+                    $scope.fs2Objects = data;
+                });
+        }
 
         // form validation and binding
         $scope.master = "";

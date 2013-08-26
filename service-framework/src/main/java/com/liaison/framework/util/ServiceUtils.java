@@ -50,7 +50,6 @@ public class ServiceUtils {
         }
     }
 
-
     public static String formatArrayAsString(Object[] array, String separator) {
 
         StringBuilder s = new StringBuilder();
