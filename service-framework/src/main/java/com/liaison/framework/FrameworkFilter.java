@@ -46,7 +46,6 @@ public class FrameworkFilter implements Filter {
         try {
 
             // audit
-
             chain.doFilter(request, response);
 
 
@@ -72,9 +71,7 @@ public class FrameworkFilter implements Filter {
 
     @Override
     public void destroy() {
-
         logger.debug("FrameworkFilter Destroyed");
-
     }
 
 }
