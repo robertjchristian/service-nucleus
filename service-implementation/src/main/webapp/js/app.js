@@ -27,6 +27,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
     $routeProvider.when('/about', {
         templateUrl:'partials/about.html'
     });
+    $routeProvider.when('/faq', {
+        templateUrl:'partials/faq.html'
+    });
 
     // note that to minimize playground impact on app.js, we
     // are including just this simple route with a parameterized 
@@ -95,5 +98,12 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
         }
 
     }, true);
+
+    $rootScope.faq = [
+
+        {key: "Question 1", value:  "Answer1"},
+        {key: "Question 2", value:  "Answer2"}
+
+    ];
 
 });
