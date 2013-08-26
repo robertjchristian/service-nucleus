@@ -85,6 +85,7 @@ def docTasks = [:]
 }
 
 githubPages {
+    // TODO publish to service nucleus
     repoUri = "git@github.com:Netflix/${rootProject.githubProjectName}.git"
     pages {
         docTasks.each { shortName, docTask ->
@@ -97,5 +98,6 @@ githubPages {
 
 // Generate wrapper, which is distributed as part of source to alleviate the need of installing gradle
 task createWrapper(type: Wrapper) {
+    // TODO upgrade to 1.6
     gradleVersion = '1.5'
 }
