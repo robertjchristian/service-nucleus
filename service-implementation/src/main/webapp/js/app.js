@@ -99,11 +99,14 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
 
     }, true);
 
+    // TODO move this out to a more appropriate place
     $rootScope.faq = [
-
-        {key: "Question 1", value:  "Answer1"},
-        {key: "Question 2", value:  "Answer2"}
-
+        {key: "What is the service-nucleus?", value: "The service nucleus is a starting point for a full-blown Java webservice and accompanying UI."},
+        {key: "What are the pre-requisites for running the service nucleus?", value: "You need JDK 7 and Gradle>=1.6."},
+        {key: "How do I change styling (css)?", value:  "See service-implementation/bootstrap.  First change the less modules, then compile using build.sh.  The resulting artifacts will be copied to the appropriate location."},
+        {key: "How do I implement a REST service?", value:  "Simply add a new Jersey Resource.  See service-implementation/src/main/java/com/liaison/service/resources/examples for examples."},
+        {key: "How do I brand my project (rename from Hello-World)?", value: "This is currently a manual process with about a half-dozen steps.  See README.md for details."},
+        {key: "How do I expose JMX metrics?", value: "Checkout the MetricsResource example."}
     ];
 
 });
