@@ -37,11 +37,17 @@
     <link rel="stylesheet" href="css/vendor/angularstrap/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/vendor/angularstrap/bootstrap-timepicker.css">
 
-    <link rel="stylesheet" href="css/vendor/animate/animate.css">
+    <!-- <link rel="stylesheet" href="css/vendor/animate/animate.css"> -->
 
     <link rel="stylesheet" type="text/css" href="css/app.css"/>
 
     <script src="js/vendor/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+    <!-- blueimp/jqueryfileupload CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="css/vendor/jQueryFileUpload/jquery.fileupload-ui.css">
+
+
 
 </head>
 
@@ -81,6 +87,47 @@
 <!-- TODO needed?  Then localize... -->
 <script src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0-SNAPSHOT.js"></script>
 
+
+
+<!--
+
+ALL OF THIS IS TO SUPPORT BLUEIMP/JQUERYFILEUPLOAD
+    -->
+
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="js/vendor/jQueryFileUpload/jquery.ui.widget.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!-- blueimp Gallery script -->
+<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="js/vendor/jQueryFileUpload/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload-validate.js"></script>
+<!-- The File Upload Angular JS module -->
+<script src="js/vendor/jQueryFileUpload/jquery.fileupload-angular.js"></script>
+
+                      <!--
+END SUPPORT BLUEIMP/JQUERYFILEUPLOAD
+
+-->
+
+
 <!-- enables rendering of injected html -->
 <!-- TODO localize -->
 <script src="http://code.angularjs.org/1.0.1/angular-sanitize-1.0.1.js"></script>
@@ -110,6 +157,10 @@
 <script src="js/app.js"></script>
 <script src="js/services/services.js"></script>
 <script src="js/controllers/inboxController.js"></script>
+
+
+<script src="js/controllers/jQueryFileUploadCtrl.js"></script>
+
 <script src="js/filters/filters.js"></script>
 <script src="js/directives/fadeInDirective.js"></script>
 <script src="js/directives/stopEventDirective.js"></script>

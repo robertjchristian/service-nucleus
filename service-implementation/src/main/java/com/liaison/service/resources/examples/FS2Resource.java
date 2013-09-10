@@ -78,8 +78,9 @@ public class FS2Resource {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+
     public Response uploadFile(final MimeMultipart file) {
 
         // TODO map headers too
@@ -97,7 +98,18 @@ public class FS2Resource {
             for (int i = 0; i < file.getCount(); i++) {
                 javax.mail.BodyPart bp = file.getBodyPart(i);
 
-                URI newURI = CoreFS2Utils.appendLeaf(rootURI, "/" + bp.getFileName());
+                String fileName = bp.getFileName();
+
+                if (null == fileName) {
+                    // assume not a file if no filename
+                    continue;
+                }
+
+                System.out.println(fileName);
+                logger.error(fileName);
+
+
+                URI newURI = CoreFS2Utils.appendLeaf(rootURI, "/" + fileName);
 
                 object = FS2.createObjectEntry(newURI);
 
@@ -105,8 +117,13 @@ public class FS2Resource {
 
                 FS2.writePayloadFromStream(object.getURI(), part);
 
+                // this is an example, so expect only one file
+                break;
+
             }
+
             return Response.ok("FS2 wrote " + object.getURI()).build();
+
         } catch (final Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e)
                     .build();
