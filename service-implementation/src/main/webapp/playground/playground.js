@@ -335,53 +335,26 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
 
 
         // FOR FS2 upload
-        $scope.title = "Upload PKCS7 Key";
 
-        $scope.key = {"@class" : ""};
+        $scope.fs2ObjectURI = '/foo/bar';
+        $scope.fs2ObjectFile = null;
 
-        $scope.setClass = function() {
-            if($scope.keyType == 'PublicKey') {
-                $scope.key["@class"] = "com.liaison.keymanage.grammar.dto.PublicKey";
+        $scope.upload = function(file) {
 
-                // workaround rest fails when container passphrase exists for uploading a public key
-                delete $scope.key.containerPassphrase;
-                $scope.key.keyType = "PKCS7";
-            }
-            else if ($scope.keyType == 'Truststore') {
-                $scope.key["@class"] = "com.liaison.keymanage.grammar.dto.TrustStore";
+            var url = "rest/v1/fs2/";
 
-                // workaround rest fails when key type exists for uploading a truststore
-                delete $scope.key.keyType;
-            }
-            else if($scope.keyType == 'KeyPair') {
-                $scope.key["@class"] = "com.liaison.keymanage.grammar.dto.KeyPair";
-            }
-        };
-
-        $scope.upload = function(key) {
-            var url = '';
-            if($scope.keyType == 'PublicKey') {
-                url = '/key-management-v1.0.0/upload/public';
-            }
-            else if ($scope.keyType == 'Truststore') {
-                url = '/key-management-v1.0.0/upload/truststore';
-            }
-            else if($scope.keyType == 'KeyPair') {
-                url = '/key-management-v1.0.0/upload/keypair';
-            }
-
-            var data = {
-                "pipelineId" : "1234567890",
-                "activityId" : "1234567890",
-                "taskId" : "1234567890",
-                "serviceInstanceId" : "siid-03774909692783901",
-                "userId" : "userId@email",
-                "dataTransferObject": key};
-            console.log("calling upload to " + url);
+            // TODO allow for N meta elements to map to FS2 object
+            var meta = {
+                "meta1" : "foo",
+                "meta2" : "bar"
+            };
 
             var formData = new FormData();
-            formData.append("request", angular.toJson(data));
-            formData.append("key", $scope.file[0]);
+            formData.append("request", angular.toJson(meta));
+
+            console.log(file);
+
+            formData.append("file", file[0]);
 
             return $http({
                 method: 'POST',
@@ -403,40 +376,14 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
     }])
     ;
 
-    // TODO delete
-myApp.controller('FS2UploadController', [
-    '$scope', '$http', '$filter', '$window',
-    function ($scope, $http) {
-
-        $scope.uploadPostURL = "rest/v1/fs2/";
-
-        $scope.options = {
-            url: $scope.uploadPostURL,
-            limitMultiFileUploads: 1
-        };
-    }
-])
-
-
 directives.directive('fileUpload', function () {
     return function( scope, element, attrs) {
         element.bind('change', function(event) {
             scope.$apply(function() {
                 scope[attrs.name] = event.target.files;
+                console.log(scope[attrs.name]);
+
             });
         });
     };
 });
-
-directives.directive('passwordCheck', function() {
-    return {
-        require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
-            ctrl.$parsers.unshift(function (viewValue, $scope) {
-                var noMatch = viewValue != scope.key.custodianPassphrase
-                ctrl.$setValidity('noMatch', !noMatch)
-            })
-        }
-    }
-});
-
