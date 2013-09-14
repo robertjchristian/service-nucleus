@@ -9,8 +9,7 @@ var myApp = angular.module('myApp',
         'ngSanitize', // for html-bind in ckeditor
         'ui.ace', // ace code editor
         'ui.bootstrap', // jquery ui bootstrap
-        '$strap.directives', // angular strap
-        'blueimp.fileupload' // blueimp/fileupload
+        '$strap.directives' // angular strap
     ]);
 
 
@@ -18,7 +17,7 @@ var filters = angular.module('myApp.filters', []);
 var directives = angular.module('myApp.directives', []);
 
 // bootstrap angular
-myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'fileUploadProvider', function ($routeProvider, $locationProvider, $httpProvider, fileUploadProvider) {
+myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     // TODO use html5 *no hash) where possible
     // $locationProvider.html5Mode(true);
@@ -48,24 +47,6 @@ myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'fileUploa
     $routeProvider.otherwise({
         redirectTo:'/'
     });
-
-
-    /*
-     BEGIN blueimp/jQueryFileUpload
-     */
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
-    // TODO add result.html
-    fileUploadProvider.defaults.redirect = window.location.href.replace(
-        /\/[^\/]*$/,
-        '/cors/result.html?%s'
-    );
-
-    /*
-     END blueimp/jQueryFileUpload
-     */
-
-
 
 }]);
 

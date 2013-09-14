@@ -1,74 +1,170 @@
-<h4>Upload file to FS2 via form (multipart)</h4>
+<style>
+    .form-row {
+        padding-bottom: .5em;
+    }
 
-<!-- The file upload form used as target for the file upload widget -->
-<form id="fileupload" action="{{uploadPostURL}}" method="POST" enctype="multipart/form-data"
-      data-ng-app="demo" data-ng-controller="FS2UploadController" data-file-upload="options"
-      data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+    .css-form input.ng-invalid.ng-dirty {
+        background-color: #FA787E;
+    }
 
-    <div class="well-large">
+    .css-form input.ng-valid.ng-dirty {
+        background-color: #78FA89;
+    }
+</style>
 
-        <div class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
-            <!-- <i class="glyphicon glyphicon-plus"></i>-->
-            <span>Select file</span>
-            <input type="file" ng-disabled="disabled">
+<div fade-in>
+
+    <div class="container">
+        <div class="form-row">
+            <h3>{{title}}</h3>
+            <hr>
         </div>
 
-
-        <div data-ng-repeat="file in queue">
-
-            <div data-ng-switch data-on="!!file.thumbnailUrl">
-                <div class="preview" data-ng-switch-when="true">
-                    <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img
-                            data-ng-src="{{file.thumbnailUrl}}" alt=""></a>
+        <form name="uploadKeyForm" method="post" novalidate class="container css-form" enctype="multipart/form-data">
+            <div class="span4">
+                <div class="container">
+                    <div class="container form-row">This is a...</div>
+                    <div>
+                        <input type="radio" ng-model="keyType" value="Truststore"  ng-click="setClass()"  required/>&nbsp;Truststore
+                    </div>
+                    <div>
+                        <input type="radio" ng-model="keyType" value="PublicKey" ng-click="setClass()" required/>&nbsp;Public Key
+                    </div>
+                    <div>
+                        <input type="radio" ng-model="keyType" value="KeyPair" ng-click="setClass()" required/>&nbsp;Key Pair
+                    </div>
                 </div>
-                <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+
+                <br/>
+
+                <div class="container">
+                    <div class="container form-row">For aUU...</div>
+                    <div>
+                        <input type="radio" ng-model="key.keyScope" value="CUSTOMER" required/>&nbsp;Customer Process
+                    </div>
+                    <div>
+                        <input type="radio" ng-model="key.keyScope" value="SYSTEM" required/>&nbsp;System Process
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="container">
+                    <div class="container form-row">Key Type</div>
+                    <div>
+                        <input type="radio" value="PGP" disabled ng-required="keyType != 'Truststore'"/>&nbsp;PGP
+                    </div>
+                    <div>
+                        <input type="radio" value="SSH" disabled ng-required="keyType != 'Truststore'"/>&nbsp;SSH
+                    </div>
+                    <div>
+                        <input type="radio" value="PKCS7" ng-disabled="keyType == 'Truststore'" ng-required="keyType != 'Truststore'"/>&nbsp;PKCS #7
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <p class="name" data-ng-switch data-on="!!file.url">
-                        <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
-                            <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}"
-                               download="{{file.name}}" data-gallery>{{file.name}}</a>
-                            <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}"
-                               download="{{file.name}}">{{file.name}}</a>
-                        </span>
-                    <span data-ng-switch-default>{{file.name}}</span>
-                </p>
+            <div class="span6">
+                <div class="container form-row">
+                    <div class="span2">Key Name</div>
+                    <div class="span3">
+                        <input type="text" ng-model="key.name" required/>
+                    </div>
+                </div>
+
+                <div class="container form-row">
+                    <div class="span2">Key Group</div>
+                    <div class="span3">
+                        <input type="text"/>
+                    </div>
+                </div>
+
+                <div class="container form-row">
+                    <div class="span2">Internal Notify DL</div>
+                    <div class="span3">
+                        <input type="email" ng-model="key.notificationEmail" required/>
+                    </div>
+                </div>
+
+                <div class="container form-row">
+                    <div class="span2">User ID (PGP Only)</div>
+                    <div class="span3">
+                        <input type="text" ng-disabled="key.keyType != 'PGP'"/>
+                    </div>
+                </div>
+
+                <div class="container form-row">
+                    <div class="span2">Key Uses</div>
+                    <div class="span3">
+                        <input type="text"/>
+                    </div>
+                </div>
+
+                <div class="container form-row">
+                    <div class="span2">Upload</div>
+                    <div class="span3 input-append">
+                        <input type="file" name="file" size="30" file-upload required/>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="span2">
+                        <div class="container form-row">Active</div>
+                    </div>
+                    <div class="span2">
+                        <div>
+                            <input type="radio" ng-model="key.keyStatus" value="ACTIVE" required/>&nbsp;Active
+                        </div>
+                        <div>
+                            <input type="radio" ng-model="key.keyStatus" value="INACTIVE" required/>&nbsp;Inactive
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="containter form-row" ng-show="keyType != 'PublicKey'">
+                    <div class="container form-row">
+                        <div class="span2">Passphrase</div>
+                        <div class="span2">
+                            <input type="password" ng-model="key.containerPassphrase" ng-required="keyType != 'PublicKey'"/>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="container form-row">
+                        <div class="span2">Custodian Email</div>
+                        <div class="span2">
+                            <input type="email" ng-model="key.custodianEmail"/>
+                        </div>
+                    </div>
+                    <div class="container form-row">
+                        <div class="span2">Custodian Password </div>
+                        <div class="span2">
+                            <input type="password" ng-model="key.custodianPassphrase"/>
+                        </div>
+                    </div>
+                    <div class="container form-row">
+                        <div class="span2">Confirm Custodian Passphrase:</div>
+                        <div class="span2">
+                            <input type="password" ng-model="confirmPassphrase" password-check="key.custodianPassphrase"/>
+                        </div>
+                    </div>-->
+                </div>
+
             </div>
+        </form>
 
+        <pre>key = {{key | json}}</pre>
+        <pre>file = {{file | json}}</pre>
+
+
+        <div ng-show="response != null">
+            <pre>{{response | json}}</pre>
         </div>
 
-        <div>
-            Meta:
-            <input name="meta" type="text"/>
+        <div class="pad-bottom">
+            <a class="btn btn-primary" ng-click="upload(key)" ng-disabled="uploadKeyForm.$invalid">Upload</a>
         </div>
-
 
     </div>
-
-    <button type="button" class="btn btn-primary start" data-ng-click="submit()">
-        <span>Submit</span>
-    </button>
-
-</form>
-
-<hr style="padding: 1em;">
-
-<h4><a ng-click="fs2List()" class="btn btn-primary">List objects in FS2</a>
-</h4>
-
-<div>
-
-    <div class="row">
-        <div class="span4">
-            <div ng-repeat="(i, uri) in fs2Objects">
-                <a class="btn btn-mini" ng-click="fs2Fetch(uri)">{{uri}}</a>
-            </div>
-        </div>
-        <div class="span7">
-            {{fs2Object}}
-        </div>
-    </div>
-
 
 </div>
