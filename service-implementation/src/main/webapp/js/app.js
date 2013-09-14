@@ -13,6 +13,10 @@ var myApp = angular.module('myApp',
         'blueimp.fileupload' // blueimp/fileupload
     ]);
 
+
+var filters = angular.module('myApp.filters', []);
+var directives = angular.module('myApp.directives', []);
+
 // bootstrap angular
 myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', 'fileUploadProvider', function ($routeProvider, $locationProvider, $httpProvider, fileUploadProvider) {
 

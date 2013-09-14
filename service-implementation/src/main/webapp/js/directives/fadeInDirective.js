@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.directives', []).directive('fadeIn', function () {
+directives.directive('fadeIn', function () {
     return {
         compile:function (elm) {
             $(elm).css('opacity', 0.0);

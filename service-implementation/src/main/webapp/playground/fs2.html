@@ -1,27 +1,30 @@
 <h4>Upload file to FS2 via form (multipart)</h4>
 
 <!-- The file upload form used as target for the file upload widget -->
-<form id="fileupload" action="this.is.overwritten.in.controller" method="POST" enctype="multipart/form-data"
-      data-ng-app="demo" data-ng-controller="DemoFileUploadController" data-file-upload="options"
+<form id="fileupload" action="{{uploadPostURL}}" method="POST" enctype="multipart/form-data"
+      data-ng-app="demo" data-ng-controller="FS2UploadController" data-file-upload="options"
       data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
 
-    <div>
+    <div class="well-large">
 
         <div class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
-            <i class="glyphicon glyphicon-plus"></i>
+            <!-- <i class="glyphicon glyphicon-plus"></i>-->
             <span>Select file</span>
-            <input type="file" name="files[]" multiple ng-disabled="disabled">
+            <input type="file" ng-disabled="disabled">
         </div>
 
+
         <div data-ng-repeat="file in queue">
-            <td data-ng-switch data-on="!!file.thumbnailUrl">
+
+            <div data-ng-switch data-on="!!file.thumbnailUrl">
                 <div class="preview" data-ng-switch-when="true">
                     <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img
                             data-ng-src="{{file.thumbnailUrl}}" alt=""></a>
                 </div>
                 <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
-            </td>
-            <td>
+            </div>
+
+            <div>
                 <p class="name" data-ng-switch data-on="!!file.url">
                         <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
                             <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}"
@@ -31,7 +34,7 @@
                         </span>
                     <span data-ng-switch-default>{{file.name}}</span>
                 </p>
-            </td>
+            </div>
 
         </div>
 
@@ -49,9 +52,7 @@
 
 </form>
 
-
 <hr style="padding: 1em;">
-
 
 <h4><a ng-click="fs2List()" class="btn btn-primary">List objects in FS2</a>
 </h4>
@@ -61,7 +62,7 @@
     <div class="row">
         <div class="span4">
             <div ng-repeat="(i, uri) in fs2Objects">
-                <a ng-click="fs2Fetch(uri)">{{uri}}</a>
+                <a class="btn btn-mini" ng-click="fs2Fetch(uri)">{{uri}}</a>
             </div>
         </div>
         <div class="span7">
@@ -71,5 +72,3 @@
 
 
 </div>
-
-

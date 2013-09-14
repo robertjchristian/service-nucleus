@@ -54,7 +54,7 @@
 <body ng-app="myApp">
 
 <!--[if lt IE 7]>
-<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="//browsehappy.com/">upgrade
     your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to
     improve your experience.</p>
 <![endif]-->
@@ -74,9 +74,9 @@
 <script src="js/vendor/bootstrap/bootstrap.min.js"></script>
 
 <!-- TODO localize -->
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
-<!-- <script src="http://angular-ui.github.com/lib/bootstrap/docs/assets/js/bootstrap.min.js"></script> -->
+<!-- <script src="//angular-ui.github.com/lib/bootstrap/docs/assets/js/bootstrap.min.js"></script> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
@@ -85,24 +85,22 @@
 <script src="js/vendor/ng-grid/ng-grid.debug.js"></script>
 
 <!-- TODO needed?  Then localize... -->
-<script src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0-SNAPSHOT.js"></script>
+<script src="//angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0-SNAPSHOT.js"></script>
 
 
 
 <!--
-
-ALL OF THIS IS TO SUPPORT BLUEIMP/JQUERYFILEUPLOAD
-    -->
-
+-- ALL OF THIS IS TO SUPPORT BLUEIMP/JQUERYFILEUPLOAD
+-->
 
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="js/vendor/jQueryFileUpload/jquery.ui.widget.js"></script>
+<!-- <script src="js/vendor/jQueryFileUpload/vendor/jquery.ui.widget.js"></script>-->
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
+<!-- <script src="js/vendor/jQueryFileUpload/load-image.min.js"></script> -->
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<!-- <script src="js/vendor/jQueryFileUpload/canvas-to-blob.min.js"></script> -->
 <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
 <!-- blueimp Gallery script -->
 <script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
@@ -112,21 +110,19 @@ ALL OF THIS IS TO SUPPORT BLUEIMP/JQUERYFILEUPLOAD
 <!-- The File Upload processing plugin -->
 <script src="js/vendor/jQueryFileUpload/jquery.fileupload-process.js"></script>
 <!-- The File Upload image preview & resize plugin -->
-<script src="js/vendor/jQueryFileUpload/jquery.fileupload-image.js"></script>
+<!-- <script src="js/vendor/jQueryFileUpload/jquery.fileupload-image.js"></script> -->
 <!-- The File Upload audio preview plugin -->
-<script src="js/vendor/jQueryFileUpload/jquery.fileupload-audio.js"></script>
+<!-- <script src="js/vendor/jQueryFileUpload/jquery.fileupload-audio.js"></script>  -->
 <!-- The File Upload video preview plugin -->
-<script src="js/vendor/jQueryFileUpload/jquery.fileupload-video.js"></script>
+<!-- <script src="js/vendor/jQueryFileUpload/jquery.fileupload-video.js"></script> -->
 <!-- The File Upload validation plugin -->
 <script src="js/vendor/jQueryFileUpload/jquery.fileupload-validate.js"></script>
 <!-- The File Upload Angular JS module -->
 <script src="js/vendor/jQueryFileUpload/jquery.fileupload-angular.js"></script>
 
-                      <!--
-END SUPPORT BLUEIMP/JQUERYFILEUPLOAD
-
+<!--
+- END SUPPORT BLUEIMP/JQUERYFILEUPLOAD
 -->
-
 
 <!-- enables rendering of injected html -->
 <!-- TODO localize -->
@@ -158,9 +154,6 @@ END SUPPORT BLUEIMP/JQUERYFILEUPLOAD
 <script src="js/services/services.js"></script>
 <script src="js/controllers/inboxController.js"></script>
 
-
-<script src="js/controllers/jQueryFileUploadCtrl.js"></script>
-
 <script src="js/filters/filters.js"></script>
 <script src="js/directives/fadeInDirective.js"></script>
 <script src="js/directives/stopEventDirective.js"></script>
@@ -168,16 +161,5 @@ END SUPPORT BLUEIMP/JQUERYFILEUPLOAD
 <!-- example area for ui elements (non-production) -->
 <script src="playground/playground.js"></script>
 
-<script>
-    var _gaq = [
-        ['_setAccount', 'UA-XXXXX-X'],
-        ['_trackPageview']
-    ];
-    (function (d, t) {
-        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-        g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g, s)
-    }(document, 'script'));
-</script>
 </body>
 </html>

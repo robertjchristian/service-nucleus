@@ -335,3 +335,17 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
 
     }])
     ;
+
+
+myApp.controller('FS2UploadController', [
+    '$scope', '$http', '$filter', '$window',
+    function ($scope, $http) {
+
+        $scope.uploadPostURL = "rest/v1/fs2/";
+
+        $scope.options = {
+            url: $scope.uploadPostURL,
+            limitMultiFileUploads: 1
+        };
+    }
+])
