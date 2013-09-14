@@ -56,3 +56,22 @@ myApp.factory('AuthService',
     }
 );
 
+myApp.factory('FS2ObjectPollerService', function($http, $timeout) {
+
+    var url = '/hello-world/rest/v1/fs2';
+
+    var data = { response: {}, calls: 0 };
+    var poller = function() {
+        $http.get(url).then(function(r) {
+            data.response = r.data;
+            console.log("Poll response:  " + r.data);
+            data.calls++;
+            $timeout(poller, 2000);
+        });
+    };
+    poller();
+
+    return {
+        data: data
+    };
+});

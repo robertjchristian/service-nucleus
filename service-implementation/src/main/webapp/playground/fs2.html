@@ -13,13 +13,15 @@
 </style>
 
 
-<div fade-in>
+<div class="row">
 
-    <div class="container">
 
+    <div class="span6">
+
+        <h3>Create new FS2 Object</h3>
         <form name="fs2UploadForm" method="post" novalidate class="container css-form" enctype="multipart/form-data">
 
-            <div class="span6">
+            <div>
                 <div class="container form-row">
                     <div>URI</div>
                     <div>
@@ -46,6 +48,15 @@
 
         <div class="pad-bottom">
             <a class="btn btn-primary" ng-click="upload(fs2ObjectFile)" ng-disabled="fs2UploadForm.$invalid">Upload</a>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <h3>FS2 Repository Objects</h3>
+
+        <div ng-repeat="f in fs2ObjectList.response">
+            {{f}}&nbsp;<a>download</a>&nbsp;|&nbsp;<a>meta</a>&nbsp;|&nbsp;<a>delete</a>
         </div>
 
     </div>

@@ -337,6 +337,7 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
         // FOR FS2 upload
 
         $scope.fs2ObjectURI = '/foo/bar';
+        $scope.fs2ExistingObjects = null;
         $scope.fs2ObjectFile = null;
 
         $scope.upload = function(file) {
