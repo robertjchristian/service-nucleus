@@ -42,7 +42,7 @@ import javax.ws.rs.core.Response;
 @Path("v1/codec")
 public class CodecResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(MetricsResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(CodecResource.class);
 
     @Path("decode/{input}")
     @GET

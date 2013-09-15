@@ -42,7 +42,7 @@ import javax.ws.rs.core.Response;
 @Path("v1/hello")
 public class HelloWorldResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(MetricsResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(HelloWorldResource.class);
 
     @Path("to/{name}")
     @GET
