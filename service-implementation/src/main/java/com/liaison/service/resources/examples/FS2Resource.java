@@ -1,9 +1,6 @@
 package com.liaison.service.resources.examples;
 
-import com.liaison.framework.fs2.api.CoreFS2Utils;
-import com.liaison.framework.fs2.api.FS2Factory;
-import com.liaison.framework.fs2.api.FS2MetaSnapshot;
-import com.liaison.framework.fs2.api.FlexibleStorageSystem;
+import com.liaison.framework.fs2.api.*;
 import com.liaison.framework.fs2.storage.file.FS2DefaultFileConfig;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -17,6 +14,7 @@ import javax.mail.internet.MimeMultipart;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -47,15 +45,37 @@ public class FS2Resource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    // TODO for ui, prefer websocket for repo browsing (list)
+    // TODO instead of polling this service
     public Response listFiles() {
 
         JSONObject response = new JSONObject();
 
         try {
-            int i =0;
+
             Set<URI> uris = FS2.listDescendantURIs(rootURI);
             for (URI u : uris) {
-                response.put("uri_" + i++, u.toASCIIString());
+
+                // TODO better (explicit) check for "is directory" (HACK!)
+               try {
+                    FS2.getFS2PayloadInputStream(u);
+               } catch (Exception e) {
+                 // skip returning buckets
+                 continue;
+               }
+
+                // copy headers over
+                java.util.Map<String, String> entry = new HashMap<String, String>();
+
+                FS2ObjectHeaders headers = FS2.getHeaders(u);
+                for (String key : headers.getHeaders().keySet()) {
+                    // TODO only returning first value
+                    String value = headers.getHeaders().get(key).get(0);
+                    entry.put(key, value);
+                }
+
+                response.put(u.toASCIIString(), entry);
+
             }
             return Response.ok(response.toString()).build();
         } catch (final Exception e) {
@@ -64,14 +84,84 @@ public class FS2Resource {
         }
     }
 
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    // Allows fetch of resource via POST
     public InputStream getResource(JSONObject obj) {
         try {
-            URI uri = new URI(obj.getString("uri"));
-            logger.error(uri.toASCIIString());
-            InputStream is = FS2.getFS2PayloadInputStream(uri);
+
+            String requestedURI = obj.getString("uri");
+            logger.error("Client requested: " + requestedURI);
+
+            // build URI, supporting both absolute and relative URI
+            URI u = null;
+            if (FS2.exists(new URI(requestedURI))) {
+               u = new URI(requestedURI);
+            } else if (FS2.exists(CoreFS2Utils.appendLeaf(rootURI, requestedURI))) {
+               u = CoreFS2Utils.appendLeaf(rootURI, requestedURI);
+            }
+
+            InputStream is = FS2.getFS2PayloadInputStream(u);
+
+            return is;
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    // Allows fetch of resource via POST
+    public Response deleteResource(JSONObject obj) {
+        try {
+
+            String requestedURI = obj.getString("uri");
+            logger.error("Client requested to delete: " + requestedURI);
+
+            // build URI, supporting both absolute and relative URI
+            // TODO move to convenience method
+            URI u = null;
+            if (FS2.exists(new URI(requestedURI))) {
+                u = new URI(requestedURI);
+            } else if (FS2.exists(CoreFS2Utils.appendLeaf(rootURI, requestedURI))) {
+                u = CoreFS2Utils.appendLeaf(rootURI, requestedURI);
+            }
+
+            FS2.delete(u);
+
+            JSONObject response = new JSONObject();
+            response.put("Deleted: ", u);
+            return Response.ok(response.toString()).build();
+
+
+        } catch(Exception e) {
+            // TODO friendly error handling (TODO applies to entire resource)
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Path("download")
+    // Allows fetch of resource via GET
+    public InputStream getResource(@Context UriInfo uriInfo) {
+        try {
+            String requestedURI = uriInfo.getQueryParameters().getFirst("uri");
+
+            // build URI, supporting both absolute and relative URI
+            URI u = null;
+            if (FS2.exists(new URI(requestedURI))) {
+                u = new URI(requestedURI);
+            } else if (FS2.exists(CoreFS2Utils.appendLeaf(rootURI, requestedURI))) {
+                u = CoreFS2Utils.appendLeaf(rootURI, requestedURI);
+            }
+
+            logger.error("Client requested: " + u.toASCIIString());
+            InputStream is = FS2.getFS2PayloadInputStream(u);
             return is;
         } catch(Exception e) {
             throw new RuntimeException(e);
@@ -135,6 +225,8 @@ public class FS2Resource {
                 }
 
             }
+            // special header retaining filename (TODO: should model explicitly?)
+            FS2.addHeader(object.getURI(), "fs2-original-filename", fileName);
 
             return Response.ok("FS2 wrote " + object.getURI()).build();
 

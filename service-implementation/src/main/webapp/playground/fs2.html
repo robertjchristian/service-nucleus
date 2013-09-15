@@ -19,13 +19,14 @@
     <div class="span6">
 
         <h3>Create new FS2 Object</h3>
+
         <form name="fs2UploadForm" method="post" novalidate class="container css-form" enctype="multipart/form-data">
 
             <div>
                 <div class="container form-row">
-                    <div>URI</div>
+                    <div>Relative FS2 URI</div>
                     <div>
-                        <input type="text" ng-model="fs2ObjectURI" required />
+                        <input type="text" ng-model="fs2ObjectURI" required/>
                     </div>
                 </div>
 
@@ -47,7 +48,8 @@
         </div>
 
         <div class="pad-bottom">
-            <a class="btn btn-primary" ng-click="upload(fs2ObjectFile, fs2ObjectURI)" ng-disabled="fs2UploadForm.$invalid">Upload</a>
+            <a class="btn btn-primary" ng-click="upload(fs2ObjectFile, fs2ObjectURI)"
+               ng-disabled="fs2UploadForm.$invalid">Upload</a>
         </div>
     </div>
 
@@ -56,7 +58,29 @@
         <h3>FS2 Repository Objects</h3>
 
         <div ng-repeat="f in fs2ObjectList.response">
-            {{f}}&nbsp;<a>download</a>&nbsp;|&nbsp;<a>meta</a>&nbsp;|&nbsp;<a>delete</a>
+
+            <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}">{{f["fs2-original-filename"]}}</a>
+            &nbsp;|&nbsp
+            <a href="#metaModal" data-toggle="modal">meta</a>
+            &nbsp;|&nbsp
+            <a ng-click="deleteFS2Object(f['fs2-uri'])">delete</a>
+            &nbsp;|&nbsp
+            <a ng-click="fetchFS2Object(f['fs2-uri'])">console</a>
+            &nbsp;|&nbsp
+            URI:  {{f["fs2-uri"]}}
+
+            <div id="metaModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Meta</h3>
+                </div>
+                <div class="modal-body">
+                    <pre>{{f | json}}</pre>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" data-dismiss="modal">Okay</a>
+                </div>
+            </div>
         </div>
 
     </div>

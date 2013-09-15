@@ -340,6 +340,56 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
         // FOR FS2 repo browsing
         $scope.fs2ExistingObjects = null;
 
+        // FOR FS2 Delete Object
+
+        $scope.deleteFS2Object = function(fs2Uri) {
+
+            var requestBody = {"uri" : fs2Uri};
+
+            // this is required to map to the Jersey request...
+            // TODO can set this as default header for all DELETE calls
+            var headers = {
+              'Content-Type': 'application/json;charset=utf-8'
+            }
+
+
+            return $http({
+                method: 'DELETE',
+                url: $scope.fs2ServiceUrl,
+                headers: headers,
+                data: requestBody}).
+                success(function(data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    console.log(data);
+                }).
+                error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("Error:  " + data);
+                });
+        }
+
+
+        // FOR FS2 Fetch Object
+        // Note this is ajax only so not available for file download via browser
+        $scope.fetchFS2Object = function(fs2Uri) {
+
+            var requestBody = {"uri" : fs2Uri};
+
+            $http.post($scope.fs2ServiceUrl, requestBody).
+                success(function(data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    console.log(data);
+                }).
+                error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("Error:  " + data);
+                });
+        }
+
         // FOR FS2 upload
         $scope.fs2ObjectURI = '/foo/bar';
         $scope.fs2ObjectFile = null;

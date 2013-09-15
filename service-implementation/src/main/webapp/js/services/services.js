@@ -56,6 +56,7 @@ myApp.factory('AuthService',
     }
 );
 
+// TODO use websockets instead
 myApp.factory('FS2ObjectPollerService', function($http, $timeout) {
 
     var url = 'rest/v1/fs2';
@@ -66,7 +67,7 @@ myApp.factory('FS2ObjectPollerService', function($http, $timeout) {
             data.response = r.data;
             console.log("Poll response:  " + r.data);
             data.calls++;
-            $timeout(poller, 2000);
+            $timeout(poller, 5000);
         });
     };
     poller();
