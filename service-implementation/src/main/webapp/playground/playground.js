@@ -334,33 +334,34 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
         ]
 
 
-        // FOR FS2 upload
+        // FS2 service base url
+        $scope.fs2ServiceUrl = "rest/v1/fs2/";
 
-        $scope.fs2ObjectURI = '/foo/bar';
+        // FOR FS2 repo browsing
         $scope.fs2ExistingObjects = null;
+
+        // FOR FS2 upload
+        $scope.fs2ObjectURI = '/foo/bar';
         $scope.fs2ObjectFile = null;
 
-        $scope.upload = function(file) {
+        $scope.upload = function(file, fs2ObjectURI) {
 
-            var url = "rest/v1/fs2/";
-
-            // TODO allow for N meta elements to map to FS2 object
-            var meta = {
-                "meta1" : "foo",
-                "meta2" : "bar"
-            };
-
+            // build form data
             var formData = new FormData();
-            formData.append("request", angular.toJson(meta));
-
-            console.log(file);
-
             formData.append("file", file[0]);
+
+            // build http request headers
+            var headers = {
+                "Content-Type": undefined,
+                "fs2-uri" : fs2ObjectURI,
+                "fs2-meta1" : "foo",
+                "fs2-meta2" : "bar"
+            };
 
             return $http({
                 method: 'POST',
-                url: url,
-                headers: { 'Content-Type': undefined },
+                url: $scope.fs2ServiceUrl,
+                headers: headers,
                 data: formData,
                 transformRequest: function(data) {
                     return data;

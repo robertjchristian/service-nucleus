@@ -25,7 +25,7 @@ myApp.factory('AuthService',
         var currentUser = null;
         var authorized = false;
 
-        // initial state says we haven't logged in or out yet...
+        // initMaybe it wasn't meant to work for mpm?ial state says we haven't logged in or out yet...
         // this tells us we are in public browsing
         var initialState = true;
 
@@ -58,7 +58,7 @@ myApp.factory('AuthService',
 
 myApp.factory('FS2ObjectPollerService', function($http, $timeout) {
 
-    var url = '/hello-world/rest/v1/fs2';
+    var url = 'rest/v1/fs2';
 
     var data = { response: {}, calls: 0 };
     var poller = function() {

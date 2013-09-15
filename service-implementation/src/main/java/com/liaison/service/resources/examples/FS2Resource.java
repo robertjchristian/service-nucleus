@@ -9,13 +9,14 @@ import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.mail.Header;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 import javax.mail.internet.MimeMultipart;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Enumeration;
 import java.util.Set;
 
 /**
@@ -31,7 +32,7 @@ public class FS2Resource {
 
     // override default and force an instance backed by the "file" storage provider
     private static final FlexibleStorageSystem FS2 = FS2Factory.newInstance(new FS2DefaultFileConfig());
-    private static final Logger logger = LoggerFactory.getLogger(MetricsResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(FS2Resource.class);
 
     // root mount point for this resource
     private static final URI rootURI;
@@ -40,20 +41,6 @@ public class FS2Resource {
         try {
             rootURI = FS2.createObjectEntry("FS2Resource").getURI();
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public InputStream getResource(JSONObject obj) {
-        try {
-            URI uri = new URI(obj.getString("uri"));
-            logger.error(uri.toASCIIString());
-            InputStream is = FS2.getFS2PayloadInputStream(uri);
-            return is;
-        } catch(Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -78,84 +65,84 @@ public class FS2Resource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public InputStream getResource(JSONObject obj) {
+        try {
+            URI uri = new URI(obj.getString("uri"));
+            logger.error(uri.toASCIIString());
+            InputStream is = FS2.getFS2PayloadInputStream(uri);
+            return is;
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-
-    public Response uploadFile(final MimeMultipart file) {
-
-        // TODO map headers too
-
-        if (file == null)
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Must supply a valid file.").build();
+    public Response uploadFile(@Context HttpHeaders headers, final MimeMultipart parts) {
 
         FS2MetaSnapshot object = null;
 
         try {
-            // TODO with this implementation, the last "part"
-            // is the only part that gets written... need
-            // to build more robust solution here...
-            for (int i = 0; i < file.getCount(); i++) {
-                javax.mail.BodyPart bp = file.getBodyPart(i);
 
-                String fileName = bp.getFileName();
+            /*
+            Make sure we have an MPM with a file
+             */
 
-                if (null == fileName) {
-                    // assume not a file if no filename
-                    continue;
+            // expect exactly one part, containing the file
+            javax.mail.BodyPart bp = parts.getBodyPart(0);
+            String fileName = bp.getFileName();
+
+            if (null == fileName) {
+                throw new RuntimeException("Expected MultipartMime with a file part.  Mising filename.");
+            }
+
+            /*
+            Create the FS2 object
+             */
+
+            // determine uri (determined by header, fallback to filename)
+            String relativeUri = headers.getRequestHeaders().getFirst("fs2-uri");
+            logger.error("Relative uri:  " + relativeUri);
+            relativeUri = (null == relativeUri) ? fileName : relativeUri;
+
+            if (!relativeUri.startsWith("/")) {
+                relativeUri = "/" + relativeUri;
+            }
+
+            URI newURI = CoreFS2Utils.appendLeaf(rootURI, relativeUri);
+
+            object = FS2.createObjectEntry(newURI);
+
+
+            /*
+            Copy payload (file) and metadata to FS2 object
+             */
+
+            // payload
+            InputStream part = bp.getInputStream();
+            FS2.writePayloadFromStream(object.getURI(), part);
+
+            // meta
+            MultivaluedMap<String, String> headerMap = headers.getRequestHeaders();
+            for (String name : headerMap.keySet()) {
+                if (name.startsWith("fs2-")) {
+                    // TODO do we want to copy all values if > 1?
+                    String value = headerMap.getFirst(name);
+                    FS2.addHeader(object.getURI(), name, value);
                 }
-
-                System.out.println(fileName);
-                logger.error(fileName);
-
-
-                URI newURI = CoreFS2Utils.appendLeaf(rootURI, "/" + fileName);
-
-                object = FS2.createObjectEntry(newURI);
-
-                InputStream part = bp.getInputStream();
-
-                FS2.writePayloadFromStream(object.getURI(), part);
-
-                // this is an example, so expect only one file
-                break;
 
             }
 
             return Response.ok("FS2 wrote " + object.getURI()).build();
 
         } catch (final Exception e) {
+            logger.error(e.getLocalizedMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e)
                     .build();
         }
     }
-
-    /*  TODO Had trouble with this method (see stack overflow)
-    @POST
-    @Path("upload")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response uploadFile(
-            @FormDataParam("file") InputStream is,
-            @FormDataParam("file2") FormDataContentDisposition detail) {
-
-        String name = detail.getFileName();
-
-        FS2MetaSnapshot object = null;
-        try {
-            // create entry
-            object = fileRepo.createObjectEntry("/temp/" + name);
-            // write file
-            fileRepo.writePayloadFromStream(object.getURI(), is);
-        } catch (Exception e) {
-            logger.error("Error creating json response.", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-
-        String output = "File uploaded to : " + object.getURI();
-
-        return Response.status(200).entity(output).build();
-    }
-    */
 
 }
