@@ -26,22 +26,22 @@ public class FrameworkFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("Initializing FrameworkFilter...");
+        //logger.info("Initializing FrameworkFilter...");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        logger.info("Info!");
+        //logger.info("Info!");
 
-        AuditLogger.log(PCIV20Requirement.PCI10_2_2, AuditStatement.Status.ATTEMPT, "Attempting to create PID");
+        //AuditLogger.log(PCIV20Requirement.PCI10_2_2, AuditStatement.Status.ATTEMPT, "Attempting to create PID");
 
         int pid = ProcessManager.initTransaction();
 
         // TODO audit with PID
 
         // threads are pooled and reused, so here we note not only the thread id but also the process id
-        logger.debug("Filtering " + chain.toString() + " [thread=" + Thread.currentThread().getId() + ", PID=" + pid + "]");
+        //logger.debug("Filtering " + chain.toString() + " [thread=" + Thread.currentThread().getId() + ", PID=" + pid + "]");
 
         try {
 
@@ -56,7 +56,7 @@ public class FrameworkFilter implements Filter {
 
             // log
             String msg = "Error processing PID " + pid;
-            logger.error("msg", t);
+            //logger.error("msg", t);
 
             // audit
             // TODO PID is thread local.  Should be able to audit with PID alone and correlate later?
