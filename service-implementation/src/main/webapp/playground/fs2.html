@@ -40,8 +40,10 @@
             </div>
         </form>
 
+        <!--
         <pre>uri = {{fs2ObjectURI}}</pre>
         <pre>file = {{fs2ObjectFile | json}}</pre>
+        -->
 
         <div ng-show="response != null">
             <pre>{{response | json}}</pre>
@@ -57,7 +59,7 @@
     <div class="span6">
         <h3>FS2 Repository Objects</h3>
 
-        <div ng-repeat="f in fs2ObjectList.response">
+        <div ng-repeat="f in fs2Objects">
 
             <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}">{{f["fs2-original-filename"]}}</a>
             &nbsp;|&nbsp

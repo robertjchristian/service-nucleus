@@ -54,9 +54,9 @@ myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function (
 myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTService, FS2ObjectPollerService) {
 
     // reference fs2 object service
-    $rootScope.fs2ObjectPollerService = FS2ObjectPollerService;
+    //$rootScope.fs2ObjectPollerService = FS2ObjectPollerService;
 
-    $rootScope.fs2ObjectList = $rootScope.fs2ObjectPollerService.data;
+    //$rootScope.fs2ObjectList = $rootScope.fs2ObjectPollerService.data;
 
     //console.log("foo:  " + $rootScope.fs2ObjectPollerService.data);
 

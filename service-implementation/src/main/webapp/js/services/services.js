@@ -57,6 +57,8 @@ myApp.factory('AuthService',
 );
 
 // TODO use websockets instead
+// TODO this quick polling blocks the rest of the app and causes funny
+// behavior, ie select file dialog and meta modal hang/cancel...
 myApp.factory('FS2ObjectPollerService', function($http, $timeout) {
 
     var url = 'rest/v1/fs2';
@@ -67,7 +69,8 @@ myApp.factory('FS2ObjectPollerService', function($http, $timeout) {
             data.response = r.data;
             console.log("Poll response:  " + r.data);
             data.calls++;
-            $timeout(poller, 5000);
+            // call explicitly instead of timing out   (due to bug explained above)
+            //$timeout(poller, 5000);
         });
     };
     poller();

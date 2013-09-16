@@ -285,10 +285,20 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
 
         // fs2
 
+        // TODO FS2 Todo...
+        // Move from playground out to main, reachable from top nav
+        // Remove mock meta in favor of form fields with add/delete, bound to meta model
+        // Move into own controller and directive file
+        // Change console log to "quick view"
+        // Show error as alert
+        // Show success as alert
+        // Put actions items in table (nggrid) with icons/hover for actions.
+        // Contrast REST api with S3
+
         $scope.fs2Objects = "";
 
-        $scope.fs2List = function () {
-            var url = '/hello-world/rest/v1/fs2/';
+        $scope.updateFS2RepoListing = function () {
+            var url = 'rest/v1/fs2/';
             console.log("calling fs2 list");
             return $http({method: 'GET', url: url})
                 .success(function (data, status, headers, config) {
@@ -301,10 +311,18 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
                 });
         }
 
+        // NOTE:  update on page load, and after create and delete activities
+        // note that updates from other clients will not show until this client
+        // refreshes or performs create/delete.  For auto update, we can use the
+        // polling service defined in services.js.  This is problematic however as
+        // polling comes with its own set of issues.  Ideally we' use websockets.
+        // Putting websockets on the roadmap.  For now, this should suffice.
+        $scope.updateFS2RepoListing();
+
         $scope.fs2Object = null;
 
         $scope.fs2Fetch = function(uri) {
-            var url = '/hello-world/rest/v1/fs2/';
+            var url = 'rest/v1/fs2/';
             console.log("calling fs2 fetch");
             var d = '{' + '\"uri\"' + ':' + "\'" + uri + "\'" + '}';
             return $http({method: 'POST', url: url, data: d})
@@ -352,7 +370,6 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
               'Content-Type': 'application/json;charset=utf-8'
             }
 
-
             return $http({
                 method: 'DELETE',
                 url: $scope.fs2ServiceUrl,
@@ -361,11 +378,14 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
                 success(function(data, status, headers, config) {
                     // this callback will be called asynchronously
                     // when the response is available
+                    $scope.updateFS2RepoListing();
                     console.log(data);
+
                 }).
                 error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
+                    $scope.updateFS2RepoListing();
                     alert("Error:  " + data);
                 });
         }
@@ -418,9 +438,12 @@ var playground = myApp.controller('PlaygroundCtrl', ['$scope', '$routeParams', '
                 }
             })
                 .success(function (data, status, headers, config) {
+                    $scope.updateFS2RepoListing();
                     $scope.response = data;
+
                 })
                 .error(function (data, status, headers, config) {
+                    $scope.updateFS2RepoListing();
                     $scope.response = data;
                 });
         }
