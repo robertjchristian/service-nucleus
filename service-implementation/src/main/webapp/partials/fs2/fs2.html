@@ -61,6 +61,10 @@
         <div class="span6">
             <h3>FS2 Repository Objects</h3>
 
+            <div ng-show="fs2RepoIsEmpty()">
+              No objects in the repository.
+            </div>
+
             <div ng-repeat="f in fs2Objects">
 
                 <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}">{{f["fs2-original-filename"]}}</a>

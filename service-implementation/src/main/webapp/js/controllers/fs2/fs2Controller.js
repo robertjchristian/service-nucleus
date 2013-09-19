@@ -11,7 +11,15 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
         // Put actions items in table (nggrid) with icons/hover for actions.
         // Contrast REST api with S3
 
-        $scope.fs2Objects = "";
+        $scope.fs2Objects = {};
+
+        $scope.fs2RepoIsEmpty = function () {
+            for(var prop in $scope.fs2Objects) {
+                if($scope.fs2Objects.hasOwnProperty(prop))
+                    return false;
+            }
+            return true;
+        }
 
         $scope.updateFS2RepoListing = function () {
             var url = 'rest/v1/fs2/';
