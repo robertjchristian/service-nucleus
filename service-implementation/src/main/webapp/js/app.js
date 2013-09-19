@@ -25,6 +25,12 @@ myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function (
     $routeProvider.when('/', {
         templateUrl:'partials/home.html'
     });
+
+    $routeProvider.when('/fs2', {
+        templateUrl:'partials/fs2/fs2.html',
+        controller: 'FS2Controller'
+    });
+
     $routeProvider.when('/contact', {
         templateUrl:'partials/contact.html'
     });
