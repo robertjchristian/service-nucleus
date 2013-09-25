@@ -130,16 +130,23 @@ public class FS2Resource {
                 u = CoreFS2Utils.appendLeaf(rootURI, requestedURI);
             }
 
+            // TODO this should be (a) guarded within the framework as "hasChildren" and (b)
+            // TODO guarded here with an exception instead of a test (REST "glue" should not
+            // TODO have smarts about inner workings of FS2 logic, ie cannot delete if has children
+            // TODO this is an unnecessary coupling...)
+            if (FS2.listChildren(u).size()>0) {
+                String msg = "Cannot delete " + u.toASCIIString() + " because it has descendants.";
+                return Response.status(Response.Status.CONFLICT).entity(msg).build();
+            }
+
             FS2.delete(u);
 
-            JSONObject response = new JSONObject();
-            response.put("Deleted: ", u);
-            return Response.ok(response.toString()).build();
-
+            String msg = "Successfully deleted " + u.toASCIIString();
+            return Response.status(Response.Status.ACCEPTED).entity(msg).build();
 
         } catch(Exception e) {
-            // TODO friendly error handling (TODO applies to entire resource)
-            throw new RuntimeException(e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e)
+                    .build();
         }
     }
 
@@ -186,13 +193,13 @@ public class FS2Resource {
             String fileName = bp.getFileName();
 
             if (null == fileName) {
-                throw new RuntimeException("Expected MultipartMime with a file part.  Mising filename.");
+                String msg = "Expected MultipartMime with a file part.  Missing filename.";
+                return Response.status(Response.Status.CONFLICT).entity(msg).build();
             }
 
             /*
             Create the FS2 object
              */
-
             // determine uri (determined by header, fallback to filename)
             String relativeUri = headers.getRequestHeaders().getFirst("fs2-uri");
             logger.error("Relative uri:  " + relativeUri);
@@ -204,8 +211,15 @@ public class FS2Resource {
 
             URI newURI = CoreFS2Utils.appendLeaf(rootURI, relativeUri);
 
-            object = FS2.createObjectEntry(newURI);
+            /*
+            Test for object already exists
+             */
+            if (FS2.exists(newURI)) {
+                String msg = "Object already exists at:  " + newURI.toASCIIString();
+                return Response.status(Response.Status.CONFLICT).entity(msg).build();
+            }
 
+            object = FS2.createObjectEntry(newURI);
 
             /*
             Copy payload (file) and metadata to FS2 object
@@ -225,13 +239,15 @@ public class FS2Resource {
                 }
 
             }
+
             // special header retaining filename (TODO: should model explicitly?)
             FS2.addHeader(object.getURI(), "fs2-original-filename", fileName);
 
-            return Response.ok("FS2 wrote " + object.getURI()).build();
+            return Response.ok("Successfully wrote " + object.getURI()).build();
 
         } catch (final Exception e) {
             logger.error(e.getLocalizedMessage());
+
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e)
                     .build();
         }
