@@ -68,15 +68,11 @@
 
             <div ng-repeat="f in fs2Objects">
 
-                <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}">{{f["fs2-original-filename"]}}</a>
+                <a href="#metaModal" data-toggle="modal"><i tooltip="Meta" class="icon-tags"></i></span></a>
                 &nbsp;|&nbsp
-                <a href="#metaModal" data-toggle="modal">meta</a>
+                <a ng-click="deleteFS2Object(f['fs2-uri'])"><i tooltip="Trash" class="icon-trash"></i></a>
                 &nbsp;|&nbsp
-                <a ng-click="deleteFS2Object(f['fs2-uri'])">delete</a>
-                &nbsp;|&nbsp
-                <a ng-click="fetchFS2Object(f['fs2-uri'])">console</a>
-                &nbsp;|&nbsp
-                URI: {{f["fs2-uri"]}}
+                <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}"><span tooltip="Download {{f['fs2-original-filename']}}">{{f["fs2-uri"]}}</span></a>
 
                 <div id="metaModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-header">

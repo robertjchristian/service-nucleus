@@ -2,6 +2,20 @@
 
 var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
 
+        // TODO isolate
+
+        // notification queue
+        $scope.notifications = [];
+
+        /*
+         * Display a notification message to user
+         */
+        var notify = function(type, text) {
+            $scope.notifications.push({"type": type, "text": text});
+            console.log("Added notification.  Notifications: " + $scope.notifications);
+        }
+
+
         // TODO FS2 Todo...
         // Remove mock meta in favor of form fields with add/delete, bound to meta model
         // Move into own controller and directive file
@@ -35,13 +49,7 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 });
         }
 
-        $scope.notifications = [
-            {"text": "foo", "type": "error" },
-            {"text": "foo", "type": "information" },
-            {"text": "foo", "type": "alert" },
-            {"text": "foo", "type": "warning" },
-            {"text": "foo", "type": "success" }
-        ]
+
 
         // NOTE:  update on page load, and after create and delete activities
         // note that updates from other clients will not show until this client
@@ -68,30 +76,13 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 });
         }
 
-// form validation and binding
-        $scope.master = "";
-
-        $scope.saveForm = function (user) {
-            console.log("User..." + $scope.user);
-            $scope.master = user;
-        }
-
-// carousel
-        $scope.slides = [
-            {"image": "http://cdn-static.zdnet.com/i/r/story/70/00/004209/original/raspberry-pi-supercomputer-1-620x465.jpg?hash=AQx4MwRjZG", "text": "foo", "active": true},
-            {"image": "http://www.rubberrepublic.com/wp-content/uploads/2011/09/lolcat-funny-picture-moderator1.jpg", "text": "bar", "active": false},
-            {"image": "http://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Composition_of_38th_Parliament.png/220px-Composition_of_38th_Parliament.png", "text": "moo", "active": false}
-        ]
-
-
-// FS2 service base url
+        // FS2 service base url
         $scope.fs2ServiceUrl = "rest/v1/fs2/";
 
-// FOR FS2 repo browsing
+        // FOR FS2 repo browsing
         $scope.fs2ExistingObjects = null;
 
-// FOR FS2 Delete Object
-
+        // FOR FS2 Delete Object
         $scope.deleteFS2Object = function (fs2Uri) {
 
             var requestBody = {"uri": fs2Uri};
@@ -111,20 +102,19 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                     // this callback will be called asynchronously
                     // when the response is available
                     $scope.updateFS2RepoListing();
-                    console.log(data);
-
+                    notify('success', data);
                 }).
                 error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     $scope.updateFS2RepoListing();
-                    alert("Error:  " + data);
+                    notify('error', data);
                 });
         }
 
 
-// FOR FS2 Fetch Object
-// Note this is ajax only so not available for file download via browser
+        // FOR FS2 Fetch Object
+        // Note this is ajax only so not available for file download via browser
         $scope.fetchFS2Object = function (fs2Uri) {
 
             var requestBody = {"uri": fs2Uri};
@@ -138,15 +128,20 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    alert("Error:  " + data);
+                     notify('error', data);
                 });
         }
 
-// FOR FS2 upload
+        // FOR FS2 upload
         $scope.fs2ObjectURI = '/foo/bar';
         $scope.fs2ObjectFile = null;
 
         $scope.upload = function (file, fs2ObjectURI) {
+
+            if (file == null) {
+                notify('error', 'Please select a file for upload.');
+                return;
+            }
 
             // build form data
             var formData = new FormData();
@@ -172,11 +167,13 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 .success(function (data, status, headers, config) {
                     $scope.updateFS2RepoListing();
                     $scope.response = data;
+                    notify('success', data);
 
                 })
                 .error(function (data, status, headers, config) {
                     $scope.updateFS2RepoListing();
                     $scope.response = data;
+                    notify('error', data);
                 });
         }
 

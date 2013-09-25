@@ -135,7 +135,7 @@
                 case 'bottomCenter':case 'bottomLeft' :case 'bottomRight':
                     //console.log("setting bottom margin");
                     this.$bar.css({
-                        marginBottom: "2em"
+                        marginBottom: "1.5em"
                     });
                     break;
                 default:
@@ -152,7 +152,7 @@
 					this.$buttons.css({borderTop: '1px solid #FFC237'}); break;
 				case 'error':
 
-                    this.$bar.css({backgroundColor: 'red', borderColor: 'darkred', color: '#FFF'});
+                    this.$bar.css({backgroundColor: 'red', borderColor: 'red', color: 'white'});
 
 					this.$message.css({fontWeight: 'bold'});
 					this.$buttons.css({borderTop: '1px solid darkred'}); break;

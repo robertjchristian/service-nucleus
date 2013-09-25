@@ -1,7 +1,5 @@
 'use strict';
 
-// todo rename to noty
-
 directives.directive('noty', function () {
 
     return {
@@ -19,9 +17,9 @@ directives.directive('noty', function () {
                     open: {height: 'toggle'},
                     close: {height: 'toggle'},
                     easing: 'swing',
-                    speed: 500 // opening & closing animation speed
+                    speed: 250 // opening & closing animation speed
                 },
-                timeout: 5000, // delay for closing event. Set false for sticky notifications
+                timeout: 143000, // delay for closing event. Set false for sticky notifications
                 force: false, // adds notification to the beginning of queue when set to true
                 modal: false,
                 maxVisible: 5, // you can set max visible notification for dismissQueue true option
@@ -42,7 +40,7 @@ directives.directive('noty', function () {
             opts.text = text;
             opts.type = type;
 
-            console.log("text: " + text + ", " + "type: " + type);
+            //console.log("text: " + text + ", " + "type: " + type);
 
             noty(opts);
         }
