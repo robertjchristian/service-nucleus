@@ -15,7 +15,6 @@
 <div class="container">
     <div class="row">
 
-
         <div class="span6">
 
             <h3>Create new FS2 Object</h3>
@@ -52,11 +51,13 @@
             -->
 
             <div class="pad-bottom">
-                <a class="btn btn-primary" ng-click="upload(fs2ObjectFile, fs2ObjectURI)"
+                <a class="btn btn-primary" ng-click="upload(fs2ObjectFile, fs2ObjectURI);"
                    ng-disabled="fs2UploadForm.$invalid">Upload</a>
             </div>
         </div>
 
+        <!-- Notifications -->
+        <div noty ng-repeat="n in notifications" />
 
         <div class="span6">
             <h3>FS2 Repository Objects</h3>

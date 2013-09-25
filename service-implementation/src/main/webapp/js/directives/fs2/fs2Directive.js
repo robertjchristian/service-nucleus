@@ -1,3 +1,5 @@
+'use strict';
+
 directives.directive('fileUpload', function () {
     return function( scope, element, attrs) {
         element.bind('change', function(event) {

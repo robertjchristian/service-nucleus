@@ -35,6 +35,14 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 });
         }
 
+        $scope.notifications = [
+            {"text": "foo", "type": "error" },
+            {"text": "foo", "type": "information" },
+            {"text": "foo", "type": "alert" },
+            {"text": "foo", "type": "warning" },
+            {"text": "foo", "type": "success" }
+        ]
+
         // NOTE:  update on page load, and after create and delete activities
         // note that updates from other clients will not show until this client
         // refreshes or performs create/delete.  For auto update, we can use the
@@ -174,3 +182,4 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
 
     }])
     ;
+
