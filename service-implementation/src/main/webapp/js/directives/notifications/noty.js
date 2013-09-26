@@ -19,7 +19,7 @@ directives.directive('noty', function () {
                     easing: 'swing',
                     speed: 250 // opening & closing animation speed
                 },
-                timeout: 143000, // delay for closing event. Set false for sticky notifications
+                timeout: 3000, // delay for closing event. Set false for sticky notifications
                 force: false, // adds notification to the beginning of queue when set to true
                 modal: false,
                 maxVisible: 5, // you can set max visible notification for dismissQueue true option
@@ -34,11 +34,14 @@ directives.directive('noty', function () {
             };
 
             var index = scope.$index;
-            var text = scope.notifications[index]['text'];
-            var type = scope.notifications[index]['type'];
+            var notification = scope.notifications[index];
+            var text = notification['text'];
+            var type = notification['type'];
 
-            opts.text = text;
+            opts.text = index + ":" + text;
             opts.type = type;
+
+            notification['processed'] = true;
 
             //console.log("text: " + text + ", " + "type: " + type);
 
