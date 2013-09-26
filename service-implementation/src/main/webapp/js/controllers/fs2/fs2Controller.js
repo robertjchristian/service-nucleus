@@ -1,49 +1,9 @@
 'use strict'
 
-var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams', '$http', '$timeout', function ($scope, $routeParams, $http, $timeout) {
+var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
 
-
-        // notification queue
-
-        $scope.notifications = [];
-
-        // TODO this needs to be reworked....
-        // TODO timer is not a very elegant solution here...
-        // but need to clean up the model (the directive marks processed when noty is called)
-        var clearNotifications = function () {
-
-            for (var i=0; i < $scope.notifications.length; i++) {
-                if($scope.notifications[i].processed == true) {
-                    //console.log($scope.notifications[i].processed);
-                    $scope.notifications = $scope.notifications.splice(i, 0);
-                    i = i + 1;
-                    continue;
-                }
-            }
-
-            //console.log("Number of notifications:  " + $scope.notifications.length);
-
-            $timeout(clearNotifications, 5000);
-        }
-
-        clearNotifications();
-
-        /*
-         * Display a notification message to user
-         */
-        var notify = function(type, text) {
-            $scope.notifications.push({"type": type, "text": text});
-            console.log("Added notification.  Notifications: " + $scope.notifications['processed']);
-        }
-
-
-        // TODO FS2 Todo...
-        // Remove mock meta in favor of form fields with add/delete, bound to meta model
-        // Move into own controller and directive file
-        // Change console log to "quick view"
-        // enumerate types... on error show longer than default of 3 seconds
-        // Put actions items in table (nggrid) with icons/hover for actions.
-        // Contrast REST api with S3
+        // instantiate and initialize a notification manager
+        var notifier = new NotificationManager($scope);
 
         $scope.fs2Objects = {};
 
@@ -55,21 +15,19 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
             return true;
         }
 
-
         $scope.updateFS2RepoListing = function () {
             var url = 'rest/v1/fs2/';
             console.log("calling fs2 list");
             return $http({method: 'GET', url: url})
                 .success(function (data, status, headers, config) {
-                    console.log(data);
+                    //console.log(data);
                     $scope.fs2Objects = data;
                 })
                 .error(function (data, status, headers, config) {
-                    console.log(data);
+                    //console.log(data);
                     $scope.fs2Objects = data;
                 });
         }
-
 
 
         // NOTE:  update on page load, and after create and delete activities
@@ -88,11 +46,11 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
             var d = '{' + '\"uri\"' + ':' + "\'" + uri + "\'" + '}';
             return $http({method: 'POST', url: url, data: d})
                 .success(function (data, status, headers, config) {
-                    console.log(data);
+                    //console.log(data);
                     $scope.fs2Object = data;
                 })
                 .error(function (data, status, headers, config) {
-                    console.log(data);
+                    //console.log(data);
                     $scope.fs2Object = data;
                 });
         }
@@ -123,13 +81,13 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                     // this callback will be called asynchronously
                     // when the response is available
                     $scope.updateFS2RepoListing();
-                    notify('success', data);
+                    notifier.notify('success', data);
                 }).
                 error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     $scope.updateFS2RepoListing();
-                    notify('error', data);
+                    notifier.notify('error', data);
                 });
         }
 
@@ -149,7 +107,7 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                     notify('error', data);
+                     notifier.notify('error', data);
                 });
         }
 
@@ -160,7 +118,7 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
         $scope.upload = function (file, fs2ObjectURI) {
 
             if (file == null) {
-                notify('error', 'Please select a file for upload.');
+                notifier.notify('error', 'Please select a file for upload.');
                 return;
             }
 
@@ -169,6 +127,8 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
             formData.append("file", file[0]);
 
             // build http request headers
+            // TODO create a meta model and bind to form...
+            // TODO and use this instead of hard coding meta below
             var headers = {
                 "Content-Type": undefined,
                 "fs2-uri": fs2ObjectURI,
@@ -188,13 +148,13 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
                 .success(function (data, status, headers, config) {
                     $scope.updateFS2RepoListing();
                     $scope.response = data;
-                    notify('success', data);
+                    notifier.notify('success', data);
 
                 })
                 .error(function (data, status, headers, config) {
                     $scope.updateFS2RepoListing();
                     $scope.response = data;
-                    notify('error', data);
+                    notifier.notify('error', data);
                 });
         }
 

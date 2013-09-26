@@ -127,6 +127,4 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
     ];
 
 
-
-
 });
