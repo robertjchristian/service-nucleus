@@ -1,18 +1,39 @@
 'use strict'
 
-var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
+var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams', '$http', '$timeout', function ($scope, $routeParams, $http, $timeout) {
 
-        // TODO isolate
 
         // notification queue
+
         $scope.notifications = [];
+
+        // TODO this needs to be reworked....
+        // TODO timer is not a very elegant solution here...
+        // but need to clean up the model (the directive marks processed when noty is called)
+        var clearNotifications = function () {
+
+            for (var i=0; i < $scope.notifications.length; i++) {
+                if($scope.notifications[i].processed == true) {
+                    //console.log($scope.notifications[i].processed);
+                    $scope.notifications = $scope.notifications.splice(i, 0);
+                    i = i + 1;
+                    continue;
+                }
+            }
+
+            //console.log("Number of notifications:  " + $scope.notifications.length);
+
+            $timeout(clearNotifications, 5000);
+        }
+
+        clearNotifications();
 
         /*
          * Display a notification message to user
          */
         var notify = function(type, text) {
             $scope.notifications.push({"type": type, "text": text});
-            console.log("Added notification.  Notifications: " + $scope.notifications);
+            console.log("Added notification.  Notifications: " + $scope.notifications['processed']);
         }
 
 
@@ -20,8 +41,7 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
         // Remove mock meta in favor of form fields with add/delete, bound to meta model
         // Move into own controller and directive file
         // Change console log to "quick view"
-        // Show error as alert
-        // Show success as alert
+        // enumerate types... on error show longer than default of 3 seconds
         // Put actions items in table (nggrid) with icons/hover for actions.
         // Contrast REST api with S3
 
@@ -34,6 +54,7 @@ var fs2Controller = myApp.controller('FS2Controller', ['$scope', '$routeParams',
             }
             return true;
         }
+
 
         $scope.updateFS2RepoListing = function () {
             var url = 'rest/v1/fs2/';

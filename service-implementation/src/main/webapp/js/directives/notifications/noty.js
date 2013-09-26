@@ -38,7 +38,7 @@ directives.directive('noty', function () {
             var text = notification['text'];
             var type = notification['type'];
 
-            opts.text = index + ":" + text;
+            opts.text = text;
             opts.type = type;
 
             notification['processed'] = true;
