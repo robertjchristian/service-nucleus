@@ -1,151 +1,155 @@
-<!-- add navbar-inverse class for black/google-like bar -->
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar navbar-fixed-top" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Service Nucleus</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+        </button>
+    </div>
 
-            <a class="brand" href="#">Service Nucleus</a>
 
-            <div class="nav-collapse collapse">
+    <div class="navbar-collapse collapse">
 
-                <ul class="nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-th icon-white"></i>
-                            Dynamic Services
-                            <b class="caret"></b>
-                        </a>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-th glyphicon-white"></i>
+                    Dynamic Services
+                    <b class="caret"></b>
+                </a>
 
-                        <ul class="dropdown-menu">
+                <ul class="dropdown-menu">
+                    <li><a href="dyn">Landing page</a></li>
 
-                            <li><a href="dyn">Landing page</a></li>
-
-                        </ul>
-
-                    </li>
                 </ul>
 
+            </li>
+        </ul>
 
-                <ul class="nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-th icon-white"></i>
-                            REST
-                            <b class="caret"></b>
-                        </a>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-th glyphicon-white"></i>
+                    REST
+                    <b class="caret"></b>
+                </a>
 
-                        <ul class="dropdown-menu">
-                            <li class="nav-header">Examples</li>
-                            <li><a href="rest/v1/hello/to/me">GET Hello World {name}</a></li>
+                <ul class="dropdown-menu">
+                    <li class="nav-header">Examples</li>
+                    <li><a href="rest/v1/hello/to/me">GET Hello World {name}</a></li>
 
-                        </ul>
-
-                    </li>
                 </ul>
 
-                <ul class="nav">
+            </li>
+        </ul>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-gift icon-white"></i>
-                            Components
-                            <b class="caret"></b>
-                        </a>
 
-                        <ul class="dropdown-menu">
-                            <!--<li><a href="#/playground/angularstrap">AngularStrap</a></li>-->
-                            <li><a href="#/playground/accordion">Accordion</a></li>
-                            <li><a href="#/playground/ace">Ace Editor</a></li>
-                            <li><a href="#/playground/alerts">Alerts</a></li>
-                            <li><a href="#/playground/buttons">Buttons</a></li>
-                            <!--<li><a href="#/playground/carousel">Carousel</a></li>-->
-                            <li><a href="#/playground/codec">Codec Service</a></li>
-                            <li><a href="#/playground/configure">Configuration</a></li>
-                            <li><a href="#/playground/date">Date</a></li>
-                            <li><a href="#/playground/datagrid">Data grid</a></li>
+        <ul class="nav navbar-nav">
 
-                            <li><a href="#/playground/modal">Modal</a></li>
-                            <li><a href="#/playground/pagination">Pagination</a></li>
-                            <li><a href="#/playground/portlet">Portlet</a></li>
-                            <li><a href="#/playground/progress">Progress bars</a></li>
-                            <li><a href="#/playground/retro">Retro</a></li>
-                            <li><a href="#/playground/tabs">Tabs</a></li>
-                            <li><a href="#/playground/tooltips">Tooltips</a></li>
-                            <li><a href="#/playground/tree">Tree</a></li>
-                        </ul>
-                    </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon glyphicon-gift glyphicon-white"></i>
+                    Components
+                    <b class="caret"></b>
+                </a>
 
-                    <li><a href="#/fs2">FS2</a></li>
+                <ul class="dropdown-menu">
+                    <!--<li><a href="#/playground/angularstrap">AngularStrap</a></li>-->
+                    <li><a href="#/playground/accordion">Accordion</a></li>
+                    <li><a href="#/playground/ace">Ace Editor</a></li>
+                    <li><a href="#/playground/alerts">Alerts</a></li>
+                    <li><a href="#/playground/buttons">Buttons</a></li>
+                    <!--<li><a href="#/playground/carousel">Carousel</a></li>-->
+                    <li><a href="#/playground/codec">Codec Service</a></li>
+                    <li><a href="#/playground/configure">Configuration</a></li>
+                    <li><a href="#/playground/date">Date</a></li>
+                    <li><a href="#/playground/datagrid">Data grid</a></li>
 
-                    <li><a href="#/faq">FAQ</a></li>
+                    <li><a href="#/playground/modal">Modal</a></li>
+                    <li><a href="#/playground/pagination">Pagination</a></li>
+                    <li><a href="#/playground/portlet">Portlet</a></li>
+                    <li><a href="#/playground/progress">Progress bars</a></li>
+                    <li><a href="#/playground/retro">Retro</a></li>
+                    <li><a href="#/playground/tabs">Tabs</a></li>
+                    <li><a href="#/playground/tooltips">Tooltips</a></li>
+                    <li><a href="#/playground/tree">Tree</a></li>
+                </ul>
+            </li>
 
-                    <li ng-controller="InboxCtrl" ng-show="authService.isLoggedIn()" class="dropdown">
+            <li><a href="#/fs2">FS2</a></li>
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <li><a href="#/faq">FAQ</a></li>
+
+            <li ng-controller="InboxCtrl" ng-show="authService.isLoggedIn()" class="dropdown">
+
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
                             <span>
-                              <i class="icon-envelope icon-white"></i>&nbsp;{{recentMail.length}}
+                              <i class="glyphicon glyphicon-envelope glyphicon-white"></i>&nbsp;{{recentMail.length}}
                             </span>
 
-                            <b class="caret"></b>
+                    <b class="caret"></b>
 
-                        </a>
+                </a>
 
-                        <!-- TODO mail should be managed as a service -->
-                        <ul class="dropdown-menu">
-                            <div ng-include="'partials/mail-subsections.html'"></div>
-                        </ul>
-                    </li>
-
-                    <li ng-show="authService.isLoggedIn()" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-user icon-white"></i>
-                            
-                            <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li><a href="#/">User Profile</a></li>
-                            <li><a href="#/">Change password</a></li>
-                        </ul>
-                    </li>
-
+                <!-- TODO mail should be managed as a service -->
+                <ul class="dropdown-menu">
+                    <div ng-include="'partials/mail-subsections.html'"></div>
                 </ul>
-                <div class="nav navbar-form pull-right">
-                    <div ng-show="!authService.isLoggedIn()">
-                        <a href="#loginModal" role="button" class="btn btn-primary" data-toggle="modal">
-                            <i class="icon-user icon-white"></i> Sign in</a>
-                    </div>
-                    <div ng-show="authService.isLoggedIn()">
-                        <a class="btn btn-primary" ng-click="authService.logout()">
-                            <i class="icon-off icon-white"></i> Sign out</a>
-                    </div>
-                </div>
+            </li>
+
+            <li ng-show="authService.isLoggedIn()" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user glyphicon-white"></i>
+
+                    <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a href="#/">User Profile</a></li>
+                    <li><a href="#/">Change password</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <div class="nav navbar-form pull-right">
+            <div ng-show="!authService.isLoggedIn()">
+                <a href="#loginModal" role="button" class="btn btn-primary" data-toggle="modal">
+                    <i class="glyphicon glyphicon-user glyphicon-white"></i> Sign in</a>
+            </div>
+            <div ng-show="authService.isLoggedIn()">
+                <a class="btn btn-primary" ng-click="authService.logout()">
+                    <i class="glyphicon glyphicon-off glyphicon-white"></i> Sign out</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="modal fade-in" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Login</h4>
+            </div>
+            <div class="modal-body">
+                <span id="login-email">Email</span>
+                <input ng-model="loginInput" type="text" placeholder="Email" name='username'>
+                <span id="login-password">Password</span>
+                <a href="#">Forgot password?</a>
+                <input ng-model="passwordInput" type="password" placeholder="Password" name='password'>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" data-dismiss="modal" ng-click="authService.login(loginInput, passwordInput)"> <i
+                        class="glyphicon glyphicon-user glyphicon-white"></i>Log in</a>
             </div>
         </div>
     </div>
 </div>
-
-<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Login</h3>
-    </div>
-    <form class="modal-body">
-        <span id="myModalLabel">Email</span>
-        <input ng-model="loginInput" type="text" placeholder="Email" name='username'>
-        <span id="password">Password</span>
-        <a href="#">Forgot password?</a>
-        <input ng-model="passwordInput" type="password" placeholder="Password" name='password'>
-    </form>
-    <div class="modal-footer">
-        <a class="btn btn-primary" data-dismiss="modal" ng-click="authService.login(loginInput, passwordInput)"> <i
-                class="icon-user icon-white"></i>Log in</a>
-    </div>
-</div>
-
-
