@@ -43,7 +43,6 @@
             </li>
         </ul>
 
-
         <ul class="nav navbar-nav">
 
             <li class="dropdown">
@@ -77,26 +76,6 @@
             </li>
 
             <li><a href="#/fs2">FS2</a></li>
-
-            <li><a href="#/faq">FAQ</a></li>
-
-            <li ng-controller="InboxCtrl" ng-show="authService.isLoggedIn()" class="dropdown">
-
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                            <span>
-                              <i class="glyphicon glyphicon-envelope glyphicon-white"></i>&nbsp;{{recentMail.length}}
-                            </span>
-
-                    <b class="caret"></b>
-
-                </a>
-
-                <!-- TODO mail should be managed as a service -->
-                <ul class="dropdown-menu">
-                    <div ng-include="'partials/mail-subsections.html'"></div>
-                </ul>
-            </li>
 
             <li ng-show="authService.isLoggedIn()" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -27,7 +27,7 @@
                 <div class="form-row">
                     <div>Relative FS2 URI</div>
                     <div>
-                        <input type="text" ng-model="fs2ObjectURI" required/>
+                        <input class="form-control" type="text" ng-model="fs2ObjectURI" required/>
                     </div>
                 </div>
 
@@ -40,16 +40,6 @@
 
 
             </form>
-
-            <!--
-            <pre>uri = {{fs2ObjectURI}}</pre>
-            <pre>file = {{fs2ObjectFile | json}}</pre>
-
-
-            <div ng-show="response != null">
-                <pre>{{response | json}}</pre>
-            </div>
-            -->
 
             <div class="pad-bottom">
                 <a class="btn btn-primary" ng-click="upload(fs2ObjectFile, fs2ObjectURI);"
