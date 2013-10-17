@@ -24,19 +24,19 @@
                   enctype="multipart/form-data" class="form-group">
 
 
-                    <div class="form-row">
-                        <div>Relative FS2 URI</div>
-                        <div>
-                            <input type="text" ng-model="fs2ObjectURI" required/>
-                        </div>
+                <div class="form-row">
+                    <div>Relative FS2 URI</div>
+                    <div>
+                        <input type="text" ng-model="fs2ObjectURI" required/>
                     </div>
+                </div>
 
-                    <div class="form-row">
-                        <div>Upload</div>
-                        <div class="input-append">
-                            <input type="file" name="fs2ObjectFile" size="30" file-upload required/>
-                        </div>
+                <div class="form-row">
+                    <div>Upload</div>
+                    <div class="input-append">
+                        <input type="file" name="fs2ObjectFile" size="30" file-upload required/>
                     </div>
+                </div>
 
 
             </form>
@@ -58,22 +58,25 @@
         </div>
 
         <!-- Notifications -->
-        <div noty ng-repeat="n in notifications" />
+        <div noty ng-repeat="n in notifications"/>
 
         <div class="col-md-5">
             <h3>FS2 Repository Objects</h3>
 
             <div ng-show="fs2RepoIsEmpty()">
-              No objects in the repository.
+                No objects in the repository.
             </div>
 
             <div ng-repeat="f in fs2Objects">
 
-                <a href="#metaModal" data-toggle="modal"><i tooltip="Meta" class="glyphicon glyphicon-tags"></i></span></a>
+                <a href="#metaModal" data-toggle="modal"><i tooltip="Meta" class="glyphicon glyphicon-tags"></i></span>
+                </a>
                 &nbsp;|&nbsp
-                <a ng-click="deleteFS2Object(f['fs2-uri'])"><i tooltip="Trash" class="glyphicon glyphicon-trash"></i></a>
+                <a ng-click="deleteFS2Object(f['fs2-uri'])"><i tooltip="Trash"
+                                                               class="glyphicon glyphicon-trash"></i></a>
                 &nbsp;|&nbsp
-                <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}"><span tooltip="Download {{f['fs2-original-filename']}}">{{f["fs2-uri"]}}</span></a>
+                <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}"><span
+                        tooltip="Download {{f['fs2-original-filename']}}">{{f["fs2-uri"]}}</span></a>
 
                 <div class="modal" id="metaModal">
                     <div class="modal-dialog">
