@@ -4,9 +4,11 @@
     }
 </style>
 
-<div class="container">
+<div class="container fade-in">
 
-    <div class="row span3">
+    <div class="row">
+
+    <div class="col-md-1">
         <h4>XML</h4>
         <div ui-ace="{onLoad : loadAceXMLExample,
           theme : 'chaos',
@@ -16,7 +18,7 @@
         }" />
     </div>
 
-    <div class="row span3">
+    <div class="col-md-1">
         <h4>Javascript</h4>
         <div ui-ace="{onLoad : loadAceJSONExample,
           onChange : aceJSExampleChanged,
@@ -27,7 +29,7 @@
         }" />
     </div>
 
-    <div class="row span3">
+    <div class="col-md-1">
         <h4>JSON</h4>
         <div ui-ace="{onLoad : loadAceJSExample,
           theme : 'chaos',
@@ -37,7 +39,9 @@
         }" />
     </div>
 
-    <div class="row span3">
+     </div>
+
+    <div class="row col-md-1">
         <h4>Python</h4>
         <div ui-ace="{onLoad : loadAcePythonExample,
           theme : 'chaos',
@@ -47,7 +51,7 @@
         }" />
     </div>
 
-    <div class="row span6">
+    <div class="row col-md-1">
         <h4>Java</h4>
         <div ui-ace="{onLoad : loadAceJavaExample,
           theme : 'chaos',

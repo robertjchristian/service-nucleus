@@ -9,20 +9,20 @@
 <div>
 
     <div class="row codec-example">
-        <div class="span4">
+        <div class="col-md-1">
             <strong>Input:</strong>&nbsp;&nbsp;&nbsp;<input ng-model="input" type="text">
         </div>
 
-        <div class="span2">
+        <div class="col-md-1">
             <a ng-click="encode(input)" class="btn btn-primary">Base64 Encode</a>
         </div>
-        <div class="span2">
+        <div class="col-md-1">
             <a ng-click="decode(input)" class="btn btn-primary">Base64 Decode</a>
         </div>
     </div>
 
     <div class="row codec-example">
-        <div class="span4">
+        <div class="col-md-1">
             <strong>Output:</strong>&nbsp;&nbsp;&nbsp;<div ng-class="{'text-error': codecError}">{{codecOutput}}</div>
         </div>
     </div>

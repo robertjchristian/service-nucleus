@@ -20,6 +20,7 @@
 # build bootstrap to target folder "bootstrap"
 npm install
 rm -i -r -f dist
+mkdir dist
 grunt dist
 
 # copy built css to app destination

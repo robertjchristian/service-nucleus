@@ -12,32 +12,33 @@
     }
 </style>
 
-<div class="container">
+<div class="container" fade-in>
+
     <div class="row">
 
-        <div class="span6">
+        <div class="col-md-5">
 
             <h3>Create new FS2 Object</h3>
 
-            <form name="fs2UploadForm" method="post" novalidate class="container css-form"
-                  enctype="multipart/form-data">
+            <form name="fs2UploadForm" method="post" novalidate
+                  enctype="multipart/form-data" class="form-group">
 
-                <div>
-                    <div class="container form-row">
+
+                    <div class="form-row">
                         <div>Relative FS2 URI</div>
                         <div>
                             <input type="text" ng-model="fs2ObjectURI" required/>
                         </div>
                     </div>
 
-                    <div class="container form-row">
+                    <div class="form-row">
                         <div>Upload</div>
                         <div class="input-append">
                             <input type="file" name="fs2ObjectFile" size="30" file-upload required/>
                         </div>
                     </div>
 
-                </div>
+
             </form>
 
             <!--
@@ -59,7 +60,7 @@
         <!-- Notifications -->
         <div noty ng-repeat="n in notifications" />
 
-        <div class="span6">
+        <div class="col-md-5">
             <h3>FS2 Repository Objects</h3>
 
             <div ng-show="fs2RepoIsEmpty()">
@@ -68,24 +69,30 @@
 
             <div ng-repeat="f in fs2Objects">
 
-                <a href="#metaModal" data-toggle="modal"><i tooltip="Meta" class="icon-tags"></i></span></a>
+                <a href="#metaModal" data-toggle="modal"><i tooltip="Meta" class="glyphicon glyphicon-tags"></i></span></a>
                 &nbsp;|&nbsp
-                <a ng-click="deleteFS2Object(f['fs2-uri'])"><i tooltip="Trash" class="icon-trash"></i></a>
+                <a ng-click="deleteFS2Object(f['fs2-uri'])"><i tooltip="Trash" class="glyphicon glyphicon-trash"></i></a>
                 &nbsp;|&nbsp
                 <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}"><span tooltip="Download {{f['fs2-original-filename']}}">{{f["fs2-uri"]}}</span></a>
 
-                <div id="metaModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="myModalLabel">Meta</h3>
-                    </div>
-                    <div class="modal-body">
-                        <pre>{{f | json}}</pre>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-primary" data-dismiss="modal">Okay</a>
+                <div class="modal" id="metaModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Meta</h3>
+                            </div>
+                            <div class="modal-body">
+                                <pre>{{f | json}}</pre>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary" data-dismiss="modal">Okay</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
 
         </div>
