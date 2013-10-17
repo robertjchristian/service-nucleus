@@ -14,6 +14,15 @@
 
 <div class="container" fade-in>
 
+
+    <div class="page-header">
+        <h1>Flexible Storage System (FS2)</h1><h4>Store your data anywhere, and move it at any time, with no client code impact.</h4><p style="padding-top: 1em;">FS2 allows you to manage arbitrary data objects using familiar operations like create, read, update, and delete. Using a simple interface that abstracts the underlying persistence details, applications can interact with their data in a way similar to using a terminal to interact with a local filesystem. Behind the curtains, a storage provider does the heavy lifting, be it integrating with a cloud storage provider like Google Cloud Storage or Amazon S3, a Mongo NoSQL database, a fileshare, or even MemCache... <a href="http://robertjchristian.github.io/fs2/">more.</a></p>
+    </div>
+
+    <div class="alert alert-info">
+        Example usage of the FS2 API can be found within the Service Nucleus, in the Jersey-based "FS2Resource" class.  FS2Resource instantiates a File-based FS2 instance and exposes CRUD functionality via REST.  This UI simply exercises that REST interface.
+    </div>
+
     <div class="row">
 
         <div class="col-md-5">

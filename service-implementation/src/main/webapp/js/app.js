@@ -57,14 +57,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$httpProvider', function (
 }]);
 
 // this is run after angular is instantiated and bootstrapped
-myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTService, FS2ObjectPollerService) {
-
-    // reference fs2 object service
-    //$rootScope.fs2ObjectPollerService = FS2ObjectPollerService;
-
-    //$rootScope.fs2ObjectList = $rootScope.fs2ObjectPollerService.data;
-
-    //console.log("foo:  " + $rootScope.fs2ObjectPollerService.data);
+myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTService) {
 
     // *****
     // Eager load some data using simple REST client
