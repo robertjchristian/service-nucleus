@@ -31,7 +31,7 @@
 				height: '100%',
 				backgroundColor: '#000',
 				zIndex: 10000,
-				opacity: 0.6,
+				opacity: 1,
 				display: 'none',
 				left: 0,
 				top: 0
@@ -135,7 +135,7 @@
                 case 'bottomCenter':case 'bottomLeft' :case 'bottomRight':
                     //console.log("setting bottom margin");
                     this.$bar.css({
-                        marginBottom: "1.5em"
+                        marginBottom: "2em"
                     });
                     break;
                 default:
