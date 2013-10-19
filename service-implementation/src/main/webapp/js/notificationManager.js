@@ -13,7 +13,7 @@
 var NotificationManager = function(scope) {
 
     // notification queue
-    scope.notifications = [];  // WARN:  Don't change this name.
+    scope.notifications = [];  // WARN:  Don't change this variable name, it's coupled to scope and outside of this function.
 
     // remove processed notifications
     this.sweepNotifications = function () {

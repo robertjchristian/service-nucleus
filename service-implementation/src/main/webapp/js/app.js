@@ -79,15 +79,14 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
         }
     );
 
-
     // *****
     // Initialize authentication
     // *****
     $rootScope.authService = AuthService;
 
     // text input for login/password (only)
-    $rootScope.loginInput = 'git@github.com';
-    $rootScope.passwordInput = 'git';
+    $rootScope.loginInput = 'user@gmail.com';
+    $rootScope.passwordInput = 'complexpassword';
 
     $rootScope.$watch('authService.authorized()', function () {
 
@@ -97,14 +96,19 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
             return;
         }
 
+        // instantiate and initialize an auth notification manager
+        $rootScope.authNotifier = new NotificationManager($rootScope);
+
         // when user logs in, redirect to home
         if ($rootScope.authService.authorized()) {
             $location.path("/");
+            $rootScope.authNotifier.notify('success', 'Welcome ' + $rootScope.authService.currentUser() + "!");
         }
 
         // when user logs out, redirect to home
         if (!$rootScope.authService.authorized()) {
             $location.path("/");
+            $rootScope.authNotifier.notify('success', 'Thanks for visiting.');
         }
 
     }, true);
