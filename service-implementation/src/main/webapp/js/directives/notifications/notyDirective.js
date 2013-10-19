@@ -43,12 +43,10 @@ directives.directive('noty', function () {
 
             // errors persist on screen longer
             if (type == 'error') {
-                opts.timeout = 5500;
+                opts.timeout = 55000;
             }
 
             notification['processed'] = true;
-
-            //console.log("text: " + text + ", " + "type: " + type);
 
             noty(opts);
         }

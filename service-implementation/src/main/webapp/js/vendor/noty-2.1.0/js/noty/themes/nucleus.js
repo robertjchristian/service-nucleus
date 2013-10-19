@@ -4,24 +4,7 @@
 		name: 'nucleusTheme',
 		helpers: {
 			borderFix: function() {
-				if (this.options.dismissQueue) {
-					var selector = this.options.layout.container.selector + ' ' + this.options.layout.parent.selector;
-					switch (this.options.layout.name) {
-						case 'top':
-							$(selector).css({borderRadius: '0px 0px 0px 0px'});
-							$(selector).last().css({borderRadius: '0px 0px 5px 5px'}); break;
-						case 'topCenter': case 'topLeft': case 'topRight':
-						case 'bottomCenter': case 'bottomLeft': case 'bottomRight':
-						case 'center': case 'centerLeft': case 'centerRight': case 'inline':
-							$(selector).css({borderRadius: '0px 0px 0px 0px'});
-							$(selector).first().css({'border-top-left-radius': '5px', 'border-top-right-radius': '5px'});
-							$(selector).last().css({'border-bottom-left-radius': '5px', 'border-bottom-right-radius': '5px'}); break;
-						case 'bottom':
-							$(selector).css({borderRadius: '0px 0px 0px 0px'});
-							$(selector).first().css({borderRadius: '5px 5px 0px 0px'}); break;
-						default: break;
-					}
-				}
+				// removed... don't override styles
 			}
 		},
 		modal: {
@@ -39,10 +22,11 @@
 		},
 		style: function() {
 
-			this.$bar.css({
-				overflow: 'hidden',
-				background: "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAoCAYAAAAPOoFWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPZJREFUeNq81tsOgjAMANB2ov7/7ypaN7IlIwi9rGuT8QSc9EIDAsAznxvY4pXPKr05RUE5MEVB+TyWfCEl9LZApYopCmo9C4FKSMtYoI8Bwv79aQJU4l6hXXCZrQbokJEksxHo9KMOgc6w1atHXM8K9DVC7FQnJ0i8iK3QooGgbnyKgMDygBWyYFZoqx4qS27KqLZJjA1D0jK6QJcYEQEiWv9PGkTsbqxQ8oT+ZtZB6AkdsJnQDnMoHXHLGKOgDYuCWmYhEERCI5gaamW0bnHdA3k2ltlIN+2qKRyCND0bhqSYCyTB3CAOc4WusBEIpkeBuPgJMAAX8Hs1NfqHRgAAAABJRU5ErkJggg==') repeat-x scroll left top #fff"
-			});
+            // Remove ugly striping
+			//this.$bar.css({
+				//overflow: 'hidden',
+				//background: "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAoCAYAAAAPOoFWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPZJREFUeNq81tsOgjAMANB2ov7/7ypaN7IlIwi9rGuT8QSc9EIDAsAznxvY4pXPKr05RUE5MEVB+TyWfCEl9LZApYopCmo9C4FKSMtYoI8Bwv79aQJU4l6hXXCZrQbokJEksxHo9KMOgc6w1atHXM8K9DVC7FQnJ0i8iK3QooGgbnyKgMDygBWyYFZoqx4qS27KqLZJjA1D0jK6QJcYEQEiWv9PGkTsbqxQ8oT+ZtZB6AkdsJnQDnMoHXHLGKOgDYuCWmYhEERCI5gaamW0bnHdA3k2ltlIN+2qKRyCND0bhqSYCyTB3CAOc4WusBEIpkeBuPgJMAAX8Hs1NfqHRgAAAABJRU5ErkJggg==') repeat-x scroll left top #fff"
+			//});
 
 			this.$message.css({
 				fontSize: '13px',
@@ -108,7 +92,7 @@
 						border: '1px solid #eee',
 						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
 					});
-					this.$message.css({fontSize: '13px', textAlign: 'left'});
+					this.$message.css({fontSize: '13px', textAlign: 'center'});
 				break;
                 case 'bottom':
 					this.$bar.css({
@@ -135,7 +119,7 @@
                 case 'bottomCenter':case 'bottomLeft' :case 'bottomRight':
                     //console.log("setting bottom margin");
                     this.$bar.css({
-                        marginBottom: "2em"
+                      marginBottom: "2em"
                     });
                     break;
                 default:

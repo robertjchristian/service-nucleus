@@ -102,13 +102,13 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
         // when user logs in, redirect to home
         if ($rootScope.authService.authorized()) {
             $location.path("/");
-            $rootScope.authNotifier.notify('success', 'Welcome ' + $rootScope.authService.currentUser() + "!");
+            $rootScope.authNotifier.notify('information', 'Welcome ' + $rootScope.authService.currentUser() + "!");
         }
 
         // when user logs out, redirect to home
         if (!$rootScope.authService.authorized()) {
             $location.path("/");
-            $rootScope.authNotifier.notify('success', 'Thanks for visiting.');
+            $rootScope.authNotifier.notify('information', 'Thanks for visiting.  You have been signed out.');
         }
 
     }, true);
