@@ -26,13 +26,26 @@ Example: Angular UI Date Picker bound to scope, with formatting options...<br><b
     </div>
 
     <div class="bs-docs-example">
-        <pre style="min-height: 60px;">datepicker: {{datepicker | json}}<!--<br />myForm: {{myForm | json}}--></pre>
+
         <form class="form-horizontal well" name="myForm">
             <div class="control-group input-append">
-                <label class="label" style="margin-right:6px;">date</label>
-                <input name="date" class="input-small" type="text" ng-model="datepicker.dateStrap"
-                       data-date-format="mm/dd/yyyy" bs-datepicker>
-                <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <a style="margin-right: 0px; margin-bottom: .5em;" class="btn btn-primary" data-toggle="datepicker"><i
+                                class="glyphicon glyphicon-calendar"/></a>
+                        <input name="date" style="width: 12em; margin-left: 0px;" class="form-control" type="text" ng-model="datepicker.dateStrap"
+                               data-date-format="mm/dd/yyyy" bs-datepicker>
+                    </div>
+
+                    <div class="col-md-5">
+                        <h4>Model:  {{datepicker.dateStrap}}</h4>
+                    </div>
+
+                </div>
+
+
+
             </div>
         </form>
     </div>
@@ -43,6 +56,8 @@ Example: Angular UI Date Picker bound to scope, with formatting options...<br><b
     </div>
 </section>
 
+
+           <!-- Removing due to unresolved styling issues
 <section id="timepicker">
     <div class="page-header">
         <h1>Timepicker</h1>
@@ -51,15 +66,16 @@ Example: Angular UI Date Picker bound to scope, with formatting options...<br><b
     <p>Supports AngularJS validation out of the box.</p>
 
     <div class="bs-docs-example">
-        <pre style="min-height: 60px;">timepicker: {{timepicker | json}}<!--<br />myForm: {{myForm | json}}--></pre>
+        <pre style="min-height: 60px;">timepicker: {{timepicker | json}}
         <form class="form-horizontal well" name="myForm">
             <div class="control-group">
-                <label class="label">time</label>
-                <button name="time" class="input-small" type="text" ng-model="timepicker.timeStrap" bs-timepicker>
+
+                <a name="time" style="width: 7em;" class="btn btn-primary form-control" type="text" ng-model="timepicker.timeStrap" bs-timepicker>
                     {{timepicker.timeStrap}}
-                </button>
+                </a>
             </div>
         </form>
     </div>
 
 </section>
+           -->
