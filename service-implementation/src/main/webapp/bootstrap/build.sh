@@ -24,16 +24,16 @@ mkdir dist
 grunt dist
 
 # copy built css to app destination
-rm -f -r ../service-implementation/src/main/webapp/css/vendor/bootstrap
-mkdir ../service-implementation/src/main/webapp/css/vendor/bootstrap
-cp dist/css/*.* ../service-implementation/src/main/webapp/css/vendor/bootstrap
+rm -f -r ../ui/css/vendor/bootstrap
+mkdir ../ui/css/vendor/bootstrap
+cp dist/css/*.* ../ui/css/vendor/bootstrap
 
 # copy built js to app destination
-rm -f -r ../service-implementation/src/main/webapp/js/vendor/bootstrap
-mkdir ../service-implementation/src/main/webapp/js/vendor/bootstrap
-cp dist/js/*.* ../service-implementation/src/main/webapp/js/vendor/bootstrap
+rm -f -r ../ui/js/vendor/bootstrap
+mkdir ../ui/js/vendor/bootstrap
+cp dist/js/*.* ../ui/js/vendor/bootstrap
 
 # copy fonts to app destination
-rm -f -r ../service-implementation/src/main/webapp/fonts
-mkdir ../service-implementation/src/main/webapp/fonts
-cp fonts/*.* ../service-implementation/src/main/webapp/fonts
+rm -f -r ../ui/fonts
+mkdir ../ui/fonts
+cp fonts/*.* ../ui/fonts

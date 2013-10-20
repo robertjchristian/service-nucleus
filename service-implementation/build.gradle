@@ -55,14 +55,13 @@ war {
         into 'WEB-INF/classes/'
     }
 
-    // TODO Needed?  I believe is is, since this is not
-    // the conventional location for webapp root
-    from('src/main/webapp/') {
+    // copy webapp
+    from('src/main/webapp/ui') {
         include '**/**';
         into '/'
     }
 
-    //webXml = file('src/main/webapp/WEB-INF/web.xml')
+    //webXml = file('src/main/webapp/ui/WEB-INF/web.xml')
 }
 
 dependencies {
@@ -176,5 +175,6 @@ jettyRun {
     reload = 'automatic'
     scanIntervalSeconds = new Integer(jettyScanIntervalSeconds)
     daemon = false
+    webAppSourceDirectory = file('src/main/webapp/ui')
 }
 
