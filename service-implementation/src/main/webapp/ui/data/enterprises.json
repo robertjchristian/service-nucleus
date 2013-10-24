@@ -1,0 +1,91 @@
+{
+    "Liaison": {
+        "name": "Liaison",
+        "orgs": [
+            "-"
+        ]
+    },
+    "Google": {
+        "name": "Google",
+        "orgs": [
+            "Google Ireland Holdings Limited",
+            "Google Ireland Limited",
+            "Google Italy S.r.l",
+            "Google Japan Inc.",
+            "Google Korea, LLC",
+            "Google Netherlands BV",
+            "Google NetherlandsHoldings BV",
+            "Google International LLC",
+            "Applied Semantics Inc.",
+            "IgniteLogic Inc",
+            "Kaltix Corporation",
+            "Keyhole LLC",
+            "Neotonic Software Corporation",
+            "Orkut.com LLC",
+            "Picasa LLC",
+            "Where2 LLC",
+            "Android Inc.",
+            "Applied Semantics",
+            "Google International LLC",
+            "Google LLC",
+            "Google Payment Corp.",
+            "Ignite Logic"
+        ]
+    },
+    "Boeing": {
+        "name": "Boeing",
+        "orgs": [
+            "Boeing Capital Loan Corporation",
+            "On Demand Manufacturing",
+            "ORCAS Leasing B.V.",
+            "Pacific Business Enterprises Inc",
+            "Peridot Services Norway AS",
+            "Plaza Realty Holdings Corporation",
+            "Preston Aviation Solutions Inc.",
+            "Preston Aviation Solutions Limited",
+            "Boeing Capital Services Corporation",
+            "Longbow Golf Club Corporation",
+            "McDonnell Douglas Finance Corporation - Federal Leasing Limited",
+            "McDonnell Douglas Foreign Sales Corporation"
+        ]
+    },
+    "Eli Lilly and Company": {
+        "name": "Eli Lilly and Company",
+        "orgs": [
+            "Alnara Pharmaceuticals Inc.",
+            "Andean Technical Operations Center",
+            "Applied MolecularEvolution, Inc.",
+            "Avid Radio Pharmaceuticals, Inc.",
+            "EL Management LLC",
+            "Elanco Animal Health"
+        ]
+    },
+    "Citigroup": {
+        "name": "Citigroup",
+        "orgs": [
+            "Associates International Services  LLC",
+            "Associates Mexico Holdings LLC",
+            "Associates Real Estate Financial Services Company Inc.",
+            "Associates Servicios de Mexico S.A.deC.V.",
+            "Associates Venture Capital LLC",
+            "Associates/Trans-National Leasing Inc.",
+            "AST Stock Plan Inc.",
+            "Astaire Associates Limited"
+        ]
+    },
+    "Bank of America Corporation": {
+        "name": "Bank of America Corporation",
+        "orgs": [
+
+            "BA Technology LLC",
+            "BA BC Global Finance Inc.",
+            "BAC Funding Consortium Inc.",
+            "BAC NUBAFA Inc.",
+            "BAC Alternative Advisors Inc.",
+            "BAC Alternative MontageFund LLC",
+            "Back Bay Capital Funding LLC",
+            "BA Telecommunications Investments L.L.C.",
+            "Bakerton Finance Inc."
+        ]
+    }
+}
