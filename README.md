@@ -92,6 +92,14 @@ to com.netflix.karyon.server.base.packages=com.acme
 <h5>Building LESS</h5>
 In addition to the prerequisites outlined above, you'll need npm, less, and uglify-js to build Twtter Bootstrap.
 
+<h3>Keeping up with changes to Karyon</h3>
+
+<pre>
+git remote add --track master karyon git@github.com:Netflix/karyon.git
+git fetch karyon
+git merge karyon/master
+</pre>
+
 <h3>Keeping up with changes</h3>
 
 This project is going to be in flux for the foreseeable future (see roadmap).
@@ -107,6 +115,5 @@ git merge service-nucleus/master
 <i>Note that similarly, when developing on this project, a remote tracking branch should be setup against NetFlix/karyon.</i>
 
 <h3>Roadmap</h3>
-* Add RESTAngular to MVC client
 * Add thread sandboxing (mainly for dynamic services)
 * Add Servlet 3.0
