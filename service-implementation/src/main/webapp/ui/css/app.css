@@ -98,13 +98,14 @@ supports grid feature
 .modal-body {
     display: block;
     margin: 0 auto;
+
     width: 80%;
 }
 
-.modal-body * {
+.modal-section {
     display: block;
-    margin: 10px 0 5px 0;
     width: 95%;
+    margin-bottom: 1em;
 }
 
 #password {
