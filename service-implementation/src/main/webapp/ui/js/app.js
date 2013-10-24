@@ -9,9 +9,9 @@ var myApp = angular.module('myApp',
         'ngSanitize', // for html-bind in ckeditor
         'ui.ace', // ace code editor
         'ui.bootstrap', // jquery ui bootstrap
-        '$strap.directives' // angular strap
+        '$strap.directives', // angular strap
+        'ngRoute'
     ]);
-
 
 var filters = angular.module('myApp.filters', []);
 var directives = angular.module('myApp.directives', []);
@@ -85,7 +85,7 @@ myApp.run(function ($rootScope, $location, $http, $timeout, AuthService, RESTSer
     $rootScope.authService = AuthService;
 
     // text input for login/password (only)
-    $rootScope.loginInput = 'user@gmail.com';
+    $rootScope.loginInput = 'rob@gmail.com';
     $rootScope.passwordInput = 'complexpassword';
 
     $rootScope.$watch('authService.authorized()', function () {
