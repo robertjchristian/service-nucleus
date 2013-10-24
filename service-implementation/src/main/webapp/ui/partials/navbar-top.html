@@ -100,25 +100,39 @@
     </div>
 </nav>
 
-<div class="modal" id="loginModal" fade-in>
+
+<!-- Modal -->
+<div class="modal" id="loginModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Login</h4>
+                <h4 class="modal-title">Sign in</h4>
             </div>
             <div class="modal-body">
-                <span id="login-email">Email</span>
-                <input ng-model="loginInput" type="text" placeholder="Email" name='username'>
-                <span id="login-password">Password</span>
-                <a href="#">Forgot password?</a>
-                <input ng-model="passwordInput" type="password" placeholder="Password" name='password'>
-            </div>
+                <div class="modal-section">
+                    <span id="login-email">Email</span>
+                    <input class="form-control" ng-model="loginInput" type="text" placeholder="Email"
+                           name='username'>
+                </div>
+
+                <div class="modal-section">
+                    <span id="login-password">Password</span>
+                    <a class="pull-right" href="#">Forgot password?</a>
+                    <input class="form-control" ng-model="passwordInput" type="password" placeholder="Password"
+                           name='password'>
+                </div>
+
+                
             <div class="modal-footer">
-                <a class="btn btn-primary" data-dismiss="modal" ng-click="authService.login(loginInput, passwordInput)">
-                    <i
-                            class="glyphicon glyphicon-user glyphicon-white"></i>Log in</a>
+                <a class="btn btn-primary" data-dismiss="modal"
+                   ng-click="authService.login(loginInput, passwordInput, selectedEnterprise, selectedOrganization)">
+                    <i class="glyphicon glyphicon-user glyphicon-white"></i>&nbsp;Sign in</a>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- Notifications -->
+<div noty ng-repeat="n in notifications"/>
