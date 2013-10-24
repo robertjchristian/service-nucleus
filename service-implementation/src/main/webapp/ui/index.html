@@ -26,6 +26,8 @@
 
     <link rel="stylesheet" href="css/vendor/bootstrap/bootstrap.min.css">
 
+
+    <!-- TODO copy in build.sh and refer to local -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
 
     <link rel="stylesheet" href="css/vendor/ng-grid/ng-grid.css">
@@ -33,6 +35,8 @@
     <!-- TODO needed? -->
     <link href="css/vendor/angularstrap/styles.css" rel="stylesheet">
 
+
+    <!-- To do deprecate angularstrap -->
     <link rel="stylesheet" href="css/vendor/angularstrap/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/vendor/angularstrap/bootstrap-timepicker.css">
 
@@ -72,36 +76,33 @@
 
 <!-- <script src="//angular-ui.github.com/lib/bootstrap/docs/assets/js/bootstrap.min.js"></script> -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="js/vendor/angular-1.2.0-rc.3/angular.min.js"></script>
 
 <script src="js/vendor/angularui/angular-ui.js"></script>
 
 <script src="js/vendor/ng-grid/ng-grid.js"></script>
 
-<!-- TODO needed?  Then localize... -->
-<script src="//angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.1.0-SNAPSHOT.js"></script>
+<!-- TODO localize... -->
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
 
 <!-- for ui notifications -->
 <script src="js/notificationManager.js"></script>
 
 <!-- enables rendering of injected html -->
 <!-- TODO localize -->
-<script src="http://code.angularjs.org/1.0.1/angular-sanitize-1.0.1.js"></script>
+<script src="js/vendor/angular-1.2.0-rc.3/angular-sanitize.min.js"></script>
+
+<script src="js/vendor/angular-1.2.0-rc.3/angular-route.min.js"></script>
 
 <!-- angular strap -->
 <!-- TODO move from cdn to local -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 
 <!-- ACE Editor -->
-<!-- TODO install via NPM or bring src locally -->
-<script src="https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/ace.js"></script>
-<script src="http://angular-ui.github.io/ui-ace/build/ui-ace.js"></script>
-<!-- <script src="https://raw.github.com/ajaxorg/ace-builds/master/src/theme-xcode.js"></script> -->
+<script src="js/vendor/ace/v1.1.1-src-min-noconflict-ace.js"></script>
+<script src="js/vendor/ace/ui-ace.min.js"></script>
 
 <!-- TODO consider using NPM/Bower to install third party libs -->
-
-<!-- TODO needed? -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
 <script src="js/vendor/angularstrap/angular-strap.min.js"></script>
 <script src="js/vendor/angularstrap/bootstrap-datepicker.js"></script>
 <script src="js/vendor/angularstrap/bootstrap-timepicker.js"></script>
@@ -120,19 +121,9 @@
 <!-- example area for ui elements (non-production) -->
 <script src="playground/playground.js"></script>
 
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/jquery.noty.js"></script>
-
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/layouts/top.js"></script>
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/layouts/topLeft.js"></script>
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/layouts/topRight.js"></script>
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/layouts/bottomRight.js"></script>
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/layouts/bottomCenter.js"></script>
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/layouts/center.js"></script>
-<!-- You can add more layouts if you want -->
-
-<script type="text/javascript" src="js/vendor/noty-2.1.0/js/noty/themes/nucleus.js"></script>
-
-
+<script src="js/vendor/noty-2.1.0/js/noty/jquery.noty.js"></script>
+<script src="js/vendor/noty-2.1.0/js/noty/layouts/bottomRight.js"></script>
+<script src="js/vendor/noty-2.1.0/js/noty/themes/nucleus.js"></script>
 
 </body>
 </html>
