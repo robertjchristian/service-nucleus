@@ -66,3 +66,6 @@ atlassian-ide-plugin.xml
 
 *.class
 *.log
+/.nb-gradle/profiles/private/
+/service-framework/.nb-gradle/profiles/private/
+/service-implementation/.nb-gradle/profiles/private/

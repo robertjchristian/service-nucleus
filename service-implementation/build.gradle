@@ -66,6 +66,7 @@ war {
 
 dependencies {
 
+    compile files ('./lib/fs2-0.0.2-SNAPSHOT.jar')
     // inherited from NetFlix Karyon
     compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
 
@@ -73,7 +74,7 @@ dependencies {
     compile 'commons-configuration:commons-configuration:1.8'
 
     // currently not used during runtime (inherited dependency from NetFlix)
-	compile 'com.netflix.eureka:eureka-client:1.1.97'
+    compile 'com.netflix.eureka:eureka-client:1.1.97'
 
 
     // for file upload

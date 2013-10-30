@@ -1,7 +1,7 @@
 package com.liaison.service.resources.examples;
 
-import com.liaison.framework.fs2.api.*;
-import com.liaison.framework.fs2.storage.file.FS2DefaultFileConfig;
+import com.liaison.fs2.api.*;
+import com.liaison.fs2.storage.file.FS2DefaultFileConfig;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
