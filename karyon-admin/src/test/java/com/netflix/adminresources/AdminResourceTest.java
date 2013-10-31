@@ -57,7 +57,8 @@ public class AdminResourceTest {
     }
 
     @Test
-    public void testBasic() throws Exception {
+    //public void testBasic() throws Exception {
+    public void testBasic() {
         //HttpClient client = new DefaultHttpClient();
         //HttpGet healthGet = new HttpGet("http://localhost:" + AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
 
