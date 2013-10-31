@@ -65,7 +65,7 @@ public class AdminResourceTest {
         //HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
         
         //Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
-        Assert.assertEquals(true);
+        //Assert.assertEquals(true);
     }
 
     // HACK! to get around the fact that startServer() does not wait until the server is up
