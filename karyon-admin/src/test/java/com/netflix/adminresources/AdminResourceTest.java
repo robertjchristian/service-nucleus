@@ -39,7 +39,7 @@ public class AdminResourceTest {
     public static final String CUSTOM_LISTEN_PORT = "9999";
     private KaryonServer server;
     private static final int httpRetries = 10;
-    private static final long sleepTimeout = 500;
+    private static final long sleepTimeout = 10000;
 
     @Before
     public void setUp() throws Exception {
@@ -60,22 +60,18 @@ public class AdminResourceTest {
     public void testBasic() throws Exception {
         HttpClient client = new DefaultHttpClient();
         HttpGet healthGet = new HttpGet("http://localhost:" + AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
-
     	startServer();
-        HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
-        
-	if(response !=null) 	
-	    Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
+    	HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
+        Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
+        System.out.println("done :::"+response.getStatusLine().getStatusCode());
     }
 
     // HACK! to get around the fact that startServer() does not wait until the server is up
     protected HttpResponse doBasicTestHack(HttpClient client, HttpGet healthGet, int retries) throws Exception {
-    	//if (retries < 0) {
-    		//throw new Exception("Failed to connect. Retries exceeded.");
-    	//}
-    	
-        HttpResponse response = null;
-	if(retries > 0) {
+    	if (retries < 0) {
+            throw new Exception("Failed to connect. Retries exceeded.");
+        }
+    	HttpResponse response = null;
         try {
             Thread.sleep(sleepTimeout); 
             response = client.execute(healthGet);
@@ -86,11 +82,8 @@ public class AdminResourceTest {
             } catch (HttpHostConnectException e2) {
                 response = doBasicTestHack(client, healthGet, --retries);
             }
-        }   
-	
-	}
+        }
         return response;
-        
     }
 
     @Test (expected = HttpHostConnectException.class)
