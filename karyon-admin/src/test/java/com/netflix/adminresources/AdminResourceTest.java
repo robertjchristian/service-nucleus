@@ -37,9 +37,10 @@ import org.junit.Test;
 public class AdminResourceTest {
 
     public static final String CUSTOM_LISTEN_PORT = "9999";
+
     private KaryonServer server;
     private static final int httpRetries = 10;
-    private static final long sleepTimeout = 10000;
+    private static final long sleepTimeout = 1000;
 
     @Before
     public void setUp() throws Exception {
@@ -58,12 +59,18 @@ public class AdminResourceTest {
 
     @Test
     public void testBasic() throws Exception {
-        HttpClient client = new DefaultHttpClient();
-        HttpGet healthGet = new HttpGet("http://localhost:" + AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
-    	startServer();
-    	HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
-        Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
-        System.out.println("done :::"+response.getStatusLine().getStatusCode());
+    	try {
+    		HttpClient client = new DefaultHttpClient();
+    		ConfigurationManager.getConfigInstance().setProperty(AdminResourcesContainer.CONTAINER_LISTEN_PORT, AdminResourcesContainer.LISTEN_PORT_DEFAULT);
+    		HttpGet healthGet = new HttpGet("http://localhost:" + AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
+    		startServer();
+	    	HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
+	    	Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
+    	} finally {
+	    	if (server != null) {
+	    		server.close();
+	    	}
+    	}
     }
 
     // HACK! to get around the fact that startServer() does not wait until the server is up
@@ -75,7 +82,6 @@ public class AdminResourceTest {
         try {
             Thread.sleep(sleepTimeout); 
             response = client.execute(healthGet);
-            server.close();
         } catch (HttpHostConnectException e) {
             try {
                 response = client.execute(healthGet);
@@ -88,11 +94,18 @@ public class AdminResourceTest {
 
     @Test (expected = HttpHostConnectException.class)
     public void testCustomPort() throws Exception {
-        ConfigurationManager.getConfigInstance().setProperty(AdminResourcesContainer.CONTAINER_LISTEN_PORT, CUSTOM_LISTEN_PORT);
-        startServer();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet healthGet = new HttpGet("http://localhost:"+ AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
-        client.execute(healthGet);
+    	try {
+	        ConfigurationManager.getConfigInstance().setProperty(AdminResourcesContainer.CONTAINER_LISTEN_PORT, CUSTOM_LISTEN_PORT);
+	        startServer();
+	        Thread.sleep(sleepTimeout); 
+	        HttpClient client = new DefaultHttpClient();
+	        HttpGet healthGet = new HttpGet("http://localhost:"+ AdminResourcesContainer.LISTEN_PORT_DEFAULT + "/healthcheck");
+	        client.execute(healthGet);
+    	} finally {
+	    	if (server != null) {
+	    		server.close();
+	    	}
+    	}
         throw new AssertionError("Admin container did not bind to the custom port " + CUSTOM_LISTEN_PORT +
                                  ", instead listened to default port: " + AdminResourcesContainer.LISTEN_PORT_DEFAULT);
     }
