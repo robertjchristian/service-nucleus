@@ -20,19 +20,38 @@
         <filter-name>guiceFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    
+	<!--  Commented by senthilvel-->
+	<!--  This declaration part is deprecated by HelloworldComponent's initialize() -->
     <!-- Framework initialization servlet, please do not modify -->
-    <servlet>
-        <servlet-name>InitializationServlet</servlet-name>
+    <!--servlet>
+    <servlet-name>InitializationServlet</servlet-name>
         <servlet-class>com.liaison.framework.bootstrap.InitializationServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
+		<load-on-startup>0</load-on-startup>
     </servlet>
+	
     <servlet-mapping>
         <servlet-name>InitializationServlet</servlet-name>
         <url-pattern>/init</url-pattern>
+    </servlet-mapping --> 
+	
+	<!-- Added by senthilvel for AsyncServlet Injection -->
+	<servlet>
+        <servlet-name>AsyncServlet</servlet-name>
+        <servlet-class>com.liaison.framework.async.AsyncServlet</servlet-class>
+	<init-param>
+		<param-name>threadpoolsize</param-name>
+		<param-value>100</param-value>
+	</init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>AsyncServlet</servlet-name>
+        <url-pattern>/async</url-pattern>
     </servlet-mapping>
-
-    <!-- Framework-defined dynamic services support, please do not modify -->
+	
+	<!-- Framework-defined dynamic services support, please do not modify -->
     <servlet>
         <servlet-name>DynamicRest</servlet-name>
         <servlet-class>com.liaison.framework.dynamic.DynamicServicesServlet</servlet-class>
@@ -58,9 +77,6 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
-
-    <!-- -->
 
     <filter>
         <filter-name>ExceptionFilter</filter-name>

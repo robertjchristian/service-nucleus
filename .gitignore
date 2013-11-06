@@ -69,3 +69,7 @@ atlassian-ide-plugin.xml
 /.nb-gradle/profiles/private/
 /service-framework/.nb-gradle/profiles/private/
 /service-implementation/.nb-gradle/profiles/private/
+
+/service-implementation/src/main/webapp/ui/js/vendor/angular-1.2.0-rc.3/docs/
+
+
