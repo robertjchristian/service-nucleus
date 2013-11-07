@@ -50,7 +50,7 @@ public class HelloWorldResource {
     public Response helloTo(@PathParam("name") String name) {
         JSONObject response = new JSONObject();
         try {
-            response.put("Message", "Hello " + name + "!.How are you");
+            response.put("Message", "Hello " + name + "!");
             return Response.ok(response.toString()).build();
         } catch (JSONException e) {
 

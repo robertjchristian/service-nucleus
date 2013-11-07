@@ -5,11 +5,9 @@ var myApp = angular.module('myApp',
     [   'myApp.filters',
         'myApp.directives', // custom directives
         'ngGrid', // angular grid
-        'ui', // angular ui
         'ngSanitize', // for html-bind in ckeditor
         'ui.ace', // ace code editor
         'ui.bootstrap', // jquery ui bootstrap
-        '$strap.directives', // angular strap
         'ngRoute'
     ]);
 

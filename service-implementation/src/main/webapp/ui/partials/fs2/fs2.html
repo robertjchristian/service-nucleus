@@ -16,11 +16,21 @@
 
 
     <div class="page-header">
-        <h1>Flexible Storage System (FS2)</h1><h4>Store your data anywhere, and move it at any time, with no client code impact.</h4><p style="padding-top: 1em;">FS2 allows you to manage arbitrary data objects using familiar operations like create, read, update, and delete. Using a simple interface that abstracts the underlying persistence details, applications can interact with their data in a way similar to using a terminal to interact with a local filesystem. Behind the curtains, a storage provider does the heavy lifting, be it integrating with a cloud storage provider like Google Cloud Storage or Amazon S3, a Mongo NoSQL database, a fileshare, or even MemCache... <a href="http://robertjchristian.github.io/fs2/">more.</a></p>
+        <h1>Flexible Storage System (FS2)</h1><h4>Store your data anywhere, and move it at any time, with no client code
+        impact.</h4>
+
+        <p style="padding-top: 1em;">FS2 allows you to manage arbitrary data objects using familiar operations like
+            create, read, update, and delete. Using a simple interface that abstracts the underlying persistence
+            details, applications can interact with their data in a way similar to using a terminal to interact with a
+            local filesystem. Behind the curtains, a storage provider does the heavy lifting, be it integrating with a
+            cloud storage provider like Google Cloud Storage or Amazon S3, a Mongo NoSQL database, a fileshare, or even
+            MemCache... <a href="http://robertjchristian.github.io/fs2/">more.</a></p>
     </div>
 
     <div class="alert alert-info">
-        Example usage of the FS2 API can be found within the Service Nucleus, in the Jersey-based "FS2Resource" class.  FS2Resource instantiates a File-based FS2 instance and exposes CRUD functionality via REST.  This UI simply exercises that REST interface.
+        Example usage of the FS2 API can be found within the Service Nucleus, in the Jersey-based "FS2Resource" class.
+        FS2Resource instantiates a File-based FS2 instance and exposes CRUD functionality via REST. This UI simply
+        exercises that REST interface.
     </div>
 
     <div class="row">
@@ -72,9 +82,9 @@
             </div>
 
             <div ng-repeat="f in fs2Objects">
+                <a data-target="#metaModal" data-toggle="modal">
+                    <i tooltip="Meta" class="glyphicon glyphicon-tags"></i></a>
 
-                <a href="#metaModal" data-toggle="modal"><i tooltip="Meta" class="glyphicon glyphicon-tags"></i></span>
-                </a>
                 &nbsp;|&nbsp
                 <a ng-click="deleteFS2Object(f['fs2-uri'])"><i tooltip="Trash"
                                                                class="glyphicon glyphicon-trash"></i></a>
@@ -82,28 +92,27 @@
                 <a href="rest/v1/fs2/download?uri={{f['fs2-uri']}}"><span
                         tooltip="Download {{f['fs2-original-filename']}}">{{f["fs2-uri"]}}</span></a>
 
+
+                <!-- Meta Modal -->
                 <div class="modal" id="metaModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="myModalLabel">Meta</h3>
+                                <h4 class="modal-title">Meta</h4>
                             </div>
                             <div class="modal-body">
                                 <pre>{{f | json}}</pre>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-primary" data-dismiss="modal">Okay</a>
+                                <a class="btn btn-primary" data-dismiss="modal">Done</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
             </div>
 
         </div>
-
     </div>
-
 </div>
