@@ -16,12 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@javax.servlet.annotation.WebServlet(urlPatterns = { "/async" }, asyncSupported = true, initParams = { @WebInitParam(name = "threadpoolsize", value = "100") })
+@javax.servlet.annotation.WebServlet(urlPatterns = { "/async" }, asyncSupported = true, initParams = { @WebInitParam(name = "threadpoolsize", 
+value = "100") })
 public class AsyncServlet extends HttpServlet {
 
-    private static final Logger logger = Logger.getLogger(AsyncServlet.class);
+    //private static final Logger logger = Logger.getLogger(AsyncServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(AsyncServlet.class);
 
     public static final int CALLBACK_TIMEOUT = 10000; // ms
 
@@ -40,7 +44,7 @@ public class AsyncServlet extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 
-
+	logger.info("calling service() method from AsyncServlet ");
 
 
         // TODO Idea is resolving 2.5 rather than 3.0 here and therefore are seeing a compile error
