@@ -68,7 +68,8 @@ dependencies {
 
     compile files ('./lib/fs2-0.0.2-SNAPSHOT.jar')
     // inherited from NetFlix Karyon
-    compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
+    //compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
+	compile "com.netflix.karyon:karyon-extensions:1.0.22"
 
     // for commons-codec (used in example encoding service)
     compile 'commons-configuration:commons-configuration:1.8'

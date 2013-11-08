@@ -69,7 +69,6 @@ subprojects {
 project(':karyon-admin') {
     dependencies {
         compile "com.netflix.karyon:karyon-core:${karyonVersion}"
-		compile "com.netflix.karyon:karyon-extensions:1.0.22"
         compile 'javax.ws.rs:jsr311-api:1.1.1'
 		// commented by senthilvel
 		//compile 'javax.servlet:servlet-api:2.5'
@@ -83,12 +82,15 @@ project(':karyon-admin') {
 
         compile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
         compile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
-        compile 'com.sun.jersey.contribs:jersey-guice:1.9'
+        //compile 'com.sun.jersey.contribs:jersey-guice:1.9'
 		//compile 'com.sun.jersey.contribs:jersey-guice:2.0'
-
+		
+		
+		compile 'org.glassfish.jersey.media:jersey-media-multipart:2.3.1' 
         compile 'com.google.inject.extensions:guice-servlet:3.0'
         compile 'com.netflix.pytheas:pytheas-core:1.11'
         runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+
     }
 }
 
@@ -109,14 +111,17 @@ project(':karyon-admin-web') {
     }
 }
 
+
 project(':service-framework') {
     dependencies {
+
         testCompile 'org.testng:testng:6.8'
         testCompile 'junit:junit:4.10'
 
         // commons-io and jackson-core support fs2
         compile 'commons-io:commons-io:2.4'
         compile 'com.fasterxml.jackson.core:jackson-core:2.2.2'
+
     }
 }
 

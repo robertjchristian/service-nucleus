@@ -57,7 +57,6 @@ dependencies {
 	def log4j2Version = '2.0-beta7';
 	compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
 	compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
-
 	
 	def jacksonVersion='1.9.12'
 	// JACKSON 1.9.x (2.x would supplant these w/ different name spaces)
@@ -70,14 +69,8 @@ dependencies {
 	compile "org.codehaus.jackson:jackson-smile:${jacksonVersion}"
 	compile "org.codehaus.jackson:jackson-mrbean:${jacksonVersion}"
 	runtime 'javax.xml.bind:jaxb-api:2.1'
-	
 
-    compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
+    //compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
+	compile "com.netflix.karyon:karyon-extensions:1.0.22"
     compile project(':karyon-admin-web')
-	
-
-	
 }
-
-
-
