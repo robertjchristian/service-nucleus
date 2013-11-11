@@ -50,8 +50,8 @@ public class AsyncServlet extends HttpServlet {
         // TODO Idea is resolving 2.5 rather than 3.0 here and therefore are seeing a compile error
         // need to resolve
 
-        // final AsyncContext ctx = req.startAsync();
-        final AsyncContext ctx = null;
+        final AsyncContext ctx = req.startAsync();
+        //final AsyncContext ctx = null;
 
 
 

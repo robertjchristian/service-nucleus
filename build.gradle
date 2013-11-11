@@ -83,9 +83,8 @@ project(':karyon-admin') {
 
         compile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
         compile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
-        compile 'com.sun.jersey.contribs:jersey-guice:1.9'
-		//compile 'com.sun.jersey.contribs:jersey-guice:2.0'
-
+        compile 'com.sun.jersey.contribs:jersey-guice:1.8'
+		
         compile 'com.google.inject.extensions:guice-servlet:3.0'
         compile 'com.netflix.pytheas:pytheas-core:1.11'
         runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
