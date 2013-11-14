@@ -27,12 +27,12 @@ import com.netflix.governator.lifecycle.LifecycleManager;
 import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.Component;
 import com.netflix.karyon.spi.PropertyNames;
-import org.eclipse.jetty.server.DispatcherType;
+/*import org.eclipse.jetty.server.DispatcherType;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlet.ServletHolder;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,7 +100,7 @@ public class AdminResourcesContainer {
     )
     private int listenPort = LISTEN_PORT_DEFAULT;
 
-    private Server server;
+    //private Server server;
 
     @Inject
     public AdminResourcesContainer(Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider) {
@@ -115,27 +115,31 @@ public class AdminResourcesContainer {
      */
     @PostConstruct
     public void init() throws Exception {
-        server = new Server(listenPort);
+      //  server = new Server(listenPort);
+        logger.info("inside init method of AdminResources Container");
         Injector injector = LifecycleInjector
                 .builder()
                 .usingBasePackages("com.netflix.explorers")
                 .withModules(new AdminResourcesModule(healthCheckInvocationStrategyProvider)).createInjector();
         try {
             injector.getInstance(LifecycleManager.class).start();
+            logger.info("injector.getInstance()");
             AdminResourcesFilter adminResourcesFilter = injector.getInstance(AdminResourcesFilter.class);
+            logger.info("injector.getInstance(AdminResourceFilter class");
             adminResourcesFilter.setPackages(coreJerseyPackages);
+            logger.info("adminResourcesFilter.setPackages(coreJerseyPackages)");
 
-            ServletContextHandler handler = new ServletContextHandler();
-            handler.setContextPath("/");
+            //ServletContextHandler handler = new ServletContextHandler();
+            //handler.setContextPath("/");
 
-            handler.setSessionHandler(new SessionHandler());
-            handler.addFilter(LoggingFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-            handler.addFilter(RedirectFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
-            handler.addFilter(new FilterHolder(adminResourcesFilter), "/*", EnumSet.allOf(DispatcherType.class));
-            handler.addServlet(new ServletHolder(adminResourcesFilter), "/*");
+            //handler.setSessionHandler(new SessionHandler());
+            //handler.addFilter(LoggingFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
+            //handler.addFilter(RedirectFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
+            //handler.addFilter(new FilterHolder(adminResourcesFilter), "/*", EnumSet.allOf(DispatcherType.class));
+            //handler.addServlet(new ServletHolder(adminResourcesFilter), "/*");
 
-            server.setHandler(handler);
-            server.start();
+            //server.setHandler(handler);
+            //server.start();
         } catch (Exception e) {
             logger.error("Exception in building AdminResourcesContainer ", e);
         }
@@ -143,11 +147,11 @@ public class AdminResourcesContainer {
 
     @PreDestroy
     public void shutdown() {
-        try {
+        /*try {
             server.stop();
         } catch (Throwable t) {
             logger.warn("Error while shutting down Admin resources server", t);
-        }
+        }*/
     }
 }
 

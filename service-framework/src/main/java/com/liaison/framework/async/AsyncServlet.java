@@ -43,7 +43,7 @@ public class AsyncServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-
+    	
 	logger.info("calling service() method from AsyncServlet ");
 
 
@@ -66,25 +66,21 @@ public class AsyncServlet extends HttpServlet {
 
             @Override
             public void onComplete(AsyncEvent event) throws IOException {
-
                 logger.info("onComplete called");
             }
 
             @Override
             public void onTimeout(AsyncEvent event) throws IOException {
-
                 logger.info("onTimeout called");
             }
 
             @Override
             public void onError(AsyncEvent event) throws IOException {
-
                 logger.info("onError called: " + event.toString());
             }
 
             @Override
             public void onStartAsync(AsyncEvent event) throws IOException {
-
                 logger.info("onStartAsync called");
             }
         });

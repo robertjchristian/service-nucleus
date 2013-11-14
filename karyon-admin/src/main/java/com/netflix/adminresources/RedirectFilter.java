@@ -26,6 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import com.google.inject.Singleton;
+import com.netflix.config.DynamicPropertyFactory;
+import com.netflix.config.DynamicStringProperty;
+import com.netflix.karyon.spi.PropertyNames;
 
 /**
  * A {@link javax.servlet.Filter} implementation to redirect root requests to a default location as specified by
@@ -37,7 +40,9 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class RedirectFilter implements Filter {
+	public static final String DEFAULT_PAGE_PROP_NAME = PropertyNames.KARYON_PROPERTIES_PREFIX + "admin.default.page";
 
+    public static final DynamicStringProperty DEFAULT_PAGE = DynamicPropertyFactory.getInstance().getStringProperty(DEFAULT_PAGE_PROP_NAME, "/healthcheck");
     @Override
     public void destroy() {
     }
@@ -47,7 +52,7 @@ public class RedirectFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         if (httpRequest.getRequestURI().equals("/")) {
-            String defaultLocation = AdminResourcesContainer.DEFAULT_PAGE.get();
+            String defaultLocation = DEFAULT_PAGE.get();
             ((HttpServletResponse) response).sendRedirect(defaultLocation);
             return;
         }

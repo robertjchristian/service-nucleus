@@ -86,7 +86,7 @@ public class WebAdminTest {
         }
     }
 
-    @Test
+    //@Test
     public void restEndPoints() throws Exception {
         
         HttpClient client = new DefaultHttpClient();
@@ -104,7 +104,7 @@ public class WebAdminTest {
         }
     }
 
-	@Test
+	//@Test
     public void testRestEndPoints() throws Exception {
         HttpClient client = new DefaultHttpClient();
         for (Map.Entry<String, String> restEndPoint : REST_END_POINTS.entrySet()) {
@@ -121,7 +121,7 @@ public class WebAdminTest {
         }
     }
 	
-	@Test
+	//@Test
     public void testMaskedResources() throws Exception {
         HttpClient client = new DefaultHttpClient();
     	final String endPoint = "http://localhost:8077/webadmin/props";
