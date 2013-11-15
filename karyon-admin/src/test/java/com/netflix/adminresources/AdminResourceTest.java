@@ -21,15 +21,22 @@ import com.netflix.config.ConfigurationManager;
 import com.netflix.karyon.server.KaryonServer;
 import com.netflix.karyon.server.eureka.SyncHealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.PropertyNames;
-import junit.framework.Assert;
+//import junit.framework.Assert;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+//import org.junit.After;
+//import org.junit.Before;
+//import org.junit.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+
 
 /**
  * @author Nitesh Kant
@@ -43,7 +50,7 @@ public class AdminResourceTest {
     private static final int httpRetries = 10;
     private static final long sleepTimeout = 1000;
 
-    @Before
+    @BeforeClass
     public void setUp() throws Exception {
         System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.test");
         System.setProperty(PropertyNames.HEALTH_CHECK_TIMEOUT_MILLIS, "60000");
@@ -51,14 +58,14 @@ public class AdminResourceTest {
         System.setProperty(PropertyNames.DISABLE_EUREKA_INTEGRATION, "true");
     }
 
-    @After
+    @org.testng.annotations.AfterClass
     public void tearDown() throws Exception {
         ConfigurationManager.getConfigInstance().clearProperty(PropertyNames.DISABLE_APPLICATION_DISCOVERY_PROP_NAME);
         ConfigurationManager.getConfigInstance().clearProperty(PropertyNames.EXPLICIT_APPLICATION_CLASS_PROP_NAME);
         server.close();
     }
 
-    //@Test
+    @Test
     public void testBasic() throws Exception {
     	try {
     		HttpClient client = new DefaultHttpClient();
@@ -66,7 +73,8 @@ public class AdminResourceTest {
     		HttpGet healthGet = new HttpGet("http://localhost:" + LISTEN_PORT_DEFAULT + "/healthcheck");
     		startServer();
 	    	HttpResponse response = doBasicTestHack(client, healthGet, httpRetries);
-	    	Assert.assertEquals("admin resource health check failed.", 200, response.getStatusLine().getStatusCode());
+	    	Assert.assertEquals( 200, response.getStatusLine().getStatusCode());
+	    	//Assert.assertEquals( "admin resource health check failed.",200, response.getStatusLine().getStatusCode());
     	} finally {
 	    	if (server != null) {
 	    		server.close();
@@ -93,7 +101,7 @@ public class AdminResourceTest {
         return response;
     }
 
-    //@Test (expected = HttpHostConnectException.class)
+    @Test (expectedExceptions = HttpHostConnectException.class)
     public void testCustomPort() throws Exception {
     	try {
 	        ConfigurationManager.getConfigInstance().setProperty(CONTAINER_LISTEN_PORT, CUSTOM_LISTEN_PORT);

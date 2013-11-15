@@ -55,7 +55,7 @@ subprojects {
 		compile 'org.slf4j:slf4j-api:1.7.5'	
 		compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
         compile 'com.google.guava:guava:11.0.2'
-        testCompile 'junit:junit:4.10'
+		testCompile 'org.testng:testng:6.8'
 
      }
 
@@ -88,6 +88,7 @@ project(':karyon-admin') {
         compile 'com.google.inject.extensions:guice-servlet:3.0'
         compile 'com.netflix.pytheas:pytheas-core:1.11'
         runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+	testCompile 'org.testng:testng:6.8'
     }
 }
 
@@ -98,7 +99,6 @@ project(':karyon-admin-web') {
         compile     project(':karyon-admin')
         compile     'com.google.code.gson:gson:2.1'
         testCompile 'org.testng:testng:6.8'
-        testCompile 'junit:junit:4.10'
 
         compile 'com.google.code.gson:gson:2.1'
         compile 'com.netflix.pytheas:pytheas-core:1.11'
@@ -111,8 +111,6 @@ project(':karyon-admin-web') {
 project(':service-framework') {
     dependencies {
         testCompile 'org.testng:testng:6.8'
-        testCompile 'junit:junit:4.10'
-
         // commons-io and jackson-core support fs2
         compile 'commons-io:commons-io:2.4'
         compile 'com.fasterxml.jackson.core:jackson-core:2.2.2'
