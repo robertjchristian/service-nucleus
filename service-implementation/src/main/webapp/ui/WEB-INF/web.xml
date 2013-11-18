@@ -21,20 +21,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-	<!--  Commented by senthilvel-->
-	<!--  This declaration part is deprecated by HelloworldComponent's initialize() -->
-    <!-- Framework initialization servlet, please do not modify -->
-    <!--servlet>
-    <servlet-name>InitializationServlet</servlet-name>
-        <servlet-class>com.liaison.framework.bootstrap.InitializationServlet</servlet-class>
-		<load-on-startup>0</load-on-startup>
-    </servlet>
-	
-    <servlet-mapping>
-        <servlet-name>InitializationServlet</servlet-name>
-        <url-pattern>/init</url-pattern>
-    </servlet-mapping --> 
-	
 	<!-- Added by senthilvel for AsyncServlet Injection -->
 	<servlet>
         <servlet-name>AsyncServlet</servlet-name>
@@ -70,6 +56,7 @@
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>com.liaison.service</param-value>
+			<param-value>com.netflix.adminresources.resources</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -88,7 +75,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
     <!--
     =========================================================================
     End:  Framework configuration
@@ -106,11 +92,43 @@
         <servlet-name>StaticRest</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+	
+	<filter>
+        <filter-name>LoggingFilter</filter-name>
+        <filter-class>com.netflix.adminresources.LoggingFilter</filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>LoggingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+	<filter>
+        <filter-name>RedirectFilter</filter-name>
+        <filter-class>com.netflix.adminresources.RedirectFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RedirectFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<!--filter>
+        <filter-name>AdminResourcesFilter</filter-name>
+        <filter-class>com.netflix.adminresources.AdminResourcesFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminResourcesFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping -->
+
+			`
     <!--
     =========================================================================
     End:  Servlet implementation configuration
     =========================================================================
     -->
-
+	
+		
 </web-app>

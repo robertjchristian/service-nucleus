@@ -27,12 +27,6 @@ import com.netflix.governator.lifecycle.LifecycleManager;
 import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.Component;
 import com.netflix.karyon.spi.PropertyNames;
-/*import org.eclipse.jetty.server.DispatcherType;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.session.SessionHandler;
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,7 +122,7 @@ public class AdminResourcesContainer {
             logger.info("injector.getInstance(AdminResourceFilter class");
             adminResourcesFilter.setPackages(coreJerseyPackages);
             logger.info("adminResourcesFilter.setPackages(coreJerseyPackages)");
-
+            
             //ServletContextHandler handler = new ServletContextHandler();
             //handler.setContextPath("/");
 
