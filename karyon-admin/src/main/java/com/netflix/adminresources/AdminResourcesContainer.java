@@ -27,12 +27,13 @@ import com.netflix.governator.lifecycle.LifecycleManager;
 import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.Component;
 import com.netflix.karyon.spi.PropertyNames;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.EnumSet;
+import javax.servlet.ServletContext;
 
 /**
  * This class starts an embedded jetty server, listening at port specified by property
@@ -84,14 +85,15 @@ public class AdminResourcesContainer {
             value = JERSEY_CORE_PACKAGES,
             documentation = "Property defining the list of core packages which contains jersey resources for karyon admin. com.netflix.adminresources is always added to this."
     )
+
     private String coreJerseyPackages = JERSEY_CORE_PACKAGES_DEAULT;
-
-
+    
     @Configuration(
             value = CONTAINER_LISTEN_PORT,
             documentation = "Property defining the listen port for admin resources.",
             ignoreTypeMismatch = true
     )
+    
     private int listenPort = LISTEN_PORT_DEFAULT;
 
     //private Server server;
@@ -109,7 +111,7 @@ public class AdminResourcesContainer {
      */
     @PostConstruct
     public void init() throws Exception {
-      //  server = new Server(listenPort);
+    	//server = new Server(listenPort);
         logger.info("inside init method of AdminResources Container");
         Injector injector = LifecycleInjector
                 .builder()
@@ -121,17 +123,16 @@ public class AdminResourcesContainer {
             AdminResourcesFilter adminResourcesFilter = injector.getInstance(AdminResourcesFilter.class);
             logger.info("injector.getInstance(AdminResourceFilter class");
             adminResourcesFilter.setPackages(coreJerseyPackages);
-            logger.info("adminResourcesFilter.setPackages(coreJerseyPackages)");
+            logger.info("adminResourcesFilter.setPackages(coreJerseyPackages)");  
             
             //ServletContextHandler handler = new ServletContextHandler();
             //handler.setContextPath("/");
-
             //handler.setSessionHandler(new SessionHandler());
             //handler.addFilter(LoggingFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
             //handler.addFilter(RedirectFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
             //handler.addFilter(new FilterHolder(adminResourcesFilter), "/*", EnumSet.allOf(DispatcherType.class));
             //handler.addServlet(new ServletHolder(adminResourcesFilter), "/*");
-
+             
             //server.setHandler(handler);
             //server.start();
         } catch (Exception e) {

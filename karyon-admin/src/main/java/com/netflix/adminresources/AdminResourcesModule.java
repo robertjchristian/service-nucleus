@@ -11,29 +11,31 @@ import com.netflix.explorers.providers.FreemarkerTemplateProvider;
 import com.netflix.karyon.server.HealthCheckModule;
 import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
 
-class AdminResourcesModule
-        extends AbstractModule {
-    private final Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider;
+class AdminResourcesModule extends AbstractModule {
+	private final Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider;
 
-    public AdminResourcesModule(Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider) {
-        this.healthCheckInvocationStrategyProvider = healthCheckInvocationStrategyProvider;
-    }
+	public AdminResourcesModule(
+			Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider) {
+		this.healthCheckInvocationStrategyProvider = healthCheckInvocationStrategyProvider;
+	}
 
-    @Override
-    protected void configure() {
-        bind(String.class).annotatedWith(Names.named("explorerAppName")).toInstance("admin");
-        bind(GlobalModelContext.class).to(AppConfigGlobalModelContext.class);
-        bind(ExplorerManager.class).to(ExplorersManagerImpl.class);
+	@Override
+	protected void configure() {
+		bind(String.class).annotatedWith(Names.named("explorerAppName"))
+				.toInstance("admin");
+		bind(GlobalModelContext.class).to(AppConfigGlobalModelContext.class);
+		bind(ExplorerManager.class).to(ExplorersManagerImpl.class);
 
-        bind(AdminResourceExplorer.class);
-        bind(FreemarkerTemplateProvider.class);
-        bind(AdminResourcesFilter.class).asEagerSingleton();
+		bind(AdminResourceExplorer.class);
+		
+		bind(AdminResourcesFilter.class).asEagerSingleton();
+		bind(FreemarkerTemplateProvider.class);
+		if (healthCheckInvocationStrategyProvider != null) {
+			bind(HealthCheckInvocationStrategy.class).toProvider(
+					healthCheckInvocationStrategyProvider);
+		} else {
+			install(new HealthCheckModule());
+		}
 
-        if (healthCheckInvocationStrategyProvider != null) {
-            bind(HealthCheckInvocationStrategy.class).toProvider(healthCheckInvocationStrategyProvider);
-        } else {
-            install(new HealthCheckModule());
-        }
-
-    }
+	}
 }

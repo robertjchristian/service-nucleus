@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Map;
  * statics used in GuiceFilter, there cannot be more than one in an application.
  * The AdminResources app needs minimal features and this class provides those.
  */
+
 @Singleton
 class AdminResourcesFilter extends GuiceContainer {
     private final Map<String, HttpServlet> servlets = Maps.newConcurrentMap();
@@ -55,9 +57,11 @@ class AdminResourcesFilter extends GuiceContainer {
     public int service(URI baseUri, URI requestUri, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (requestUri != null) ? requestUri.getPath() : null;
         if (path != null) {
+        	
             for (Map.Entry<String, HttpServlet> entry : servlets.entrySet()) {
                 if (path.startsWith(entry.getKey())) {
                     entry.getValue().service(request, response);
+                    System.out.println("<<entry value >>>====="+entry.getValue());
                     return HttpServletResponse.SC_OK;
                 }
             }
