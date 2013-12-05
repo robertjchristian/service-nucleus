@@ -24,7 +24,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
+
 import com.google.inject.Singleton;
 import com.netflix.config.DynamicPropertyFactory;
 import com.netflix.config.DynamicStringProperty;
@@ -41,7 +46,8 @@ import com.netflix.karyon.spi.PropertyNames;
 @Singleton
 public class RedirectFilter implements Filter {
 	public static final String DEFAULT_PAGE_PROP_NAME = PropertyNames.KARYON_PROPERTIES_PREFIX + "admin.default.page";
-
+	private static final Logger logger = LoggerFactory.getLogger(RedirectFilter.class);
+	
     public static final DynamicStringProperty DEFAULT_PAGE = DynamicPropertyFactory.getInstance().getStringProperty(DEFAULT_PAGE_PROP_NAME, "/healthcheck");
     @Override
     public void destroy() {
@@ -61,5 +67,6 @@ public class RedirectFilter implements Filter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
+    	logger.info("inside init() of RedirectFilter()");
     }
 }

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
@@ -28,10 +31,12 @@ import java.util.Map;
 class AdminResourcesFilter extends GuiceContainer {
     private final Map<String, HttpServlet> servlets = Maps.newConcurrentMap();
     private volatile String packages;
-
+    private static final Logger logger = LoggerFactory.getLogger(AdminResourcesFilter.class);
+    
     @Inject
     AdminResourcesFilter(Injector injector) {
         super(injector);
+        logger.info("inside AdminResourcesFilter constructor "+injector);
     }
 
     /**

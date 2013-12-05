@@ -16,12 +16,17 @@
 
 package com.netflix.adminresources;
 
-import java.util.EnumSet;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
+import org.eclipse.jetty.server.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
-import com.google.inject.servlet.ServletModule;
 import com.netflix.config.DynamicPropertyFactory;
 import com.netflix.config.DynamicStringProperty;
 import com.netflix.governator.annotations.Configuration;
@@ -31,17 +36,6 @@ import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.Component;
 import com.netflix.karyon.spi.PropertyNames;
 
-import org.eclipse.jetty.server.DispatcherType;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.session.SessionHandler;
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 /**
  * This class starts an embedded jetty server, listening at port specified by
@@ -78,11 +72,11 @@ import javax.annotation.PreDestroy;
  * @author Nitesh Kant
  * @author Jordan Zimmerman
  */
-@Component(disableProperty = "netflix.platform.admin.resources.disable")
-public class AdminResourcesContainer extends ServletModule{
+@Component
+public class AdminContainerModule extends AbstractModule{
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(AdminResourcesContainer.class);
+			.getLogger(AdminContainerModule.class);
 
 	public static final String DEFAULT_PAGE_PROP_NAME = PropertyNames.KARYON_PROPERTIES_PREFIX
 			+ "admin.default.page";
@@ -107,7 +101,7 @@ public class AdminResourcesContainer extends ServletModule{
 	private Server server;
 
 	@Inject
-	public AdminResourcesContainer(
+	public AdminContainerModule(
 			Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider) {
 		this.healthCheckInvocationStrategyProvider = healthCheckInvocationStrategyProvider;
 
@@ -120,38 +114,24 @@ public class AdminResourcesContainer extends ServletModule{
 	 *             if there is an issue while starting the server
 	 */
 	@PostConstruct
-	public void init() throws Exception {
-		 server = new Server(listenPort);
+	public void configure() {
+		 /*server = new Server(listenPort); */
 		logger.info("inside init method of AdminResources Container");
 		Injector injector = LifecycleInjector
 				.builder()
 				.usingBasePackages("com.netflix.explorers")
-				.withModules(
-						new AdminResourcesModule(
-								healthCheckInvocationStrategyProvider))
+				.withModules(new AdminResourcesModule(healthCheckInvocationStrategyProvider))
 				.createInjector();
 		try {
 			injector.getInstance(LifecycleManager.class).start();
 			logger.info("injector.getInstance()");
 			AdminResourcesFilter adminResourcesFilter = injector
 					.getInstance(AdminResourcesFilter.class);
+			
 			logger.info("injector.getInstance(AdminResourceFilter class");
 			adminResourcesFilter.setPackages(coreJerseyPackages);
 			logger.info("adminResourcesFilter.setPackages(coreJerseyPackages)");
 
-			ServletContextHandler handler = new ServletContextHandler();
-			handler.setContextPath("/");
-			handler.setSessionHandler(new SessionHandler());
-			handler.addFilter(LoggingFilter.class, "/*",
-					EnumSet.allOf(DispatcherType.class));
-			handler.addFilter(RedirectFilter.class, "/*",
-					EnumSet.allOf(DispatcherType.class));
-			handler.addFilter(new FilterHolder(adminResourcesFilter), "/*",
-					EnumSet.allOf(DispatcherType.class));
-			handler.addServlet(new ServletHolder(adminResourcesFilter), "/*");
-
-			server.setHandler(handler);
-			server.start();
 		} catch (Exception e) {
 			logger.error("Exception in building AdminResourcesContainer ", e);
 		}

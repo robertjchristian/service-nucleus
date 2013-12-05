@@ -6,6 +6,11 @@
     <listener>
         <listener-class>com.netflix.karyon.server.guice.KaryonGuiceContextListener</listener-class>
     </listener>
+    
+    <listener>
+        <listener-class>com.netflix.adminresources.MyGuiceServletConfig</listener-class>
+    </listener>
+    
     <filter>
         <filter-name>guiceFilter</filter-name>
         <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
@@ -61,7 +66,7 @@
         
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>com.liaison.service</param-value>			
+            <param-value>com.liaison.service;com.netflix.adminresources.resources</param-value>			
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
