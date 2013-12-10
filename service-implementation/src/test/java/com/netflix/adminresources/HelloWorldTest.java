@@ -16,12 +16,10 @@ import com.netflix.karyon.server.KaryonServer;
 import com.netflix.karyon.server.eureka.SyncHealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.PropertyNames;
 
-
-
 public class HelloWorldTest {
 	
     //Comment this when embedded jetty code is completly removed
-	public static final int LISTEN_PORT_DEFAULT = 8077;
+	public static final int LISTEN_PORT_DEFAULT = 8989;
     
 	//Un-Comment this when embedded jetty code is completly removed
 	//public static final int LISTEN_PORT_DEFAULT = 8080;

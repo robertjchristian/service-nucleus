@@ -126,9 +126,7 @@ public class AdminResourcesContainer extends ServletModule{
 		Injector injector = LifecycleInjector
 				.builder()
 				.usingBasePackages("com.netflix.explorers")
-				.withModules(
-						new AdminResourcesModule(
-								healthCheckInvocationStrategyProvider))
+				.withModules(new AdminResourcesModule(healthCheckInvocationStrategyProvider))
 				.createInjector();
 		try {
 			injector.getInstance(LifecycleManager.class).start();

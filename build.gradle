@@ -52,6 +52,8 @@ subprojects {
 
         def log4j2Version = '2.0-beta7';
 		
+		
+		
 		compile 'org.slf4j:slf4j-api:1.7.5'	
 		compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
         compile 'com.google.guava:guava:11.0.2'

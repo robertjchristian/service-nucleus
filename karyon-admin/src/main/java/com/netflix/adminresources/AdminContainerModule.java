@@ -120,7 +120,7 @@ public class AdminContainerModule extends AbstractModule{
 		Injector injector = LifecycleInjector
 				.builder()
 				.usingBasePackages("com.netflix.explorers")
-				.withModules(new AdminResourcesModule(healthCheckInvocationStrategyProvider))
+				.withModules(new AdminResourcesModule(healthCheckInvocationStrategyProvider)).withModules(new AdminServletHandler())
 				.createInjector();
 		try {
 			injector.getInstance(LifecycleManager.class).start();
