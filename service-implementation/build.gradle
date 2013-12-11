@@ -77,7 +77,6 @@ dependencies {
     // currently not used during runtime (inherited dependency from NetFlix)
     compile 'com.netflix.eureka:eureka-client:1.1.97'
 
-
     // for file upload
     // TODO - See that we also depend on "jersey-bundle" inherently
     // TODO - due to NetFlix... using the bundle is not advised... (remove)
@@ -185,3 +184,8 @@ jettyRun {
     webAppSourceDirectory = file('src/main/webapp/ui')
 }
 
+task pingTest {
+	dependsOn 'clean'
+	dependsOn 'jettyRunWar'
+	dependsOn 'test'
+}
