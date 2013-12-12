@@ -17,6 +17,10 @@ buildscript {
 
 }
 
+configurations {
+	swaggerDoclet 
+}
+
 allprojects {
     repositories { mavenCentral() }
 	configurations.all {

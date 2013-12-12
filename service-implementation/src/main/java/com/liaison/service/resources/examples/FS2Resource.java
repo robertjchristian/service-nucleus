@@ -2,6 +2,13 @@ package com.liaison.service.resources.examples;
 
 import com.liaison.fs2.api.*;
 import com.liaison.fs2.storage.file.FS2DefaultFileConfig;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +32,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 
+@Api(value="v1/fs2", description="FS2 Services") //swagger resource annotation
 @Path("v1/fs2")
 public class FS2Resource {
 
@@ -43,8 +51,9 @@ public class FS2Resource {
         }
     }
 
+    @ApiOperation(value="list Files", notes="lists Files returns json list of fs2 file decriptions")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON) //TODO make return a DTO and patch into swagger.
     // TODO for ui, prefer websocket for repo browsing (list)
     // TODO instead of polling this service
     public Response listFiles() {
@@ -84,10 +93,10 @@ public class FS2Resource {
         }
     }
 
-
+    @ApiOperation(value="fetch Resource", notes="fetches a resource")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Consumes(MediaType.APPLICATION_JSON) //TODO make return a DTO and patch into swagger.
+    @Produces(MediaType.APPLICATION_OCTET_STREAM) //TODO make accept a DTO and patch into swagger.
     // Allows fetch of resource via POST
     public InputStream getResource(JSONObject obj) {
         try {
@@ -111,10 +120,11 @@ public class FS2Resource {
         }
     }
 
+    @ApiOperation(value="delete resource", notes="deletes file, expects {uri:\"/food/bar\"")
     @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    // Allows fetch of resource via POST
+    @Consumes(MediaType.APPLICATION_JSON) //TODO make return a DTO and patch into swagger.
+    @Produces(MediaType.APPLICATION_JSON) //TODO make accept a DTO and patch into swagger.
+    // Allows fetch of resource via POST 
     public Response deleteResource(JSONObject obj) {
         try {
 
@@ -150,14 +160,15 @@ public class FS2Resource {
         }
     }
 
-
+    
+    @ApiOperation(value="download", notes="downloads a file as an octet stream")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Path("download")
     // Allows fetch of resource via GET
-    public InputStream getResource(@Context UriInfo uriInfo) {
+    public InputStream getResource(@QueryParam(value = "uri") String requestedURI) { 
         try {
-            String requestedURI = uriInfo.getQueryParameters().getFirst("uri");
+
 
             // build URI, supporting both absolute and relative URI
             URI u = null;
@@ -175,10 +186,20 @@ public class FS2Resource {
         }
     }
 
+    //TODO refactor f2-* headers to be a dto.
+
+    @ApiOperation(value="uploadFile", notes="uploads a file")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response uploadFile(@Context HttpHeaders headers, final MimeMultipart parts) {
+    @Produces(MediaType.APPLICATION_JSON) //TODO make return a DTO and patch into swagger.
+    @ApiImplicitParams(value = { @ApiImplicitParam(name="fs2-meta", paramType="header", value="file description", dataType="string")})
+    public Response uploadFile(
+    		@ApiParam(required=true, value="uri where file is to be stored", allowableValues="a URI like: /foo/bar", defaultValue="/foo/bar")
+    		@HeaderParam(value = "fs2-uri") String relativeUri,    		
+    		//Cannot make this work, existing bug? @ApiParam(required=true, value = "file to upload") 
+    		@FormDataParam("file") InputStream uploadedInputStream,
+    		@FormDataParam("file") FormDataContentDisposition fileDetail,
+    		@Context HttpHeaders headers) {
 
         FS2MetaSnapshot object = null;
 
@@ -189,8 +210,8 @@ public class FS2Resource {
              */
 
             // expect exactly one part, containing the file
-            javax.mail.BodyPart bp = parts.getBodyPart(0);
-            String fileName = bp.getFileName();
+            
+            String fileName = fileDetail.getFileName();
 
             if (null == fileName) {
                 String msg = "Expected MultipartMime with a file part.  Missing filename.";
@@ -201,7 +222,7 @@ public class FS2Resource {
             Create the FS2 object
              */
             // determine uri (determined by header, fallback to filename)
-            String relativeUri = headers.getRequestHeaders().getFirst("fs2-uri");
+
             logger.error("Relative uri:  " + relativeUri);
             relativeUri = (null == relativeUri) ? fileName : relativeUri;
 
@@ -225,9 +246,7 @@ public class FS2Resource {
             Copy payload (file) and metadata to FS2 object
              */
 
-            // payload
-            InputStream part = bp.getInputStream();
-            FS2.writePayloadFromStream(object.getURI(), part);
+            FS2.writePayloadFromStream(object.getURI(), uploadedInputStream);
 
             // meta
             MultivaluedMap<String, String> headerMap = headers.getRequestHeaders();
