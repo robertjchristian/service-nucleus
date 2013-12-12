@@ -18,6 +18,9 @@ package com.liaison.service;
 
 import com.netflix.servo.DefaultMonitorRegistry;
 import com.netflix.servo.annotations.DataSourceType;
+
+import com.wordnik.swagger.annotations.*;
+
 import com.netflix.servo.annotations.Monitor;
 import com.netflix.servo.monitor.Monitors;
 import org.codehaus.jettison.json.JSONException;
@@ -44,6 +47,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 1.0
  */
 
+@Api(value="v1/hello", description="hello world resource") //swagger resource annotation
 @Path("v1/hello")
 public class HelloworldResource {
 
@@ -66,10 +70,14 @@ public class HelloworldResource {
         DefaultMonitorRegistry.getInstance().register(Monitors.newObjectMonitor(this));
     }
 
+   
+    @ApiOperation(value="hello to given name", notes="this typically returns a string of greeting")
     @Path("to/{name}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response helloTo(@PathParam("name") String name) {
+    public Response helloTo(
+		@ApiParam(value="name of the person who is to be greeted", required=true)
+    		@PathParam("name") String name) {
         serviceCallCounter.addAndGet(1);
         JSONObject response = new JSONObject();
         try {
@@ -82,6 +90,7 @@ public class HelloworldResource {
         }
     }
 
+    @ApiOperation(value="hello to the world", notes="this returns a well known programming trope")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response hello() {
