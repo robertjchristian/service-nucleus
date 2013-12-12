@@ -1,15 +1,20 @@
 package com.netflix.adminresources;
 
-/*import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;*/
 
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
 import com.netflix.karyon.spi.Component;
 
+/*
+ @author Senthilvel
+ This class is a part of AdminResourcesContainer.
+ This will binds the port & adds the filter classes & servlets in the ServletModule.
+ since it is definied as a Component class , this will be started by the governator at the time of tomcat startup
+*/
+
 @Component
+
 public class AdminServletHandler extends ServletModule {
-	//private static final Logger logger = LoggerFactory.getLogger(AdminServletHandler.class);
 	public AdminServletHandler() {
 	
 	}

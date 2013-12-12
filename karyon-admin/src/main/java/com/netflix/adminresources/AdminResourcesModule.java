@@ -12,7 +12,6 @@ import com.netflix.explorers.context.GlobalModelContext;
 import com.netflix.explorers.providers.FreemarkerTemplateProvider;
 import com.netflix.karyon.server.HealthCheckModule;
 import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
-
 class AdminResourcesModule extends ServletModule {
 	private final Provider<HealthCheckInvocationStrategy> healthCheckInvocationStrategyProvider;
 		

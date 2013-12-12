@@ -78,6 +78,36 @@ import javax.annotation.PreDestroy;
  * @author Nitesh Kant
  * @author Jordan Zimmerman
  */
+
+/* @author Senthilvel
+
+This class can be disabled by giving the 
+netflix.platform.admin.resources.disable=true in hello-world.properties.
+
+Within the entire application , this class will become like a heart-beat of the app.
+
+This class will starts the embedded jetty server to open the admin console.
+in this program , if the jetty server is not started the admin console wouldn't come.
+To overcome this problem, the GuiceServletContextListener is created which is equivallent to 
+starting the jetty server & that will be configured in the web.xml. when the tomcat server 
+is started it will be listening to the default port(8080).
+
+The URL will be http://localhost:8080/appname/rest/admin 
+this is same as giving the http://localhost:8077(if embedded jetty is started)
+
+Once we disable to load this class , we can divert our approach by splitting this entire class into 2 classes.
+
+1.AdminContainerModule (one part of this class will be written over here)
+  & this class will be treated as GuiceModule(extends the AbstractModule).
+  this will initiate the google injector with the specified package (com.netflix.explorers) & 
+  for healthCheckInvocationStrategyProvider& starting the LifeCycleManager.
+
+2.AdminServletHandler(another part of the class which extends the ServletModule & used to instantiate 
+the servlet classes & filters like AdminResourcesFilter,RedirectFilter & Logging Filter.
+this will be treated as Component class & the governator will initiate this class at the time of server startup)
+
+*/
+
 @Component(disableProperty = "netflix.platform.admin.resources.disable")
 public class AdminResourcesContainer extends ServletModule{
 

@@ -36,42 +36,13 @@ import com.netflix.karyon.server.eureka.HealthCheckInvocationStrategy;
 import com.netflix.karyon.spi.Component;
 import com.netflix.karyon.spi.PropertyNames;
 
+/* 
+This class Will be treated as Guice Module (extends AbstractModule)
+it is a part of AdminResourcesContainer is used to initiate the google injector 
+with the specified package (com.netflix.explorers) & for healthCheckInvocationStrategyProvider
+& starting the LifeCycleManager.
+*/
 
-/**
- * This class starts an embedded jetty server, listening at port specified by
- * property {@link AdminResourcesContainer#CONTAINER_LISTEN_PORT} and defaulting
- * to {@link AdminResourcesContainer#LISTEN_PORT_DEFAULT}. <br/>
- * 
- * The embedded server uses jersey so any jersey resources available in packages
- * specified via properties {@link AdminResourcesContainer#JERSEY_CORE_PACKAGES}
- * and {@link AdminResourcesContainer#JERSEY_APP_PACKAGES} will be scanned and
- * initialized. <br/>
- * <b>This server does not use guice/governator to initialize jersey resources
- * as guice has an <a
- * href="https://code.google.com/p/google-guice/issues/detail?id=635">open
- * issue</a> which makes it difficult to have multiple
- * {@link com.google.inject.servlet.GuiceFilter} in the same JVM.</b>
- * 
- * Karyon admin starts in an embedded container to have a "always available"
- * endpoint for any application. This helps in a homogeneous admin view for all
- * applications. <br/>
- * 
- * <h3>Available resources</h3>
- * 
- * The following resources are available by default:
- * 
- * <ul>
- * <li>Healthcheck: A healthcheck is available at path
- * {@link HealthCheckServlet#PATH}. This utilizes the configured
- * {@link com.netflix.karyon.spi.HealthCheckHandler} for karyon.</li>
- * <li>Admin resource: Any url starting with "/adminres" is served via
- * {@link com.netflix.adminresources.resources.EmbeddedContentResource}</li>
- * </ul>
- * 
- * @author pkamath
- * @author Nitesh Kant
- * @author Jordan Zimmerman
- */
 @Component
 public class AdminContainerModule extends AbstractModule{
 
