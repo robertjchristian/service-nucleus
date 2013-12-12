@@ -164,7 +164,7 @@ public class FS2Resource {
     @ApiOperation(value="download", notes="downloads a file as an octet stream")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    @Path("download")
+    @Path("/download")
     // Allows fetch of resource via GET
     public InputStream getResource(@QueryParam(value = "uri") String requestedURI) { 
         try {

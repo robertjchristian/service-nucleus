@@ -46,7 +46,7 @@ public class HelloWorldResource {
     private static final Logger logger = LoggerFactory.getLogger(HelloWorldResource.class);
 
     @ApiOperation(value="hello to given name", notes="this typically returns a string of greeting")
-    @Path("to/{name}")
+    @Path("/to/{name}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response helloTo(
