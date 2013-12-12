@@ -2,8 +2,4 @@ language: java
 jdk:
 <<<<<<< HEAD
   - oraclejdk7
-=======
-  - oraclejdk7
 
-
->>>>>>> c1b723530d26c67f955a108c1f039000e4db93bf
