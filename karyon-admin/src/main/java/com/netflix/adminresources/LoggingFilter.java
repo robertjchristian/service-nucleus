@@ -66,6 +66,7 @@ public class LoggingFilter implements Filter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
+    	logger.info("inside init() of LoggingFilter");
     }
 
 }

@@ -51,17 +51,20 @@ subprojects {
     dependencies {
 
         def log4j2Version = '2.0-beta7';
-		
 		compile 'org.slf4j:slf4j-api:1.7.5'	
 		compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
         compile 'com.google.guava:guava:11.0.2'
-        testCompile 'junit:junit:4.10'
+       
+        //swagger
+        compile 'com.wordnik:swagger-jersey-jaxrs_2.10:1.3.1'
+		testCompile 'org.testng:testng:6.8'
 
      }
 
     test {
         // workaround for Java7 and Cobutura/Emma instrumentation problem
         jvmArgs "-XX:-UseSplitVerifier"
+		useTestNG()
         //ignoreFailures = false
     }
 }
@@ -77,18 +80,18 @@ project(':karyon-admin') {
 		// Added by senthilvel for downloading servlet-3.0 jar from maven repo
 		compile 'javax.servlet:javax.servlet-api:3.1.0'
 	
-        //compile 'javax:javaee-web-api:6.0'
-        //compile 'javax:javaee-api:6.0'
-        //compile 'javax:javaee-web-api:6.0'
+       //compile 'javax:javaee-web-api:6.0'
+       // compile 'javax:javaee-api:6.0'
+       // compile 'javax:javaee-web-api:6.0'
 
         compile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
         compile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
-        compile 'com.sun.jersey.contribs:jersey-guice:1.9'
-		//compile 'com.sun.jersey.contribs:jersey-guice:2.0'
-
+        compile 'com.sun.jersey.contribs:jersey-guice:1.8'
+		
         compile 'com.google.inject.extensions:guice-servlet:3.0'
         compile 'com.netflix.pytheas:pytheas-core:1.11'
         runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+	testCompile 'org.testng:testng:6.8'
     }
 }
 
@@ -99,7 +102,6 @@ project(':karyon-admin-web') {
         compile     project(':karyon-admin')
         compile     'com.google.code.gson:gson:2.1'
         testCompile 'org.testng:testng:6.8'
-        testCompile 'junit:junit:4.10'
 
         compile 'com.google.code.gson:gson:2.1'
         compile 'com.netflix.pytheas:pytheas-core:1.11'
@@ -112,8 +114,6 @@ project(':karyon-admin-web') {
 project(':service-framework') {
     dependencies {
         testCompile 'org.testng:testng:6.8'
-        testCompile 'junit:junit:4.10'
-
         // commons-io and jackson-core support fs2
         compile 'commons-io:commons-io:2.4'
         compile 'com.fasterxml.jackson.core:jackson-core:2.2.2'

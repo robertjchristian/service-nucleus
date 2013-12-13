@@ -16,15 +16,16 @@
 
 package com.netflix.adminresources.resources;
 
-import com.netflix.adminresources.AdminResourcesContainer;
+
 import com.netflix.config.ConfigurationManager;
 import com.netflix.karyon.spi.Component;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.netflix.config.DynamicPropertyFactory;
 import javax.annotation.PostConstruct;
-
+import com.netflix.karyon.spi.PropertyNames;
+import com.netflix.config.DynamicStringProperty;
 /**
  * @author Nitesh Kant
  */
@@ -33,16 +34,20 @@ public class WebAdminComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(WebAdminComponent.class);
     public static final String ADMINRES_WEBADMIN_INDEX_HTML = "/admin";
+	public static final String DEFAULT_PAGE_PROP_NAME = PropertyNames.KARYON_PROPERTIES_PREFIX + "admin.default.page";
 
+    public static final DynamicStringProperty DEFAULT_PAGE =
+            DynamicPropertyFactory.getInstance().getStringProperty(DEFAULT_PAGE_PROP_NAME, "/healthcheck");
+			
     @PostConstruct
     public void init() {
         AbstractConfiguration configInstance = ConfigurationManager.getConfigInstance();
-        if (configInstance.containsKey(AdminResourcesContainer.DEFAULT_PAGE_PROP_NAME)) {
+        if (configInstance.containsKey(DEFAULT_PAGE_PROP_NAME)) {
             logger.info("Admin container default page already set to: " +
-                        configInstance.getString(AdminResourcesContainer.DEFAULT_PAGE_PROP_NAME + ", not overriding."));
+                        configInstance.getString(DEFAULT_PAGE_PROP_NAME + ", not overriding."));
             return;
         }
-        configInstance.setProperty(AdminResourcesContainer.DEFAULT_PAGE_PROP_NAME, ADMINRES_WEBADMIN_INDEX_HTML);
+        configInstance.setProperty(DEFAULT_PAGE_PROP_NAME, ADMINRES_WEBADMIN_INDEX_HTML);
         logger.info("Set the default page for admin container to: " + ADMINRES_WEBADMIN_INDEX_HTML);
     }
 }

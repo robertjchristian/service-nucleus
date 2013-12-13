@@ -17,6 +17,10 @@ buildscript {
 
 }
 
+configurations {
+	swaggerDoclet 
+}
+
 allprojects {
     repositories { mavenCentral() }
 	configurations.all {
@@ -77,19 +81,25 @@ dependencies {
     // currently not used during runtime (inherited dependency from NetFlix)
     compile 'com.netflix.eureka:eureka-client:1.1.97'
 
-
     // for file upload
     // TODO - See that we also depend on "jersey-bundle" inherently
     // TODO - due to NetFlix... using the bundle is not advised... (remove)
-    compile 'com.sun.jersey:jersey-core:1.17.1'
-    compile 'com.sun.jersey:jersey-server:1.17.1'
-    compile 'com.sun.jersey:jersey-json:1.17.1'
-    compile 'javax.mail:mail:1.4.6'
-    compile 'com.sun.jersey.contribs:jersey-multipart:1.17.1'
 
+    //compile 'com.sun.jersey:jersey-core:1.17'
+    //compile 'com.sun.jersey:jersey-server:1.14'
+    //compile 'com.sun.jersey:jersey-json:1.17'
+
+    compile 'javax.mail:mail:1.4.6'
+    //compile 'com.sun.jersey.contribs:jersey-multipart:1.17.1'
 
     // used for logging
     compile 'org.slf4j:slf4j-api:1.7.5'
+
+    compile 'com.sun.jersey:jersey-core:1.18'
+    compile 'com.sun.jersey:jersey-server:1.18'
+    compile 'com.sun.jersey:jersey-json:1.18'
+    compile 'com.sun.jersey.contribs:jersey-multipart:1.18'
+	
 
     // used for logging
     def log4j2Version = '2.0-beta7';
@@ -180,3 +190,48 @@ jettyRun {
     webAppSourceDirectory = file('src/main/webapp/ui')
 }
 
+// jettyRun configuration properties
+jettyRunWar {
+	dependsOn 'jettyRunSetProperties'
+	logger.info "Running jetty"
+	httpPort = new Integer(jettyHttpPort)
+	daemon = true
+	stopKey='stopJetty'
+	stopPort=9999
+
+}
+
+jettyStop{
+	
+	stopKey='stopJetty'
+	stopPort=9999
+}
+
+
+
+import org.gradle.api.plugins.jetty.internal.Monitor
+[jettyRun, jettyRunWar]*.doLast {
+  /**
+   * THIS IS A WORKAROUND! THE CURRENT VERSION OF THIS TASK DOESN'T START A WATCHER IN DAEMON MODE
+   *
+   * If starting the monitor fails, it may be because the jetty task was updated to fix this issue
+   * When that happens, we shouldn't need the custom task any more
+   *
+   * Copied From: AbstractJettyRunTask
+   */
+   if (getStopPort() != null && getStopPort() > 0 && getStopKey() != null) {
+	  Monitor monitor = new Monitor(getStopPort(), getStopKey(), server.getProxiedObject());
+	  monitor.start();
+   }
+}
+
+test { // TODO temp exclusion of j2ep
+	exclude '**/FS2ResourceTest.class'
+	exclude '**/HelloWorldResourceTest.class'}
+
+
+task pingTest {
+	dependsOn 'clean'
+	dependsOn 'jettyRunWar'
+	dependsOn 'test'
+}
