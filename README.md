@@ -120,7 +120,7 @@ git merge service-nucleus/master
 Located at http://localhost:8989/hello-world/swagger-ui/index.html
 
 
-<h3>12/13/2013 - Recent Changes to Service Nucleus<h3>
+<h3>12/13/2013 - Recent Changes to Service Nucleus</h3>
 1. Merge with HEAD of karyon master:  https://github.com/Netflix/karyon 
 2. AsyncServlet enabled and wired into web.xml 
 3. Upgrade all gradle 1.5 references to 1.6 
