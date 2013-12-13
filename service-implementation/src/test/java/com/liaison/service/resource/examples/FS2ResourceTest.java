@@ -5,7 +5,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.testng.AssertJUnit;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class FS2ResourceTest {
@@ -23,7 +23,7 @@ public class FS2ResourceTest {
     		HttpClient client = new DefaultHttpClient();
 	   		HttpGet fs2URL = new HttpGet("http://localhost:" + LISTEN_PORT_DEFAULT + fs2EndPoint);	   		
 	    	HttpResponse response = testPing(client, fs2URL, httpRetries);
-	    	AssertJUnit.assertEquals( 200, response.getStatusLine().getStatusCode());
+	    	Assert.assertEquals( 200, response.getStatusLine().getStatusCode());
     	
     }
     

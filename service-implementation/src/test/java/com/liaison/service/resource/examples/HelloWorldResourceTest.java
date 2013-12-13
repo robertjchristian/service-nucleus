@@ -1,4 +1,4 @@
-package com.liaison.service.resource.examples;import org.apache.http.HttpResponse;import org.apache.http.client.HttpClient;import org.apache.http.client.methods.HttpGet;import org.apache.http.conn.HttpHostConnectException;import org.apache.http.impl.client.DefaultHttpClient;import org.testng.AssertJUnit;import org.testng.annotations.Test;
+package com.liaison.service.resource.examples;import org.apache.http.HttpResponse;import org.apache.http.client.HttpClient;import org.apache.http.client.methods.HttpGet;import org.apache.http.conn.HttpHostConnectException;import org.apache.http.impl.client.DefaultHttpClient;import org.testng.Assert;import org.testng.annotations.Test;
 public class HelloWorldResourceTest {
 	
     
@@ -14,7 +14,7 @@ public class HelloWorldResourceTest {
     		HttpClient client = new DefaultHttpClient();
 	   		HttpGet helloWorld = new HttpGet("http://localhost:" + LISTEN_PORT_DEFAULT + helloEndPoint);	   		
 	    	HttpResponse response = testPing(client, helloWorld, httpRetries);
-	    	AssertJUnit.assertEquals( 200, response.getStatusLine().getStatusCode());
+	    	Assert.assertEquals( 200, response.getStatusLine().getStatusCode());
     	
     }    
    
