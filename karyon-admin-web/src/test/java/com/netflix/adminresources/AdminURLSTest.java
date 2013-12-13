@@ -17,7 +17,7 @@ import com.netflix.karyon.spi.PropertyNames;
 
 public class AdminURLSTest {
 
-	public static final int LISTEN_PORT_DEFAULT = 8989;
+	public static final int LISTEN_PORT_DEFAULT = 8077;
 	private static final int httpRetries = 10;
 	private static final long sleepTimeout = 1000;
 	// comment the below when the embedded jetty component is completely removed.
