@@ -2,8 +2,7 @@ package com.liaison.service.resources.examples;
 
 import com.liaison.fs2.api.*;
 import com.liaison.fs2.storage.file.FS2DefaultFileConfig;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
+
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiImplicitParam;
 import com.wordnik.swagger.annotations.ApiImplicitParams;
@@ -193,13 +192,7 @@ public class FS2Resource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON) //TODO make return a DTO and patch into swagger.
     @ApiImplicitParams(value = { @ApiImplicitParam(name="fs2-meta", paramType="header", value="file description", dataType="string")})
-    public Response uploadFile(
-    		@ApiParam(required=true, value="uri where file is to be stored", allowableValues="a URI like: /foo/bar", defaultValue="/foo/bar")
-    		@HeaderParam(value = "fs2-uri") String relativeUri,    		
-    		//Cannot make this work, existing bug? @ApiParam(required=true, value = "file to upload") 
-    		@FormDataParam("file") InputStream uploadedInputStream,
-    		@FormDataParam("file") FormDataContentDisposition fileDetail,
-    		@Context HttpHeaders headers) {
+    public Response uploadFile(@Context HttpHeaders headers, final MimeMultipart parts) {
 
         FS2MetaSnapshot object = null;
 
@@ -210,8 +203,8 @@ public class FS2Resource {
              */
 
             // expect exactly one part, containing the file
-            
-            String fileName = fileDetail.getFileName();
+            javax.mail.BodyPart bp = parts.getBodyPart(0);
+            String fileName = bp.getFileName();
 
             if (null == fileName) {
                 String msg = "Expected MultipartMime with a file part.  Missing filename.";
@@ -222,7 +215,7 @@ public class FS2Resource {
             Create the FS2 object
              */
             // determine uri (determined by header, fallback to filename)
-
+            String relativeUri = headers.getRequestHeaders().getFirst("fs2-uri");
             logger.error("Relative uri:  " + relativeUri);
             relativeUri = (null == relativeUri) ? fileName : relativeUri;
 
@@ -246,7 +239,9 @@ public class FS2Resource {
             Copy payload (file) and metadata to FS2 object
              */
 
-            FS2.writePayloadFromStream(object.getURI(), uploadedInputStream);
+            // payload
+            InputStream part = bp.getInputStream();
+            FS2.writePayloadFromStream(object.getURI(), part);
 
             // meta
             MultivaluedMap<String, String> headerMap = headers.getRequestHeaders();
