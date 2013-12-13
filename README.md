@@ -125,14 +125,14 @@ Located at http://localhost:8989/hello-world/swagger-ui/index.html
 2. AsyncServlet enabled and wired into web.xml 
 3. Upgrade all gradle 1.5 references to 1.6 
 4. Remove dependencies on junit in favor of testing
-5. Remove dependencies on junit in favor of testing
-6. Delete fs2 source (grab snapshot 0.0.2 jar from nexus and refer to it locally instead i.e. in service-implementation/lib
-7. Deprecate initialization servlet  (should be using HelloWorldComponent.initialize() instead ) 
+5. Delete fs2 source (grab snapshot 0.0.2 jar from nexus and refer to it locally instead i.e. in service-implementation/lib
+6. Deprecate initialization servlet  (should be using HelloWorldComponent.initialize() instead ) 
+7. Add Servlet 3.0
 
 
 <h3>Roadmap</h3>
 * Add thread sandboxing (mainly for dynamic services)
-* Add Servlet 3.0
+
 
 
 
