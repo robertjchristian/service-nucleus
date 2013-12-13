@@ -114,6 +114,13 @@ git merge service-nucleus/master
 
 <i>Note that similarly, when developing on this project, a remote tracking branch should be setup against NetFlix/karyon.</i>
 
+
+== Swagger REST Documentation 
+----
+Located at http://localhost:8989/hello-world/swagger-ui/index.html
+
+
+
 <h3>Roadmap</h3>
 * Add thread sandboxing (mainly for dynamic services)
 * Add Servlet 3.0

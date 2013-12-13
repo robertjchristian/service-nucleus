@@ -18,6 +18,10 @@ package com.liaison.service.resources.examples;
 
 import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jettison.json.JSONObject;
+
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,15 +43,20 @@ import javax.ws.rs.core.Response;
  * @version 1.0
  */
 
+@Api(value="v1/codec", description="Encoding Service") //swagger resource annotation
 @Path("v1/codec")
 public class CodecResource {
 
     private static final Logger logger = LoggerFactory.getLogger(CodecResource.class);
 
-    @Path("decode/{input}")
+    @ApiOperation(value="decode", notes="decodes base64 input string")
+    @Path("/decode/{input}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response decode(@PathParam("input") String input) {
+    public Response decode(
+    		@ApiParam(value="a base64 string which is to be decoded", required=true)
+    		@PathParam("input") String input
+    		) {
 
         JSONObject response = new JSONObject();
         try {
@@ -61,10 +70,13 @@ public class CodecResource {
         }
     }
 
-    @Path("encode/{input}")
+    @ApiOperation(value="encode", notes="encodes value as base64 input string")
+    @Path("/encode/{input}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response encode(@PathParam("input") String input) {
+    public Response encode(
+    		@ApiParam(value="a value which is to be encoded as base64", required=true)
+    		@PathParam("input") String input) {
 
         JSONObject response = new JSONObject();
         try {

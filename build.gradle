@@ -54,6 +54,9 @@ subprojects {
 		compile 'org.slf4j:slf4j-api:1.7.5'	
 		compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
         compile 'com.google.guava:guava:11.0.2'
+       
+        //swagger
+        compile 'com.wordnik:swagger-jersey-jaxrs_2.10:1.3.1'
 		testCompile 'org.testng:testng:6.8'
 
      }

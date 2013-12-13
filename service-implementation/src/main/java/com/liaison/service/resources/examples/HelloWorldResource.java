@@ -16,6 +16,7 @@
 
 package com.liaison.service.resources.examples;
 
+import com.wordnik.swagger.annotations.*;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -38,19 +39,22 @@ import javax.ws.rs.core.Response;
  * @author Robert.Christian
  * @version 1.0
  */
-
+@Api(value="v1/hello", description="hello world resource") //swagger resource annotation
 @Path("v1/hello")
 public class HelloWorldResource {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloWorldResource.class);
 
-    @Path("to/{name}")
+    @ApiOperation(value="hello to given name", notes="this typically returns a string of greeting")
+    @Path("/to/{name}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response helloTo(@PathParam("name") String name) {
+    public Response helloTo(
+    		@ApiParam(value="name of the person who is to be greeted", required=true)
+    		@PathParam("name") String name) {
         JSONObject response = new JSONObject();
         try {
-            response.put("Message", "Hello " + name + "!.How are you");
+            response.put("Message", "Hello " + name + "!");
             return Response.ok(response.toString()).build();
         } catch (JSONException e) {
 
@@ -59,6 +63,7 @@ public class HelloWorldResource {
         }
     }
 
+    @ApiOperation(value="hello to the world", notes="this returns a well known programming trope")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response hello() {

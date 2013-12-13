@@ -17,6 +17,10 @@ buildscript {
 
 }
 
+configurations {
+	swaggerDoclet 
+}
+
 allprojects {
     repositories { mavenCentral() }
 	configurations.all {
@@ -89,10 +93,10 @@ dependencies {
     // used for logging
     compile 'org.slf4j:slf4j-api:1.7.5'
 
-    compile 'com.sun.jersey:jersey-core:1.8'
-    compile 'com.sun.jersey:jersey-server:1.8'
-    compile 'com.sun.jersey:jersey-json:1.8'
-    compile 'com.sun.jersey.contribs:jersey-multipart:1.8'
+    compile 'com.sun.jersey:jersey-core:1.18'
+    compile 'com.sun.jersey:jersey-server:1.18'
+    compile 'com.sun.jersey:jersey-json:1.18'
+    compile 'com.sun.jersey.contribs:jersey-multipart:1.18'
 	
 
     // used for logging
