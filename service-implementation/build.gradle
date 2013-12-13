@@ -84,9 +84,11 @@ dependencies {
     // for file upload
     // TODO - See that we also depend on "jersey-bundle" inherently
     // TODO - due to NetFlix... using the bundle is not advised... (remove)
+
     //compile 'com.sun.jersey:jersey-core:1.17'
     //compile 'com.sun.jersey:jersey-server:1.14'
     //compile 'com.sun.jersey:jersey-json:1.17'
+
     compile 'javax.mail:mail:1.4.6'
     //compile 'com.sun.jersey.contribs:jersey-multipart:1.17.1'
 

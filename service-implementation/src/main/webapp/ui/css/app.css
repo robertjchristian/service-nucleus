@@ -1,5 +1,11 @@
 /** TODO this can be cleaned up, LESSified, and minimized **/
 
+/* Pad for navbars */
+body {
+    padding-top: 55px;
+    padding-bottom: 75px;
+}
+
 /* just commit to showing the scroll on the right.  otherwise looks funny when
    navbar is resized horizonally when vertical scroll appears */
 html {
