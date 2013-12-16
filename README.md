@@ -126,10 +126,10 @@ git merge service-nucleus/master
 8. Added swqgger annotations and swagger ui
 
 
-= Swagger REST Documentation 
+### Swagger REST Documentation 
 Located at http://localhost:8989/hello-world/swagger-ui/index.html
 
-= Swagger-UI Config:
+#### Swagger-UI Config:
 For release or war deployment edit src/main/webapps/ui/swagger-ui/index.html to point to public api-docs url 
 
 For more info read swagger-ui docs at service-implementation/src/main/webapp/ui/swagger-ui/README.md
