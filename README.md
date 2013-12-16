@@ -115,11 +115,6 @@ git merge service-nucleus/master
 <i>Note that similarly, when developing on this project, a remote tracking branch should be setup against NetFlix/karyon.</i>
 
 
-== Swagger REST Documentation 
-----
-Located at http://localhost:8989/hello-world/swagger-ui/index.html
-
-
 <h3>12/13/2013 - Recent Changes to Service Nucleus</h3>
 1. Merge with HEAD of karyon master:  https://github.com/Netflix/karyon 
 2. AsyncServlet enabled and wired into web.xml 
@@ -128,7 +123,16 @@ Located at http://localhost:8989/hello-world/swagger-ui/index.html
 5. Delete fs2 source (grab snapshot 0.0.2 jar from nexus and refer to it locally instead i.e. in service-implementation/lib
 6. Deprecate initialization servlet  (should be using HelloWorldComponent.initialize() instead ) 
 7. Add Servlet 3.0
+8. Added swqgger annotations and swagger ui
 
+
+= Swagger REST Documentation 
+Located at http://localhost:8989/hello-world/swagger-ui/index.html
+
+= Swagger-UI Config:
+For release or war deployment edit src/main/webapps/ui/swagger-ui/index.html to point to public api-docs url 
+
+For more info read swagger-ui docs at service-implementation/src/main/webapp/ui/swagger-ui/README.md
 
 <h3>Roadmap</h3>
 * Add thread sandboxing (mainly for dynamic services)
