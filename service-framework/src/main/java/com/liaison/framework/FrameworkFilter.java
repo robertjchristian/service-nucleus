@@ -1,9 +1,5 @@
 package com.liaison.framework;
 
-import com.liaison.framework.audit.AuditLogger;
-import com.liaison.framework.audit.AuditStatement;
-import com.liaison.framework.audit.DefaultAuditStatement;
-import com.liaison.framework.audit.pci.PCIV20Requirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,31 +22,18 @@ public class FrameworkFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        //logger.info("Initializing FrameworkFilter...");
+        logger.info("Initializing FrameworkFilter...");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        //logger.info("Info!");
-
-        //AuditLogger.log(PCIV20Requirement.PCI10_2_2, AuditStatement.Status.ATTEMPT, "Attempting to create PID");
-
         int pid = ProcessManager.initTransaction();
 
-        // TODO audit with PID
-
-        // threads are pooled and reused, so here we note not only the thread id but also the process id
-        //logger.debug("Filtering " + chain.toString() + " [thread=" + Thread.currentThread().getId() + ", PID=" + pid + "]");
+        logger.info("Processing pid: " + pid);
 
         try {
-
-            // audit
             chain.doFilter(request, response);
-
-
-            // audit
-            // TODO audit with PID
 
         } catch (Throwable t) {
 

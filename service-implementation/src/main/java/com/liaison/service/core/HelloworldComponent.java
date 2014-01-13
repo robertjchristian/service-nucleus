@@ -16,9 +16,6 @@
 
 package com.liaison.service.core;
 
-import com.liaison.framework.audit.AuditStatement;
-import com.liaison.framework.audit.DefaultAuditStatement;
-import com.liaison.framework.audit.pci.PCIV20Requirement;
 import com.netflix.karyon.spi.Component;
 
 import javax.annotation.PostConstruct;
@@ -36,9 +33,6 @@ public class HelloworldComponent {
 	@PostConstruct
     public void initialize() {
         // Statements added for deprecating the Initialization Servlet defined in web.xml  
-    	logger.info("inside the initialize()");
-    	DefaultAuditStatement audit = new DefaultAuditStatement(PCIV20Requirement.PCI10_2_6, AuditStatement.Status.SUCCEED, 
-    			"Initialization via servlet");   	
-    	logger.info("Servlet Init", audit);
+    	logger.info("HelloworldComponent.initialize()");
     }
 }
