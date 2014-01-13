@@ -14,6 +14,7 @@
 *.7z
 *.dmg
 *.gz
+*.tgz
 *.iso
 #*.jar
 *.rar
@@ -23,6 +24,7 @@
 # Logs and databases #
 ######################
 *.log
+*.ser
 
 # OS generated files #
 ######################
@@ -38,7 +40,8 @@ Thumbs.db
 
 # Gradle Files #
 ################
-.gradle
+.gradle/
+gradle-app.setting
 .m2
 
 # Build output directies
@@ -73,6 +76,5 @@ atlassian-ide-plugin.xml
 /service-implementation/.nb-gradle/profiles/private/
 
 /service-implementation/src/main/webapp/ui/js/vendor/angular-1.2.0-rc.3/docs/
-
 
 /build

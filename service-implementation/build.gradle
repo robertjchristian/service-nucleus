@@ -12,6 +12,7 @@ buildscript {
     repositories { mavenCentral() }
     apply from: file('../gradle/buildscript.gradle'), to: buildscript
     dependencies {
+        // Cargo Plugin
         classpath 'org.gradle.api.plugins:gradle-cargo-plugin:0.6'
     }
 
@@ -70,7 +71,10 @@ war {
 
 dependencies {
 
+    // resolve fs2 on local path
     compile files ('./lib/fs2-0.0.2-SNAPSHOT.jar')
+    
+    
     // inherited from NetFlix Karyon
     //compile "com.netflix.karyon:karyon-extensions:${karyonVersion}"
 	compile "com.netflix.karyon:karyon-extensions:1.0.22"
@@ -84,10 +88,6 @@ dependencies {
     // for file upload
     // TODO - See that we also depend on "jersey-bundle" inherently
     // TODO - due to NetFlix... using the bundle is not advised... (remove)
-
-    //compile 'com.sun.jersey:jersey-core:1.17'
-    //compile 'com.sun.jersey:jersey-server:1.14'
-    //compile 'com.sun.jersey:jersey-json:1.17'
 
     compile 'javax.mail:mail:1.4.6'
     //compile 'com.sun.jersey.contribs:jersey-multipart:1.17.1'
